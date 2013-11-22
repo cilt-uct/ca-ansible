@@ -1,0 +1,6 @@
+
+- name: "Download Galicaster installation file"
+  get_url: url=http://webfiler.teltek.es/webfiler/galicaster/galicaster_1.3.0_all.deb dest=/tmp/galicaster.deb use_proxy=yes
+
+- name: "Install Galicaster"
+  command: /usr/bin/dpkg --install /tmp/galicaster.deb

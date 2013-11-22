@@ -1,0 +1,5 @@
+- include: cuda_install.yml
+- include: java_install.yml
+- include: preinstall.yml
+- include: install.yml
+

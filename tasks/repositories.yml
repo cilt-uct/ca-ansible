@@ -1,0 +1,31 @@
+- name: "delete repos" 
+  apt_repository: repo='deb http://archive.canonical.com/ubuntu hardy partner' state=absent
+  apt_repository: repo='deb http://za.archive.ubuntu.com/ubuntu/ precise main restricted' state=absent
+  apt_repository: repo='deb-src http://za.archive.ubuntu.com/ubuntu/ precise main restricted' state=absent
+  apt_repository: repo=deb http://za.archive.ubuntu.com/ubuntu/ precise-updates main restricted' state=absent
+  apt_repository: repo='deb-src http://za.archive.ubuntu.com/ubuntu/ precise-updates main restricted' state=absent
+  apt_repository: repo='deb http://za.archive.ubuntu.com/ubuntu/ precise universe' state=absent
+  apt_repository: repo='deb-src http://za.archive.ubuntu.com/ubuntu/ precise universe' state=absent
+  apt_repository: repo='deb http://za.archive.ubuntu.com/ubuntu/ precise-updates universe' state=absent
+  apt_repository: repo='deb-src http://za.archive.ubuntu.com/ubuntu/ precise-updates universe' state=absent
+  apt_repository: repo='deb http://za.archive.ubuntu.com/ubuntu/ precise multiverse' state=absent
+  apt_repository: repo='deb-src http://za.archive.ubuntu.com/ubuntu/ precise multiverse' state=absent
+  apt_repository: repo='deb http://za.archive.ubuntu.com/ubuntu/ precise-updates multiverse' state=absent
+  apt_repository: repo='deb-src http://za.archive.ubuntu.com/ubuntu/ precise-updates multiverse' state=absent
+  apt_repository: repo='deb http://za.archive.ubuntu.com/ubuntu/ precise-backports main restricted universe multiverse' state=absent
+  apt_repository: repo='deb-src http://za.archive.ubuntu.com/ubuntu/ precise-backports main restricted universe multiverse' state=absent
+  apt_repository: repo='deb http://security.ubuntu.com/ubuntu precise-security main restricted' state=absent
+  apt_repository: repo='deb-src http://security.ubuntu.com/ubuntu precise-security main restricted' state=absent
+  apt_repository: repo='deb http://security.ubuntu.com/ubuntu precise-security universe' state=absent
+  apt_repository: repo='deb-src http://security.ubuntu.com/ubuntu precise-security universe' state=absent
+  apt_repository: repo='deb http://security.ubuntu.com/ubuntu precise-security multiverse' state=absent
+  apt_repository: repo='deb-src http://security.ubuntu.com/ubuntu precise-security multiverse' state=absent
+  apt_repository: repo='deb http://extras.ubuntu.com/ubuntu precise main' state=absent
+  apt_repository: repo='deb-src http://extras.ubuntu.com/ubuntu precise main' state=absent
+
+- name: "add repos"
+  apt_repository: repo='deb https://ftp.leg.uct.ac.za/ubuntu precise main restricted universe multiverse' state=present
+  apt_repository: repo='deb https://ftp.leg.uct.ac.za/ubuntu precise-security main restricted universe multiverse' state=present
+  apt_repository: repo='deb https://ftp.leg.uct.ac.za/ubuntu precise-updates main restricted universe multiverse' state=present
+  apt_repository: repo='deb https://ftp.leg.uct.ac.za/ubuntu precise-backports main restricted universe multiverse' state=present
+  apt_repository: repo='deb https://ftp.leg.uct.ac.za/canonical-partner precise partner' state=present

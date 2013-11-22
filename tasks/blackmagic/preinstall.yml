@@ -1,0 +1,3 @@
+- name: "Install blackmagic dependencies"
+  action: apt pkg=${item} state=installed force=yes
+  with_items: ${blackmagic_install.dependencies}

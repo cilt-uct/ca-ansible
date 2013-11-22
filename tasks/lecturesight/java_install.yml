@@ -1,0 +1,33 @@
+- name: "make Java folder"
+  action: command mkdir /usr/local/java
+
+- name: Install wget package
+  action: apt pkg='wget' state=installed
+  only_if: "'$ansible_pkg_mgr' == 'apt'"
+
+#create bash script to enable download without agreement terms
+
+- name: Copy download JRE script
+  copy: src=~/Desktop/jre_download.sh dest=/tmp mode=0555
+
+- name: Download JRE (Ubuntu)
+  action: command chdir=/usr/local/java/ /tmp/jre_download.sh dest=/usr/local/java/jre.tar.gz mode=0644
+
+- name: "Untar and uncompress JRE"
+  action: command tar xvf /usr/local/java/jre-7u45-linux-x64.tar.gz chdir=/usr/local/java/
+
+- name: "Add system variables to system path"
+  action: template src="templates/profile" dest=/etc/profile owner=root  mode=0644
+
+- name: Set java link
+  action: command update-alternatives --install /usr/bin/java java /usr/local/java/jre1.7.0_45/bin/java 1
+
+- name: Set javaws link
+  action: command update-alternatives --install /usr/bin/javaws javaws /usr/local/java/jre1.7.0_45/bin/javaws 1
+
+- name: Set java jre to default
+  action: command update-alternatives --set java /usr/local/java/jre1.7.0_45/bin/java
+
+- name: Remove JRE zip file
+  file: path=/usr/local/java/jre1.7.0_45.tar.gz state=absent
+

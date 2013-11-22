@@ -1,0 +1,35 @@
+
+- name: "Install galicaster dependencies"
+  action: apt pkg=${item} state=installed force=yes
+  with_items: ${galicaster_install.dependencies}
+
+
+#- name: "DL icalendar"
+#  get_url: url=https://pypi.python.org/packages/source/i/icalendar/icalendar-2.2.tar.gz dest=/tmp/
+
+#- name: "Tar and uncompress icalendar"
+#  action: command tar xvf /tmp/icalendar-2.2.tar.gz chdir=/tmp/
+
+#- name: "Install icalendar"
+#  action: command chdir=/tmp/icalendar-2.2/ python setup.py install
+
+#- name: "dl pytz"
+#  get_url: url=https://pypi.python.org/packages/source/p/pytz/pytz-2013.8.tar.gz dest=/tmp/
+  
+ 
+
+#- name: "Tar and uncompress ptyz"
+#  action: command tar xvf /tmp/pytz-2013.8.tar.gz chdir=/tmp/
+
+#- name: "Install pytz"
+#  action: command chdir=/tmp/pytz-2013.8/ python setup.py install
+
+- name: "Installing icalendar from PIP" 
+  action: command pip install --proxy=http://arabica.cet.uct.ac.za:8999 icalendar==2.2
+#  pip: name=icalendar version=2.2 state=present
+
+- name: "Installing bottle from PIP"
+  pip: name=bottle state=present
+
+
+

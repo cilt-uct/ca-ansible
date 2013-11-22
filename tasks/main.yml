@@ -1,0 +1,4 @@
+#- include: blackmagic/main.yml
+#- include: lecturesight/main.yml
+- include: galicaster/main.yml
+#- include: other_config.yml

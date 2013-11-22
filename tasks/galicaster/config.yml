@@ -1,0 +1,8 @@
+- name: "Creating the config file"
+  action: template src="templates/conf.ini" dest=/etc/galicaster/conf.ini owner=root  mode=0644
+  
+- name: "Creating the conf-dist file"
+  action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini owner=root  mode=0644
+
+- name: "Set Galicaster to load on boot"
+  copy: src=/usr/share/galicaster/docs/autostart/galicaster.dektop  dest=~/.config/autostart/ owner=root mode=0644

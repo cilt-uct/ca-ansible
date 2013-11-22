@@ -1,0 +1,13 @@
+
+- name: "Boot to Unity 2D"
+  action: command /usr/lib/lightdm/lightdm-set-defaults -s ubuntu-2d
+
+- name: "Write X-Config file"
+  action: command nvidia-xconfig
+
+- name: "Creating the config file"
+  action: template src="templates/xorg.conf" dest=/etc/X11/xorg.conf owner=root  mode=0644
+
+#- name: "Install vnc"
+#  action: apt pkg=${item} state=installed force=yes
+#  with_items: ${vnc_install.dependencies}
