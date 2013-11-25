@@ -1,6 +1,19 @@
 
 - name: "Download Galicaster installation file"
-  get_url: url=http://webfiler.teltek.es/webfiler/galicaster/galicaster_1.3.0_all.deb dest=/tmp/galicaster.deb use_proxy=yes
+  get_url: url=https://github.com/teltek/Galicaster/archive/1.3.1.tar.gz dest=/tmp/galicaster.tar.gz
 
-- name: "Install Galicaster"
-  command: /usr/bin/dpkg --install /tmp/galicaster.deb
+- name: "Create dir"
+  action: command chdir=/tmp/ sudo mkdir -p galicaster
+
+- name: "Uncompress"
+  action: command chdir=/tmp/ tar xzf galicaster.tar.gz -C galicaster --strip-components 1
+
+- name: "Delete folder"
+  action: command chdir=/usr/share/ sudo rm -rf galicaster
+
+- name: "Move folder"
+  action: command chdir=/tmp sudo mv -f galicaster /usr/share/
+
+- name: "Install galicaster"
+  action: command chdir=/usr/share/galicaster/ python setup.py install
+ 

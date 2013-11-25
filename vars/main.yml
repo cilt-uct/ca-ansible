@@ -33,7 +33,7 @@ blackmagic_install:
 
 lecturesight_install:
   dependencies:
-    - 'libv4l4j-java'
+#    - 'libv4l4j-java'
     - 'appmenu-gtk'
     - 'nvidia-319-updates-dev'
 

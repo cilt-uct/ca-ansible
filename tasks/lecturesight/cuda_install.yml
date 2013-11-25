@@ -7,12 +7,9 @@
 - name: "Copy opencl_download.sh"
   copy: src=/etc/ansible/tasks/lecturesight/opencl_download.sh dest=/tmp/
 
-- name: "Run opencl_download.sh"
-  action: command chdir=/tmp/ /tmp/opencl_download.sh
+#- name: "Run opencl_download.sh"
+#  action: command chdir=/tmp/ /tmp/opencl_download.sh
 
-#- name: "install OpenCL"
-#  get_url: url=http://registrationcenter.intel.com/irc_nas/3555/intel_sdk_for_ocl_applications_xe_2013_r2_sdk_3.1.1.11385_x64.tgz dest=/tmp/opencl.tgz
-
-- name: "Untar and uncompress OpenCL application"
-  action: command tar xvf /tmp/opencl.tgz chdir=/tmp/
+#- name: "Untar and uncompress OpenCL application"
+#  action: command tar xvf /tmp/opencl.tgz chdir=/tmp/
 

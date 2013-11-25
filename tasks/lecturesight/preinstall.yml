@@ -1,8 +1,3 @@
-#- name: "add repo"
-#  apt_repository: repo='deb http://ppa.launchpad.net/gillesg/ppa/ubuntu precise main' state=present
-#  apt_repository: repo='deb-src http://ppa.launchpad.net/gillesg/ppa/ubuntu precise main' state=present
-#  command: apt-get update
-
 - name: "Install lecturesight dependencies"
   action: apt pkg=${item} state=installed force=yes
   with_items: ${lecturesight_install.dependencies}

@@ -1,20 +1,16 @@
-- name: "make Java folder"
-  action: command mkdir /usr/local/java
-
-- name: Install wget package
-  action: apt pkg='wget' state=installed
-  only_if: "'$ansible_pkg_mgr' == 'apt'"
+#- name: "make Java folder"
+#  action: command mkdir /usr/local/java
 
 #create bash script to enable download without agreement terms
 
 - name: Copy download JRE script
-  copy: src=~/Desktop/jre_download.sh dest=/tmp mode=0555
+  copy: src=/etc/ansible/tasks/lecturesight/jre_download.sh dest=/tmp mode=0555
 
 - name: Download JRE (Ubuntu)
   action: command chdir=/usr/local/java/ /tmp/jre_download.sh dest=/usr/local/java/jre.tar.gz mode=0644
 
 - name: "Untar and uncompress JRE"
-  action: command tar xvf /usr/local/java/jre-7u45-linux-x64.tar.gz chdir=/usr/local/java/
+  action: command tar xvf /usr/local/java/jre.tar.gz chdir=/usr/local/java/
 
 - name: "Add system variables to system path"
   action: template src="templates/profile" dest=/etc/profile owner=root  mode=0644
