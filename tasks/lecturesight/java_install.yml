@@ -1,8 +1,6 @@
 - name: "make Java folder"
   action: command mkdir -p /usr/local/java
 
-#create bash script to enable download without agreement terms
-
 - name: Copy download JRE script
   copy: src=/etc/ansible/tasks/lecturesight/jre_download.sh dest=/tmp mode=0555
 
@@ -13,7 +11,7 @@
   action: command tar xvf /usr/local/java/jre.tar.gz chdir=/usr/local/java/
 
 - name: "Add system variables to system path"
-  action: template src="templates/profile" dest=/etc/profile owner=root  mode=0644
+  action: template src="templates/profile" dest=/etc/profile owner=galicaster  mode=0644
 
 - name: Set java link
   action: command update-alternatives --install /usr/bin/java java /usr/local/java/jre1.7.0_45/bin/java 1

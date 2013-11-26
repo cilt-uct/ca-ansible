@@ -6,5 +6,7 @@
   action: command nvidia-xconfig
 
 - name: "Creating the config file"
-  action: template src="templates/xorg.conf" dest=/etc/X11/xorg.conf owner=root  mode=0644
+  action: template src="templates/xorg.conf" dest=/etc/X11/xorg.conf owner=galicaster mode=0644
 
+- name: "Remove system error report popups"
+  action: template src="templates/apport" dest=/etc/default/apport  owner=galicaster mode=0644

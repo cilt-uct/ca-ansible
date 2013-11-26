@@ -1,5 +1,5 @@
 #!/bin/bash
 
-sudo mkdir ~/.config/
-sudo mkdir ~/.config/autostart
-sudo cp /usr/share/galicaster/docs/autostart/galicaster.desktop ~/.config/autostart
+sudo mkdir -p /home/galicaster/.config/
+sudo mkdir -p /home/galicaster/.config/autostart
+sudo cp /usr/share/galicaster/docs/autostart/galicaster.desktop /home/galicaster/.config/autostart
