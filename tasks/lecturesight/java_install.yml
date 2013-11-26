@@ -1,5 +1,5 @@
-#- name: "make Java folder"
-#  action: command mkdir /usr/local/java
+- name: "make Java folder"
+  action: command mkdir -p /usr/local/java
 
 #create bash script to enable download without agreement terms
 

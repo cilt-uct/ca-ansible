@@ -1,5 +1,5 @@
-#- name: "Creating the config file"
-#  action: command chdir=/etc/ sudo mkdir galicaster
+- name: "Creating the config file"
+  action: command chdir=/etc/ sudo mkdir -p galicaster
 
 - name: "add conf.ini file"
   action: template src="templates/conf.ini" dest=/etc/galicaster/conf.ini owner=root  mode=0644
@@ -14,8 +14,14 @@
 - name: "run autostart.sh"
   action: command chdir=/tmp/ sudo ./autostart.sh
 
-#- name: "create autostart file"
-#  action: command sudo mkdir autostart chdir=~/.config/ owner=root
+- name: "create autostart file"
+  action: command sudo mkdir -p autostart chdir=~/.config/ owner=root
 
-#- name: "Set Galicaster to load on boot"
-#  copy: src=/usr/share/galicaster/docs/autostart/galicaster.desktop  dest=~/.config/autostart/ owner=root mode=0644
+- name: "Set Galicaster to load on boot"
+  copy: src=/usr/share/galicaster/docs/autostart/galicaster.desktop  dest=~/.config/autostart/ owner=root mode=0644
+
+- name: "copy post_install file"
+  copy: src=/etc/ansible/tasks/galicaster/post_install.sh dest=/tmp/
+
+- name: "run post_install file"
+  action: command chdir=/tmp/ sudo ./post_install.sh

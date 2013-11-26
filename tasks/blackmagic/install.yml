@@ -1,13 +1,8 @@
 - name: "Copy blackmagic_download script"
-#  get_url: url=http://software.blackmagicdesign.com/DesktopVideo/Blackmagic_Desktop_Video_Linux_9.8.tar.gz dest=/tmp/blackmagic.tar.gz
-#  action: command wget http://software.blackmagicdesign.com/DesktopVideo/Blackmagic_Desktop_Video_Linux_9.8.tar.gz use_proxy=no chdir=/tmp/
   copy: src=/etc/ansible/tasks/blackmagic/blackmagic_download.sh dest=/tmp/
 
-#- name: "Run script"
-#  action: command chdir=/tmp/ /tmp/blackmagic_download.sh
-
-- name: "Tar and uncompress Blackmagic driver"
-  action: command tar xvf /tmp/Blackmagic_Desktop_Video_Linux_9.8.tar.gz chdir=/tmp/
+- name: "Run script"
+  action: command chdir=/tmp/ /tmp/blackmagic_download.sh
 
 - name: "Install Blackmagic driver"
   action: command /usr/bin/dpkg --install /tmp/desktopvideo-9.8-amd64.deb
@@ -15,7 +10,4 @@
 - name: "modprobe"
   command: /sbin/modprobe blackmagic
 
-#- name: "update drivers"
-#  action: command /usr/bin/BlackmagicFirmwareUpdater --update /dev/blackmagic/card0
-#  action: command /usr/bin/BlackmagicFirmwareUpdater --update /dev/blackmagic/card1
  

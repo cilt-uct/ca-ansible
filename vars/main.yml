@@ -20,7 +20,7 @@ galicaster_install:
     - 'v4l-utils'
     - 'python-dateutil'
     - 'ivtv-utils'
-#    - 'python-bottle'
+    - 'python-bottle'
            
 blackmagic_install:
   dependencies:

@@ -7,9 +7,9 @@
 - name: "Copy opencl_download.sh"
   copy: src=/etc/ansible/tasks/lecturesight/opencl_download.sh dest=/tmp/
 
-#- name: "Run opencl_download.sh"
-#  action: command chdir=/tmp/ /tmp/opencl_download.sh
+- name: "Run opencl_download.sh"
+  action: command chdir=/tmp/ /tmp/opencl_download.sh
 
-#- name: "Untar and uncompress OpenCL application"
-#  action: command tar xvf /tmp/opencl.tgz chdir=/tmp/
+- name: "Untar and uncompress OpenCL application"
+  action: command tar xvf /tmp/opencl.tgz chdir=/tmp/
 

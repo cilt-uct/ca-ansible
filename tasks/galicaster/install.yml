@@ -16,4 +16,3 @@
 
 - name: "Install galicaster"
   action: command chdir=/usr/share/galicaster/ python setup.py install
- 
