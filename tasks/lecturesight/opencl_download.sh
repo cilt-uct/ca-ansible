@@ -1,3 +1,3 @@
 #!/bin/bash
 
-wget --no-proxy http://source.cet.uct.ac.za/svn/matterhorn/galicaster/dependencies/opencl.tgz
+wget --no-proxy http://source.cet.uct.ac.za/opencastproject/galicaster/dependencies/opencl.tgz
