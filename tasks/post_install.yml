@@ -1,0 +1,9 @@
+- name: "Set recordfail timeout"
+  lineinfile: dest=/etc/default/grub
+              regexp='^GRUB_RECORDFAIL_TIMEOUT'
+              insertafter='^GRUB_TIMEOUT'
+              line='GRUB_RECORDFAIL_TIMEOUT=2' 
+              state=present
+
+- name: "Update grub"
+  action: command update-grub
