@@ -1,0 +1,14 @@
+- name: "Download Datapath driver"
+  copy: src=/etc/ansible/tasks/datapath/download_datapath.sh dest=/tmp/
+
+- name: "Run script"
+  action: command chdir=/tmp/ ./download_datapath.sh
+
+- name: "Extract driver"
+  action: command tar -zxvf /tmp/VisionInstall-7.6.0.124.tar.gz chdir=/tmp/
+
+- name: "Install Datapath driver"
+  shell: chdir=/tmp/ yes "Y" | ./scripts/install.kernel 
+
+
+ 

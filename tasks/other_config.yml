@@ -1,12 +1,13 @@
-
 - name: "Boot to Unity 2D"
   action: command /usr/lib/lightdm/lightdm-set-defaults -s ubuntu-2d
 
-- name: "Write X-Config file"
-  action: command nvidia-xconfig
-
-- name: "Creating the config file"
-  action: template src="templates/xorg.conf" dest=/etc/X11/xorg.conf owner=galicaster mode=0644
-
 - name: "Remove system error report popups"
   action: template src="templates/apport" dest=/etc/default/apport  owner=galicaster mode=0644
+
+- name: "Add logrotate.conf file"
+  action: template src="templates/logrotate.conf" dest=/etc/logrotate.conf  owner=galicaster mode=0644
+
+- cron: name="Daily CA restart" hour="6" minute="30" job="reboot" user="root"
+
+- name: "Disable Screensaver"
+  action: command gconftool-2 --type bool --set /apps/gnome-screensaver/idle_activation_enabled "false"

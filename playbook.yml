@@ -8,4 +8,3 @@
 
   tasks:
     - include: tasks/main.yml
-    - include: tasks/post_install.yml

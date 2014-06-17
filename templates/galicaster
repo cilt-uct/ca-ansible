@@ -1,0 +1,7 @@
+export GST_DEBUG=3 
+export GST_DEBUG_NO_COLOR=1 
+echo "GST_DEBUG level set to $GST_DEBUG" 
+sleep 5 
+python /usr/share/galicaster/docs/scripts/run_dashboard_push.py & 
+python /usr/share/galicaster/run_galicaster.py 2>/var/log/galicaster/gstreamer.log
+

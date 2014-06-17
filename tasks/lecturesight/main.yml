@@ -2,4 +2,4 @@
 - include: java_install.yml
 - include: preinstall.yml
 - include: install.yml
-
+- include: postinstall.yml

@@ -21,6 +21,7 @@ galicaster_install:
     - 'python-dateutil'
     - 'ivtv-utils'
     - 'python-bottle'
+    - 'python-glade2'
            
 blackmagic_install:
   dependencies:
@@ -29,7 +30,7 @@ blackmagic_install:
     - 'libqt4-gui'
     - 'dkms'
     - 'linux-headers-generic'
-    - 'ia32-libs'
+#    - 'ia32-libs'
 
 lecturesight_install:
   dependencies:

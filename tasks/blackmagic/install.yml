@@ -5,7 +5,7 @@
   action: command chdir=/tmp/ /tmp/blackmagic_download.sh
 
 - name: "Install Blackmagic driver"
-  action: command /usr/bin/dpkg --install /tmp/desktopvideo-9.8-amd64.deb
+  action: command /usr/bin/dpkg --install /tmp/blackmagic.deb
 
 - name: "modprobe"
   command: /sbin/modprobe blackmagic
