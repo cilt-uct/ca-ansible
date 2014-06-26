@@ -1,5 +1,8 @@
 - name: "Download Datapath driver"
-  copy: src=/etc/ansible/tasks/datapath/download_datapath.sh dest=/tmp/
+  copy: src=/usr/share/ansible/etc/tasks/datapath/download_datapath.sh dest=/tmp/
+
+- name: "Change permissions"
+  action: command chdir=/tmp/ chmod +x /tmp/download_datapath.sh
 
 - name: "Run script"
   action: command chdir=/tmp/ ./download_datapath.sh
