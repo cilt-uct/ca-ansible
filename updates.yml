@@ -4,6 +4,6 @@
   sudo: yes
 
   tasks:
-    - include: galicaster_udpate/config.yml
+    - include: galicaster_update/config.yml
 
 
