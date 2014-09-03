@@ -1,0 +1,5 @@
+#- name: "add conf.ini file"
+#  action: template src="templates/conf.ini" dest=/etc/galicaster/conf.ini  owner=galicaster mode=0644
+
+- name: "Creating the conf-dist file"
+  action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini owner=galicaster  mode=0644  
