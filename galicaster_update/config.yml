@@ -1,5 +1,25 @@
-#- name: "add conf.ini file"
-#  action: template src="templates/conf.ini" dest=/etc/galicaster/conf.ini  owner=galicaster mode=0644
+
+- name: "Download Galicaster installation file"
+  action: command chdir=/tmp/ scp gchang@srvslsopc004:/home/ca/galicaster/gc1.4.1.tar.gz 
+
+- name: "Uncompress"
+  action: command chdir=/tmp/ tar xzf gc1.4.1.tar.gz 
+
+- name: "Change folder name"
+  action: command chdir=/tmp/ mv Galicaster-1.4.1 galicaster
+
+- name: "Delete folder"
+  action: command chdir=/usr/share/ sudo rm -rf galicaster
+
+- name: "Move folder"
+  action: command chdir=/tmp sudo mv -f galicaster /usr/share/
+
+- name: "Install galicaster"
+  action: command chdir=/usr/share/galicaster/ python setup.py install
+
 
 - name: "Creating the conf-dist file"
   action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini owner=galicaster  mode=0644  
+
+#- name: "Update context.py file to remove upper method"
+#  action: template src="templates/context.py" dest=/usr/share/galicaster/galicaster/core/context.py owner=galicaster  mode=0644

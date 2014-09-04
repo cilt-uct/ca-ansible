@@ -7,6 +7,9 @@
 - name: "Creating the conf-dist file"
   action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini owner=galicaster  mode=0644
 
+- name: "Update context.py file to remove upper method"
+  action: template src="templates/context.py" dest=/usr/share/galicaster/galicaster/core/context.py owner=galicaster  mode=0644
+
 - name: "Copy autostart-sh file"
   copy: src=/usr/share/ansible/etc/tasks/galicaster/autostart.sh dest=/tmp/
 
