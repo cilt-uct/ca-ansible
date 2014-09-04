@@ -1,9 +1,9 @@
 
 - name: "Download Galicaster installation file"
-  action: command chdir=/tmp/ scp gchang@srvslsopc004:/home/ca/galicaster/gc1.4.1.tar.gz 
+  get_url: url=https://github.com/teltek/Galicaster/archive/1.4.1.tar.gz dest=/tmp/galicaster.tar.gz
 
 - name: "Uncompress"
-  action: command chdir=/tmp/ tar xzf gc1.4.1.tar.gz 
+  action: command chdir=/tmp/ tar xzf galicaster.tar.gz 
 
 - name: "Change folder name"
   action: command chdir=/tmp/ mv Galicaster-1.4.1 galicaster
@@ -20,6 +20,9 @@
 
 - name: "Creating the conf-dist file"
   action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini owner=galicaster  mode=0644  
+
+- name: "Update recorderui.py file"  
+  action: template src="templates/recorderui.py" dest=/usr/share/galicaster/galicaster/classui/recorderui.py owner=galicaster  mode=0644
 
 #- name: "Update context.py file to remove upper method"
 #  action: template src="templates/context.py" dest=/usr/share/galicaster/galicaster/core/context.py owner=galicaster  mode=0644
