@@ -1,6 +1,8 @@
-
 - name: "Download Galicaster installation file"
-  get_url: url=https://github.com/teltek/Galicaster/archive/1.4.1.tar.gz dest=/tmp/galicaster.tar.gz
+  copy: src=/etc/ansible/galicaster_update/gc_update.sh dest=/tmp/
+
+- name: "Run script"  copy: src=/etc/ansible/galicaster_update/gc_update.sh dest=/tmp/
+  action: command chdir=/tmp/ /tmp/gc_update.sh
 
 - name: "Uncompress"
   action: command chdir=/tmp/ tar xzf galicaster.tar.gz 
