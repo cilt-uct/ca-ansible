@@ -1,4 +1,4 @@
-export GST_DEBUG=3 
+export GST_DEBUG=2
 export GST_DEBUG_NO_COLOR=1 
 echo "GST_DEBUG level set to $GST_DEBUG" 
 sleep 5 
