@@ -11,3 +11,16 @@
 
 - name: "Disable Screensaver"
   action: command gconftool-2 --type bool --set /apps/gnome-screensaver/idle_activation_enabled "false"
+
+- name: "Install ntp"
+  apt: name=ntp state=present
+
+- name: "Ammend ntp.conf file"
+  action: template src="templates/ntp.conf" dest=/etc/ntp.conf owner=root mode=0644
+ 
+- name: "Restart ntp service"
+  service: name= ntp state=restarted
+
+
+
+
