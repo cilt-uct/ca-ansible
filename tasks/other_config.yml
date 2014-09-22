@@ -20,7 +20,3 @@
  
 - name: "Restart ntp service"
   service: name= ntp state=restarted
-
-
-
-
