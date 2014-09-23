@@ -1,0 +1,28 @@
+- name: "Make darkice folder"
+  command: chdir=/opt/ sudo mkdir -p darkice
+
+- name: "Download darkice tar file"
+  get_url: url=http://source.cet.uct.ac.za/opencastproject/galicaster/dependencies/darkice-1.2.tar.gz  dest=/opt/darkice/darkice-1.2.tar.gz
+
+- name: "Uncompress file"
+  command: tar xvf /opt/darkice/darkice-1.2.tar.gz chdir=/opt/darkice/
+
+- name: "Install dependencies"
+  action: apt pkg=${item} state=installed force=yes
+  with_items: ${darkice_install.dependencies}
+
+- name: "configure"
+  command: chdir=/opt/darkice/darkice-1.2/ ./configure --prefix=/usr/ --sysconfdir=/usr/share/doc/darkice/examples --with-samplerate-prefix=/usr/lib/x86_64-$
+
+- name: "Make"
+  command: chdir=/opt/darkice/darkice-1.2/ make
+
+- name: "Make install"
+  command: chdir=/opt/darkice/darkice-1.2/ make install
+
+- name: "Copy darkice template"
+  action: template src="templates/darkice.cfg-template" dest=/etc/galicaster/darkice.cfg-template owner=galicaster group=galicaster mode=0644
+
+- name: "Update usr/bin/galicaster"
+  action: template src="templates/galicaster" dest=/usr/bin/galicaster
+

@@ -1,0 +1,33 @@
+# DarkIce configuration file: Capture Agent audio monitoring
+
+# example configuration /usr/share/doc/darkice/examples
+# see the darkice.cfg man page for details
+
+# this section describes general aspects of the live streaming session
+[general]
+duration        = 0
+bufferSecs      = 1
+reconnect       = yes
+
+# this section describes the audio input that will be streamed
+[input]
+device          = pulseaudio
+paSourceName    = PULSE_SRC
+sampleRate      = 44100
+bitsPerSample   = 16
+channel         = 1
+
+# this section describes a streaming connection to an IceCast2 server
+[icecast2-0]
+bitrateMode     = cbr
+format          = mp3
+bitrate         = 256
+quality         = 1.0
+server          = mediadev.cet.uct.ac.za
+port            = 8000
+password        = gcaudio184x
+mountPoint      = ca/CAPTURE_AGENT
+name            = CAPTURE_AGENT
+description     = Capture Agent Monitor
+url             = http://mediadev.cet.uct.ac.za:8000/ca/CAPTURE_AGENT
+public          = no
