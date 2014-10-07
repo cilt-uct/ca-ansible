@@ -1,10 +1,8 @@
 - name: "install LectureSight"
   get_url: url=https://opencast.jira.com/wiki/download/attachments/31129613/lecturesight-0.3-rc1.tar.gz?version=1&modificationDate=1366632946132&api=v2 dest=/opt/lecturesight.tar.gz
 
-
-- name: "Untar and uncompress Blackmagic driver"
+- name: "Untar and uncompress lecturesight file"
   action: command tar xvf /opt/lecturesight.tar.gz chdir=/opt/
-
 
 - name: "Remove LectureSight tar file"
   file: path=/opt/lecturesight.tar.gz state=absent

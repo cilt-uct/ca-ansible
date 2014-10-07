@@ -34,3 +34,5 @@
 - name: "Change permissions"
   action: command chmod 777 /usr/bin/galicaster
 
+- name: "Update recorderui.py file"
+  action: template src="templates/recorderui.py" dest=/usr/share/galicaster/galicaster/classui/recorderui.py

@@ -2,26 +2,26 @@
   action: command mkdir -p /usr/local/java
 
 - name: Copy download JRE script
-  copy: src=/etc/ansible/tasks/lecturesight/jre_download.sh dest=/tmp mode=0555
+  copy: src=./tasks/lecturesight/jre_download.sh dest=/tmp mode=0555
 
 - name: Download JRE (Ubuntu)
-  action: command chdir=/usr/local/java/ /tmp/jre_download.sh dest=/usr/local/java/jre.tar.gz mode=0644
+  action: command chdir=/usr/local/java/ /tmp/jre_download.sh dest=/usr/local/java/jre-7u67-linux-x64.tar.gz mode=0644
 
 - name: "Untar and uncompress JRE"
-  action: command tar xvf /usr/local/java/jre.tar.gz chdir=/usr/local/java/
+  action: command tar xvf /usr/local/java/jre-7u67-linux-x64.tar.gz chdir=/usr/local/java/
 
 - name: "Add system variables to system path"
   action: template src="templates/profile" dest=/etc/profile owner=galicaster  mode=0644
 
 - name: Set java link
-  action: command update-alternatives --install /usr/bin/java java /usr/local/java/jre1.7.0_45/bin/java 1
+  action: command update-alternatives --install /usr/bin/java java /usr/local/java/jre1.7.0_67/bin/java 1
 
 - name: Set javaws link
-  action: command update-alternatives --install /usr/bin/javaws javaws /usr/local/java/jre1.7.0_45/bin/javaws 1
+  action: command update-alternatives --install /usr/bin/javaws javaws /usr/local/java/jre1.7.0_67/bin/javaws 1
 
 - name: Set java jre to default
-  action: command update-alternatives --set java /usr/local/java/jre1.7.0_45/bin/java
+  action: command update-alternatives --set java /usr/local/java/jre1.7.0_67/bin/java
 
 - name: Remove JRE zip file
-  file: path=/usr/local/java/jre1.7.0_45.tar.gz state=absent
+  file: path=/usr/local/java/jre-7u67-linux-x64.tar.gz state=absent
 
