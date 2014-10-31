@@ -8,6 +8,6 @@
 - name: "Update grub"
   action: command update-grub
 
-- name: "Add gstreamer log"
-  action: template src="templates/galicaster" dest=/usr/bin/galicaster owner=galicaster  mode=0644
+- name: "Update usr/bin/galicaster"
+  action: template src="templates/galicaster" dest=/usr/bin/galicaster mode=0777
 
