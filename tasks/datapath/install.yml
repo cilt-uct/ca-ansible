@@ -1,17 +1,23 @@
+- name: "Make a folder in home directory"
+  action: command chdir=/home/galicaster sudo mkdir -p datapath
+
 - name: "Download Datapath driver"
-  copy: src=/usr/share/ansible/etc/tasks/datapath/download_datapath.sh dest=/tmp/
+  copy: src=/usr/share/ansible/etc/tasks/datapath/download_datapath.sh dest=/home/galicaster/datapath
 
 - name: "Change permissions"
-  action: command chdir=/tmp/ chmod +x /tmp/download_datapath.sh
+  action: command chdir=/home/galicaster/datapath chmod +x /home/galicaster/datapath/download_datapath.sh
 
 - name: "Run script"
-  action: command chdir=/tmp/ ./download_datapath.sh
+  action: command chdir=/home/galicaster/datapath ./download_datapath.sh
 
 - name: "Extract driver"
-  action: command tar -zxvf /tmp/VisionInstall-7.6.0.124.tar.gz chdir=/tmp/
+  action: command tar xvf /home/galicaster/datapath/VisionInstall-7.6.0.124.tar.gz chdir=/home/galicaster/datapath
 
 - name: "Install Datapath driver"
-  shell: chdir=/tmp/ yes "Y" | ./scripts/install.kernel 
+  shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
 
+- name: "Remove install file"
+  action: command chdir=/home/galicaster/datapath sudo rm -r download_datapath.sh
 
- 
+- name: "Remove tar file"
+  action: command chdir=/home/galicaster/datapath sudo rm -r VisionInstall-7.6.0.124.tar.gz

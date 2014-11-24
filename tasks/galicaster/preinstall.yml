@@ -1,12 +1,15 @@
-
 - name: "Install galicaster dependencies"
   action: apt pkg=${item} state=installed force=yes
   with_items: ${galicaster_install.dependencies}
 
+- name: "Download icalendar" 
+  get_url: url=https://github.com/collective/icalendar/archive/2.2.tar.gz dest=/tmp/
 
-- name: "Installing icalendar from PIP" 
-  action: command pip install --proxy=http://arabica.cet.uct.ac.za:8999 icalendar==2.2
+- name: "Extract icalendar"
+  action: command tar xvf /tmp/2.2.tar.gz chdir=/tmp/
 
+- name: "Install icalender"
+  action: command python setup.py install chdir=/tmp/icalendar-2.2/
 
 
 
