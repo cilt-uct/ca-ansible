@@ -1,0 +1,12 @@
+- name: "Adding checkpresentations plugin file"
+  action: template src="templates/checkpresentations.py" dest=/usr/share/galicaster/galicaster/plugins/checkpresentations.py owner=galicaster  mode=0644
+
+- name: "Adding emit signal to dispatcher"
+  lineinfile: dest=/usr/share/galicaster/galicaster/core/dispatcher.py	
+	      regexp="^gobject " state=present
+	      insertbefore="restart-preview"
+	      line="gobject.signal_new('recording-closed', Dispatcher, gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (gobject.TYPE_PYOBJECT,) )"
+
+- name: "Always record 2 presentations"
+  replace: dest=/usr/share/galicaster/galicaster/mediapackage/repository.py regexp="mp.getOCCaptureAgentProperty\('capture.device.names'\)"  replace="'defaults'"
+
