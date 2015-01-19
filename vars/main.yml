@@ -41,3 +41,17 @@ lecturesight_install:
 vnc_install:
   dependencies:
     - 'tightvncserver'
+
+darkice_install:
+  dependencies:
+    - 'build-essential'
+    - 'libsamplerate0-dev'
+    - 'libpulse-dev'
+    - 'libaudio-dev'
+    - 'lame'
+    - 'libjack-jackd2-dev'
+    - 'libasound2-dev'
+    - 'libtwolame-dev'
+    - 'libfaad-dev'
+    - 'libflac-dev'
+    - 'libmp4v2-dev'
