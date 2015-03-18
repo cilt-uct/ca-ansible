@@ -2,7 +2,7 @@
   command: chdir=/opt/ sudo mkdir -p darkice
 
 - name: "Download darkice tar file"
-  get_url: url=http://source.cet.uct.ac.za/opencastproject/galicaster/dependencies/darkice-1.2.tar.gz  dest=/opt/darkice/darkice-1.2.tar.gz
+  copy: src=/home/dgovender/darkice-1.2.tar.gz dest=/opt/darkice
 
 - name: "Uncompress file"
   command: tar xvf /opt/darkice/darkice-1.2.tar.gz chdir=/opt/darkice/
@@ -22,3 +22,7 @@
 
 - name: "Copy darkice template"
   action: template src="templates/darkice.cfg-template" dest=/etc/galicaster/darkice.cfg-template owner=galicaster group=galicaster mode=0644
+
+- name: "Copy darkice file"
+  copy: src=/home/dgovender/darkice dest=/usr/bin
+
