@@ -4,6 +4,9 @@
 - name: Copy download JRE script
   copy: src=./tasks/lecturesight/jre_download.sh dest=/tmp mode=0555
 
+- name: "Change permission"
+  action: command chmod +x /tmp/jre_download.sh
+
 - name: Download JRE (Ubuntu)
   action: command chdir=/usr/local/java/ /tmp/jre_download.sh dest=/usr/local/java/jre-7u67-linux-x64.tar.gz mode=0644
 

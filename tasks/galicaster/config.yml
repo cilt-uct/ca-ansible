@@ -4,11 +4,8 @@
 - name: "add conf.ini file"
   action: template src="templates/conf.ini" dest=/etc/galicaster/conf.ini  owner=galicaster mode=0644
   
-- name: "Creating the conf-dist file"
-  action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini owner=galicaster  mode=0644
-
 - name: "Copy autostart-sh file"
-  copy: src=/usr/share/ansible/etc/tasks/galicaster/autostart.sh dest=/tmp/
+  copy: src=./tasks/galicaster/autostart.sh dest=/tmp/
 
 - name: "Change permissions"
   action: command chdir=/tmp/ chmod +x autostart.sh
@@ -17,7 +14,7 @@
   action: command chdir=/tmp/ sudo ./autostart.sh
 
 - name: "copy post_install file"
-  copy: src=/usr/share/ansible/etc/tasks/galicaster/post_install.sh dest=/tmp/
+  copy: src=./tasks/galicaster/post_install.sh dest=/tmp/
 
 - name: "Change permissions"
   action: command chdir=/tmp/ chmod +x post_install.sh
@@ -30,6 +27,3 @@
 
 - name: "Change permissions"
   action: command chmod 777 /usr/bin/galicaster
-
-- name: "Update recorderui.py file"
-  action: template src="templates/recorderui.py" dest=/usr/share/galicaster/galicaster/classui/recorderui.py

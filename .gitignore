@@ -1,0 +1,6 @@
+hosts.bak
+galicaster-update-playbook.yml
+git-playbook.yml
+tasks/git_install_main.yml
+vars/git_install_main.yml
+

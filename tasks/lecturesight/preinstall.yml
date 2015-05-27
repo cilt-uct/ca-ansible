@@ -1,3 +1,6 @@
 - name: "Install lecturesight dependencies"
-  action: apt pkg=${item} state=installed force=yes
-  with_items: ${lecturesight_install.dependencies}
+  apt: pkg={{item}} state=installed force=yes
+  #with_items: ${lecturesight_install.dependencies}
+  with_items:
+  - appmenu-gtk
+  - nvidia-319-updates-dev

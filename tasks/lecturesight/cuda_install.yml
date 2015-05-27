@@ -5,7 +5,10 @@
   action: command /usr/bin/dpkg --install /tmp/cuda.deb
 
 - name: "Copy opencl_download.sh"
-  copy: src=/etc/ansible/tasks/lecturesight/opencl_download.sh dest=/tmp/
+  copy: src=./tasks/lecturesight/opencl_download.sh dest=/tmp/
+
+- name: "Change permission"
+  action: command chmod +x /tmp/opencl_download.sh
 
 - name: "Run opencl_download.sh"
   action: command chdir=/tmp/ /tmp/opencl_download.sh

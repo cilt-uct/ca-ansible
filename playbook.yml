@@ -1,4 +1,4 @@
-- name: "Galicaster Playbook"
+- name: "Capture Agent Deployment Playbook"
   hosts: all
   user: root
   sudo: yes
@@ -8,3 +8,6 @@
 
   tasks:
     - include: tasks/main.yml
+      environment:
+        http_proxy: http://devslsmth001.uct.ac.za:3128
+

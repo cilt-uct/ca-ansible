@@ -19,4 +19,4 @@
   action: template src="templates/ntp.conf" dest=/etc/ntp.conf owner=root mode=0644
  
 - name: "Restart ntp service"
-  service: name= ntp state=restarted
+  service: name=ntp state=restarted

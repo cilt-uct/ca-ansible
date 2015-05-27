@@ -1,9 +1,0 @@
-- name: "Galicaster Updates Playbook"
-  hosts: all
-  user: root
-  sudo: yes
-
-  tasks:
-    - include: galicaster_update/config.yml
-
-

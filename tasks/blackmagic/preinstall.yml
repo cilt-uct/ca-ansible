@@ -1,3 +1,10 @@
 - name: "Install blackmagic dependencies"
-  action: apt pkg=${item} state=installed force=yes
-  with_items: ${blackmagic_install.dependencies}
+  apt: pkg={{item}} state=installed force=yes
+  #with_items: ${blackmagic_install.dependencies}
+  with_items:
+  - libjpeg62
+  - libqt4-core
+  - libqt4-gui
+  - dkms
+  - linux-headers-generic
+

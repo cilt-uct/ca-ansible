@@ -1,5 +1,8 @@
 - name: "Copy blackmagic_download script"
-  copy: src=/etc/ansible/tasks/blackmagic/blackmagic_download.sh dest=/tmp/
+  copy: src=./tasks/blackmagic/blackmagic_download.sh dest=/tmp/
+
+- name: "Change permissions on blackmagic_download.sh"
+  action: command chmod +x /tmp/blackmagic_download.sh
 
 - name: "Run script"
   action: command chdir=/tmp/ /tmp/blackmagic_download.sh
