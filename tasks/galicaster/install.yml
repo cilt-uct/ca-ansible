@@ -1,5 +1,11 @@
-- name: "Get latest galicaster build"
-  git: repo=https://bitbucket.org/cilt/galicaster-1.4.git dest=/tmp/galicaster
+#- name: "Get latest galicaster build"
+#  git: repo=https://bitbucket.org/cilt/galicaster-1.4.git dest=/tmp/galicaster
+
+- name: "Download latest galicaster build"
+  copy: src=/home/ca/files/galicaster-1.4-uct.tar.gz dest=/tmp/
+
+- name: "Unzip galicaster update"
+  action: command tar xvf /tmp/galicaster-1.4-uct.tar.gz chdir=/tmp/
 
 - name: "Delete folder"
   action: command chdir=/usr/share/ sudo rm -rf galicaster
