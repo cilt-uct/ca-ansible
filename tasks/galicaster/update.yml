@@ -1,0 +1,44 @@
+- name: "Check if CA is galicaster"
+  stat: path=/usr/share/galicaster
+  register: gc
+
+- name: "Stop galicaster"
+  action: command killall -u galicaster python
+  when: gc.stat.exists
+  ignore_errors: true  
+
+- name: "Download latest galicaster build"
+  copy: src=/home/ca/files/galicaster-1.4-uct.tar.gz dest=/tmp/
+  when: gc.stat.exists
+
+- name: "Unzip galicaster update"
+  action: command tar xvf /tmp/galicaster-1.4-uct.tar.gz chdir=/tmp/
+  when: gc.stat.exists
+
+- name: "Delete folder"
+  action: command chdir=/usr/share/ sudo rm -rf galicaster
+  when: gc.stat.exists
+
+- name: "Move folder"
+  action: command chdir=/tmp sudo mv -f galicaster-1.4-uct /usr/share/galicaster/
+  when: gc.stat.exists
+
+- name: "Install galicaster"
+  action: command chdir=/usr/share/galicaster/ python setup.py install
+  when: gc.stat.exists
+
+- name: "Update usr/bin/galicaster"
+  action: template src="templates/galicaster" dest=/usr/bin/galicaster mode=0777
+
+- name: "Copy bosh camera fix"
+  copy: src=/home/ca/files/libgstrtp.so dest=/usr/lib/x86_64-linux-gnu/gstreamer-0.10/
+
+- name: "Change permissions"
+  action: command chown -R galicaster:galicaster /usr/share/galicaster
+
+- name: "Reboot CA"
+  command: shutdown -r now "Galicaster update triggered"
+  async: 0
+  poll: 0
+  ignore_errors: true
+
