@@ -7,7 +7,7 @@
 - name: "Add logrotate.conf file"
   action: template src="templates/logrotate.conf" dest=/etc/logrotate.conf  owner=galicaster mode=0644
 
-- cron: name="Daily CA restart" hour="6" minute="30" job="/sbin/shutdown \%" user="root"
+- cron: name="Daily CA restart" hour="6" minute="30" job="/sbin/reboot \%" user="root"
 
 - name: "Disable Screensaver"
   action: command gconftool-2 --type bool --set /apps/gnome-screensaver/idle_activation_enabled "false"

@@ -11,7 +11,7 @@
   action: command chdir=/usr/share/ sudo rm -rf galicaster
 
 - name: "Move folder"
-  action: command chdir=/tmp sudo mv -f galicaster /usr/share/
+  action: command chdir=/tmp sudo mv -f galicaster-1.4-uct /usr/share/galicaster/
 
 - name: "Install galicaster"
   action: command chdir=/usr/share/galicaster/ python setup.py install

@@ -8,7 +8,8 @@
   action: command chmod +x /tmp/jre_download.sh
 
 - name: Download JRE (Ubuntu)
-  action: command chdir=/usr/local/java/ /tmp/jre_download.sh dest=/usr/local/java/jre-7u67-linux-x64.tar.gz mode=0644
+  #action: command chdir=/usr/local/java/ /tmp/jre_download.sh dest=/usr/local/java/jre-7u67-linux-x64.tar.gz mode=0644
+  copy: src=/home/ca/files/jre-7u67-linux-x64.tar.gz dest=/usr/local/java/
 
 - name: "Untar and uncompress JRE"
   action: command tar xvf /usr/local/java/jre-7u67-linux-x64.tar.gz chdir=/usr/local/java/
