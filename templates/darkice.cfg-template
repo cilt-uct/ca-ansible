@@ -21,7 +21,7 @@ channel         = 1
 [icecast2-0]
 bitrateMode     = cbr
 format          = mp3
-bitrate         = 256
+bitrate         = 64
 quality         = 1.0
 server          = camonitor.uct.ac.za
 port            = 8000

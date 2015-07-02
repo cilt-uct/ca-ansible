@@ -1,7 +1,7 @@
 [CAs]
 anatlt1-ca
 arts100-ca
-#beatlt-ca
+beatlt-ca
 beattie106-ca
 beattie114-ca
 beattie115-ca
@@ -9,17 +9,19 @@ cengsem-ca
 cs203-ca
 cs2a-ca
 cs302-ca
+falconer-ca
 gsh1-ca
 gsh2-ca
 gshlt1-ca
 gshlt2-ca
 hahn1-ca
 hahn2-ca
-#hahn3-ca
+hahn3-ca
 hahn763-ca
 hoerilt1-ca
 hoerilt2-ca
 humlt1-ca
+ich-ca
 jamesa-ca
 jamesb-ca
 jamesc-ca
@@ -57,6 +59,7 @@ snapets4c-ca
 #ls2b-ca
 #menz9-ca
 #menz10-ca
+jamesd-ca
 
 [new]
 ich-ca
