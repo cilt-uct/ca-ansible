@@ -8,6 +8,6 @@
 
   tasks:
     - include: tasks/main.yml
-      environment:
-        http_proxy: http://srvslsopc004.uct.ac.za:3128
+      #environment:
+      #  http_proxy: http://srvslsopc004.uct.ac.za:3128
 

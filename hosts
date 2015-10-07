@@ -9,6 +9,8 @@ cengsem-ca
 cs203-ca
 cs2a-ca
 cs302-ca
+em5-ca
+em7-ca
 falconer-ca
 gsh1-ca
 gsh2-ca
@@ -37,6 +39,8 @@ lcom2b-ca
 lcom614-ca
 ls2a-ca
 ls2b-ca
+ls2c-ca
+ls2d-ca
 m304-ca
 m320-ca
 mblt1-ca
@@ -44,10 +48,13 @@ mblt2-ca
 menz9-ca
 menz10-ca
 nslt-ca
+ombh45-ca
 rchd3-ca
+snapelt2-ca
 snapets2c-ca
 snapets3c-ca
 snapets4c-ca
+vbhlt-ca
 
 [update]
 #snapets2c-ca
@@ -62,16 +69,4 @@ menz10-ca
 #jamesd-ca
 
 [new]
-#ich-ca
-#falconer-ca
-#em5-ca
-#lcom2a-ca
-#lcom2b-ca
-#snapelt2-ca
-#ls2b-ca
-#ls2c-ca
-#ls2d-ca
-137.158.32.87
-#137.158.30.115
-#gshlt1-ca
-#gshlt2-ca
+#137.158.32.136
