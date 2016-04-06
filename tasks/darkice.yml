@@ -25,7 +25,7 @@
     - libmp4v2-dev
 
 - name: "configure"
-  command: chdir=/opt/darkice/darkice-1.2/ ./configure --prefix=/usr/ --sysconfdir=/usr/share/doc/darkice/examples --with-samplerate-prefix=/usr/lib/x86_64-$
+  command: chdir=/opt/darkice/darkice-1.2/ ./configure --prefix=/usr/ --sysconfdir=/usr/share/doc/darkice/examples --with-samplerate-prefix=/usr/lib/x86_64-linux-gnu/
 
 - name: "Make"
   command: chdir=/opt/darkice/darkice-1.2/ make

@@ -1,9 +1,6 @@
-- name: "install LectureSight"
-#  get_url: url=https://opencast.jira.com/wiki/download/attachments/31129613/lecturesight-0.3-rc1.tar.gz?version=1&modificationDate=1366632946132&api=v2 dest=/opt/lecturesight.tar.gz
-  copy: src=/home/ca/files/lecturesight.tar.gz dest=/opt/lecturesight.tar.gz
+- name: "Create Lecturesight directory if not exists"
+  action: command mkdir -p /opt/ls
+  when: ls.stat.exists == False
 
-- name: "Untar and uncompress lecturesight file"
-  action: command tar xvf /opt/lecturesight.tar.gz chdir=/opt/
-
-- name: "Remove LectureSight tar file"
-  file: path=/opt/lecturesight.tar.gz state=absent
+- name: "Untar and uncompress LS update file"
+  unarchive: src=/home/ca/files/lsuct-latest.tgz dest=/opt/ls

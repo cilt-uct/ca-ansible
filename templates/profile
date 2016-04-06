@@ -29,7 +29,7 @@ if [ -d /etc/profile.d ]; then
   unset i
 fi
 
-JAVA_HOME=/usr/local/java/jre1.7.0_45
+JAVA_HOME=/usr/lib/jvm/jdk1.7.0_79/
 PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
 export JAVA_HOME
 export PATH

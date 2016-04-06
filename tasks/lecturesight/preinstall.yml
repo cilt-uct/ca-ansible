@@ -1,6 +1,11 @@
+- name: "Add the v4l4j APT repository"
+  apt_repository: repo='ppa:gillesg/ppa'
+
+- name: "Update repository cache"
+  apt: update_cache=yes
+
 - name: "Install lecturesight dependencies"
   apt: pkg={{item}} state=installed force=yes
-  #with_items: ${lecturesight_install.dependencies}
   with_items:
   - appmenu-gtk
-  - nvidia-319-updates-dev
+  - libv4l4j-java

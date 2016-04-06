@@ -1,22 +1,12 @@
 - name: "install cuda"
-#  get_url: url=http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1204/x86_64/cuda-repo-ubuntu1204_5.5-0_amd64.deb dest=/tmp/cuda.deb
-  copy: src=/home/ca/files/cuda.deb dest=/tmp/
+  copy: src=/home/ca/files/ dest=/tmp/
 
 - name: "install cuda"
-  action: command /usr/bin/dpkg --install /tmp/cuda.deb
+  action: command /usr/bin/dpkg --install /tmp/cuda-7.0.28.deb
 
-- name: "Copy opencl_download.sh"
-  copy: src=./tasks/lecturesight/opencl_download.sh dest=/tmp/
+#- name: "Get opencl"
+#  copy: src=/home/ca/files/opencl.tgz dest=/tmp/opencl.tgz
 
-#- name: "Change permission"
-#  action: command chmod +x /tmp/opencl_download.sh
-
-#- name: "Run opencl_download.sh"
-#  action: command chdir=/tmp/ /tmp/opencl_download.sh
-
-- name: "Get opencl"
-  copy: src=/home/ca/files/opencl.tgz dest=/tmp/opencl.tgz
-
-- name: "Untar and uncompress OpenCL application"
-  action: command tar xvf /tmp/opencl.tgz chdir=/tmp/
+#- name: "Untar and uncompress OpenCL application"
+#  action: command tar xvf /tmp/opencl.tgz chdir=/tmp/
 

@@ -1,31 +1,23 @@
 - name: "make Java folder"
-  action: command mkdir -p /usr/local/java
+  action: command mkdir -p /temp
 
-- name: Copy download JRE script
-  copy: src=./tasks/lecturesight/jre_download.sh dest=/tmp mode=0555
-
-- name: "Change permission"
-  action: command chmod +x /tmp/jre_download.sh
-
-- name: Download JRE (Ubuntu)
-  #action: command chdir=/usr/local/java/ /tmp/jre_download.sh dest=/usr/local/java/jre-7u67-linux-x64.tar.gz mode=0644
-  copy: src=/home/ca/files/jre-7u67-linux-x64.tar.gz dest=/usr/local/java/
-
-- name: "Untar and uncompress JRE"
-  action: command tar xvf /usr/local/java/jre-7u67-linux-x64.tar.gz chdir=/usr/local/java/
+- name: Download JDK (Ubuntu)
+  unarchive: src=/home/ca/files/jdk-7u79-linux-x64.tar.gz dest=/temp
 
 - name: "Add system variables to system path"
   action: template src="templates/profile" dest=/etc/profile owner=galicaster  mode=0644
 
 - name: Set java link
-  action: command update-alternatives --install /usr/bin/java java /usr/local/java/jre1.7.0_67/bin/java 1
+  action: command update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.7.0_79/bin/java 1
 
 - name: Set javaws link
-  action: command update-alternatives --install /usr/bin/javaws javaws /usr/local/java/jre1.7.0_67/bin/javaws 1
+  action: command update-alternatives --install /usr/bin/javaws javaws /usr/lib/jvm/jdk1.7.0_79/bin/javaws 1
+
+- name: Set Ownership and permission
+  action: command chmod a+x /usr/bin/java && sudo chown -R root:root /usr/lib/jvm/jdk1.7.0_79/
 
 - name: Set java jre to default
-  action: command update-alternatives --set java /usr/local/java/jre1.7.0_67/bin/java
+  action: command update-alternatives --set java /usr/lib/jvm/jdk1.7.0_79/bin/java
 
-- name: Remove JRE zip file
-  file: path=/usr/local/java/jre-7u67-linux-x64.tar.gz state=absent
-
+- name: Remove JDK tarbal
+  file: path=/temp/jdk-7u79-linux-x64.tar.gz state=absent

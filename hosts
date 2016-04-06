@@ -47,6 +47,7 @@ mblt1-ca
 mblt2-ca
 menz9-ca
 menz10-ca
+nlt-ca
 nslt-ca
 ombh45-ca
 rchd3-ca
@@ -57,16 +58,22 @@ snapets4c-ca
 vbhlt-ca
 
 [update]
-#snapets2c-ca
-#snapets3c-ca
-#snapets4c-ca
-#lcom614-ca
-#lcom2b-ca
-#lcom2a-ca
-#ls2b-ca
-#menz9-ca
-menz10-ca
-#jamesd-ca
 
 [new]
-#137.158.32.136
+
+[ls]
+#menz9-ca
+#menz10-ca
+#mblt1-ca
+#mblt2-ca
+#kramlt1-ca
+#kramlt2-ca
+#anatlt1-ca
+#cs302-ca
+#hahn1-ca
+#hahn2-ca
+#hahn3-ca
+#m304-ca
+#m320-ca
+#nlt-ca
+

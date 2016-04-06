@@ -5,3 +5,8 @@ tasks/git_install_main.yml
 vars/git_install_main.yml
 tasks/darkice-template-update.yml
 darkice-playbook.yml
+*.log
+*.dump
+tasks/galicaster/sync-fix.yml
+tasks/lecturesight/update.yml
+update-ls.yml
