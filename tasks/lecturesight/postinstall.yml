@@ -1,6 +1,28 @@
-- name: "Write X-Config file"
-  action: command nvidia-xconfig
+#- name: "Write X-Config file"
+#  action: command nvidia-xconfig
 
-- name: "Creating the config file"
-  action: template src="templates/xorg.conf" dest=/etc/X11/xorg.conf owner=galicaster mode=0644
+#- name: "Creating the config file"
+#  action: template src="templates/xorg.conf" dest=/etc/X11/xorg.conf owner=galicaster mode=0644
 
+- name: "Add gstreamer 1.0 rep"
+  apt_repository: repo="ppa:gstreamer-developers/ppa"
+
+- name: "Update repository cache"
+  apt: update_cache=yes
+
+- name: "Install gstreamer"
+  apt: name=gstreamer1.0* state=present
+
+- name: "Configure webcam symlink"
+  action: template src="templates/83-duplicate_devs.rules" dest=/etc/udev/rules.d/ owner=root  mode=0644
+
+- name: "Setting lecturesight startup"
+  lineinfile:
+    dest=/etc/sudoers
+    line="galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh"
+    owner=root
+    state=present
+    insertafter=EOF
+
+- name: "Set lecturesight autostart"
+  action: template src="templates/lecturesight.desktop" dest=/home/galicaster/.config/autostart/ owner=galicaster mode=0644
