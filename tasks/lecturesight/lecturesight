@@ -1,0 +1,8 @@
+echo Starting lecturesight
+# Wait for the network to come up properly
+sleep 5
+
+/usr/bin/logger Starting lecturesight wrapper
+cd /opt/ls
+/usr/bin/sudo /opt/ls/start_lecturesight.sh &
+

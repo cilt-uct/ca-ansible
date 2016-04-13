@@ -14,4 +14,4 @@ Categories=Gstreamer;Python;GTK;Multistream;AudioVideo;VideoRecorder;VideoPlayer
 StartupWMClass=Galicaster 
 StartupNotify=true 
 
-/usr/bin/lecturesight 
+sudo /usr/bin/lecturesight 

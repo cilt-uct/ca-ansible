@@ -1,6 +1,6 @@
 - include: java_install.yml
-- include: cuda_install.yml
 - include: preinstall.yml
+- include: cuda_install.yml
 - include: install.yml
-#- include: postinstall.yml
-- include: update.yml
+- include: postinstall.yml
+#- include: update.yml

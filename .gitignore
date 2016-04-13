@@ -1,4 +1,4 @@
-hosts.bak
+hosts*
 galicaster-update-playbook.yml
 git-playbook.yml
 tasks/git_install_main.yml

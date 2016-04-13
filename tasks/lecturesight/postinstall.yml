@@ -4,25 +4,33 @@
 #- name: "Creating the config file"
 #  action: template src="templates/xorg.conf" dest=/etc/X11/xorg.conf owner=galicaster mode=0644
 
+- name: "Add the v4l4j APT repository"
+  apt_repository: repo='ppa:gillesg/ppa'
+
 - name: "Add gstreamer 1.0 rep"
   apt_repository: repo="ppa:gstreamer-developers/ppa"
 
 - name: "Update repository cache"
   apt: update_cache=yes
 
-- name: "Install gstreamer"
-  apt: name=gstreamer1.0* state=present
+- name: "Install lecturesight dependencies"
+  action: apt pkg={{item}} state=installed force=yes
+  with_items:
+  - appmenu-gtk
+  - libv4l4j-java
+  - gstreamer1.0*
+
+#- name: "Install gstreamer"
+#  apt: name=gstreamer1.0* state=present
 
 - name: "Configure webcam symlink"
   action: template src="templates/83-duplicate_devs.rules" dest=/etc/udev/rules.d/ owner=root  mode=0644
 
 - name: "Setting lecturesight startup"
-  lineinfile:
-    dest=/etc/sudoers
-    line="galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh"
-    owner=root
-    state=present
-    insertafter=EOF
+  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
 
 - name: "Set lecturesight autostart"
-  action: template src="templates/lecturesight.desktop" dest=/home/galicaster/.config/autostart/ owner=galicaster mode=0644
+  action: template src="templates/lecturesight.desktop" dest=/home/galicaster/.config/autostart/ owner=root mode=0644
+
+- name: "Set cron job to stop lecturesight at 5:30am"
+  cron: name="stop lecturesight" minute="30" hour="5" job="/opt/ls/stop_lecturesight.sh"

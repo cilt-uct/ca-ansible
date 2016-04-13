@@ -1,8 +1,16 @@
 - name: "install cuda"
-  copy: src=/home/ca/files/ dest=/tmp/
+  copy: src=/home/ca/files/cuda-7.0.28.deb dest=/tmp/
 
-- name: "install cuda"
+- name: "unpack cuda deb"
   action: command /usr/bin/dpkg --install /tmp/cuda-7.0.28.deb
+
+- name: "Update repository cache"
+  apt: update_cache=yes
+
+- name: "install cuda package"
+  action: apt pkg={{item}} state=installed force=yes
+  with_items:
+  - cuda
 
 #- name: "Get opencl"
 #  copy: src=/home/ca/files/opencl.tgz dest=/tmp/opencl.tgz

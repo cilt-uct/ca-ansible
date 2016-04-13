@@ -1,8 +1,8 @@
-- name: "make Java folder"
-  action: command mkdir -p /temp
+- name: Make jvm directory
+  action: command mkdir -p /usr/lib/jvm
 
 - name: Download JDK (Ubuntu)
-  unarchive: src=/home/ca/files/jdk-7u79-linux-x64.tar.gz dest=/temp
+  unarchive: src=/home/ca/files/jdk-7u79-linux-x64.tar.gz dest=/usr/lib/jvm/
 
 - name: "Add system variables to system path"
   action: template src="templates/profile" dest=/etc/profile owner=galicaster  mode=0644
@@ -14,7 +14,7 @@
   action: command update-alternatives --install /usr/bin/javaws javaws /usr/lib/jvm/jdk1.7.0_79/bin/javaws 1
 
 - name: Set Ownership and permission
-  action: command chmod a+x /usr/bin/java && sudo chown -R root:root /usr/lib/jvm/jdk1.7.0_79/
+  file: dest=/usr/lib/jvm/jdk1.7.0_79/ owner=root group=root recurse=yes
 
 - name: Set java jre to default
   action: command update-alternatives --set java /usr/lib/jvm/jdk1.7.0_79/bin/java

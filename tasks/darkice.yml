@@ -38,3 +38,9 @@
 
 - name: "Update usr/bin/galicaster"
   action: template src="templates/galicaster" dest=/usr/bin/galicaster mode=0777
+
+- name: "Reboot CA"
+  command: shutdown -r now "CA update triggered"
+  async: 0
+  poll: 0
+  ignore_errors: true
