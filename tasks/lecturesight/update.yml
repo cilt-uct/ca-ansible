@@ -1,0 +1,20 @@
+- name: "Check if LS exists"
+  stat: path=/opt/ls/stop_lecturesight.sh
+  register: ls
+
+- name: "Stop lecturesight if running"
+  action: command chdir=/opt/ls/ ./stop_lecturesight.sh
+  when: ls.stat.exists == True
+
+- name: "Create ls directory if not exists"
+  action: command mkdir -p /opt/ls
+  when: ls.stat.exists == False
+
+- name: "Removing existing application files"
+  file: path=/opt/ls/bundles/application/ state=absent
+
+- name: "Removing existing system files"
+  file: path=/opt/ls/bundles/system/ state=absent
+
+- name: "Untar and uncompress LS update file"
+  unarchive: src=/home/ca/files/lsuct-latest.tgz dest=/opt/ls
