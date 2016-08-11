@@ -9,14 +9,14 @@
   command: tar xvf /opt/darkice/darkice-1.2.tar.gz chdir=/opt/darkice/
 
 - name: "Install dependencies"
-  apt: pkg={{item}} state=installed force=yes
-  #with_items: ${darkice_install.dependencies}
+  apt: name={{item}} state=present force=yes
   with_items:
     - build-essential
     - libsamplerate0-dev
     - libpulse-dev
     - libaudio-dev
     - lame
+    - libmp3lame-dev
     - libjack-jackd2-dev
     - libasound2-dev
     - libtwolame-dev
@@ -40,7 +40,9 @@
   action: template src="templates/galicaster" dest=/usr/bin/galicaster mode=0777
 
 - name: "Reboot CA"
-  command: shutdown -r now "CA update triggered"
-  async: 0
+  command: sleep 2 && shutdown -r now "CA update triggered"
+  async: 1
   poll: 0
   ignore_errors: true
+
+  

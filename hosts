@@ -1,6 +1,8 @@
 [CAs]
 anatlt1-ca
-arts100-ca
+alex1a-ca
+alex1b-ca
+alex1c-ca
 beatlt-ca
 beattie106-ca
 beattie114-ca
@@ -22,15 +24,15 @@ hahn3-ca
 hahn763-ca
 hoerilt1-ca
 hoerilt2-ca
-humlt1-ca
 ich-ca
-jamesa-ca
-jamesb-ca
-jamesc-ca
-jamesd-ca
+james2a-ca
+james3a-ca
+james4a-ca
+james4b-ca
 jdaylt1-ca
 jdaylt2-ca
 jolly-ca
+jordan3a-ca
 kramlt1-ca
 kramlt2-ca
 kramlt3-ca
@@ -56,12 +58,15 @@ snapets2c-ca
 snapets3c-ca
 snapets4c-ca
 vbhlt-ca
+wolfsonlt-ca
 
 [update]
+ich-ca
+nlt-ca
+ombh45-ca
 
 [new]
-#hahn2-ca
-jolly-ca
+137.158.32.111
 
 [ls]
 #menz9-ca
@@ -74,8 +79,30 @@ jolly-ca
 #cs302-ca
 #hahn1-ca
 #hahn2-ca
-#hahn3-ca
+hahn3-ca
 #m304-ca
 #m320-ca
-nlt-ca
+#nlt-ca
+#snapets3a-ca
+#137.158.32.142
+#snapelt1-ca
+#beatlt-ca
+#ecolt1-ca
 
+[gc2]
+alex1b-ca
+hahn2-ca
+em7-ca
+beatlt-ca
+
+[nvidia]
+137.158.30.133
+137.158.30.142
+137.158.30.151
+137.158.30.153
+137.158.30.135
+137.158.30.136
+
+[intel]
+137.158.30.155
+137.158.30.154

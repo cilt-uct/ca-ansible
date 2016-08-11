@@ -1,20 +1,31 @@
-- name: "install cuda"
+# 12.04 configuration
+
+- name: "Install cuda for 12.04"
   copy: src=/home/ca/files/cuda-7.0.28.deb dest=/tmp/
+  when: ansible_distribution_version == '12.04'
 
 - name: "unpack cuda deb"
   action: command /usr/bin/dpkg --install /tmp/cuda-7.0.28.deb
+  when: ansible_distribution_version == '12.04'
 
 - name: "Update repository cache"
   apt: update_cache=yes
-
+  when: ansible_distribution_version == '12.04'
+ 
 - name: "install cuda package"
   action: apt pkg={{item}} state=installed force=yes
   with_items:
   - cuda
+  when: ansible_distribution_version == '12.04'
 
-#- name: "Get opencl"
-#  copy: src=/home/ca/files/opencl.tgz dest=/tmp/opencl.tgz
+# 16.04 configuration
 
-#- name: "Untar and uncompress OpenCL application"
-#  action: command tar xvf /tmp/opencl.tgz chdir=/tmp/
-
+- name: "Install cuda for 16.04"
+  apt: name={{item}} state=present force=yes
+  with_items:
+    - nvidia-cuda-dev 
+    - nvidia-cuda-doc 
+    - nvidia-cuda-gdb 
+    - nvidia-cuda-toolkit
+    - libcuda1-364
+  when: ansible_distribution_version == '16.04'

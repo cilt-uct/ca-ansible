@@ -1,16 +1,25 @@
+# 12.04 configuration
+
 - name: "Boot to Unity 2D"
   action: command /usr/lib/lightdm/lightdm-set-defaults -s ubuntu-2d
+  when: ansible_distribution_version == '12.04'
 
 - name: "Remove system error report popups"
   action: template src="templates/apport" dest=/etc/default/apport  owner=galicaster mode=0644
+  when: ansible_distribution_version == '12.04'
 
 - name: "Add logrotate.conf file"
   action: template src="templates/logrotate.conf" dest=/etc/logrotate.conf  owner=galicaster mode=0644
 
 - cron: name="Daily CA restart" hour="6" minute="30" job="/sbin/reboot" user="root"
 
-- name: "Disable Screensaver"
+- name: "Disable Screensaver if Ubuntu 12.04"
   action: command gconftool-2 --type bool --set /apps/gnome-screensaver/idle_activation_enabled "false"
+  when: ansible_distribution_version == '12.04'
+
+- name: "Disable Screensaver if Ubuntu 14.04+"
+  action: command gsettings set org.gnome.desktop.session idle-delay 0
+  when: ansible_distribution_version != '12.04'
 
 - name: "Install ntp"
   apt: name=ntp state=present

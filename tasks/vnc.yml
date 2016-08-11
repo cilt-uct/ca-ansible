@@ -1,0 +1,21 @@
+- name: "install x11vnc"
+  apt: name=x11vnc state=present force=yes
+
+- name: "copy passwd file"
+  copy: src=templates/x11vnc.pass dest=/etc/x11vnc.pass owner=root mode=0644
+
+- name: "copy 12.04 config file"
+  action: template src="templates/x11vnc.conf" dest=/etc/init/x11vnc.conf  owner=root mode=0644
+  when: ansible_distribution_version == '12.04'
+
+- name: "copy 16.04 config file"
+  action: template src="templates/x11vnc.service" dest=/lib/systemd/system/x11vnc.service owner=root mode=0644
+  when: ansible_distribution_version == '16.04'
+
+- name: "Enable vnc service for 16.04"
+  action: command systemctl enable x11vnc.service
+  when: ansible_distribution_version == '16.04'
+
+- name: "Reload daemon - Ubuntu 16.04"
+  action: command systemctl daemon-reload
+  when: ansible_distribution_version == '16.04'

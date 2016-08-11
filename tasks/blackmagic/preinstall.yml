@@ -1,10 +1,22 @@
+
+# 12.04 configuration
+
 - name: "Install blackmagic dependencies"
   apt: pkg={{item}} state=installed force=yes
-  #with_items: ${blackmagic_install.dependencies}
   with_items:
   - libjpeg62
   - libqt4-core
   - libqt4-gui
   - dkms
   - linux-headers-generic
+  when: ansible_distribution_version == '12.04'
+
+# 16.04 configuration
+
+- name: "Install blackmagic dependencies"
+  apt: pkg={{item}} state=installed force=yes
+  with_items:
+  - libjpeg62
+  - dkms
+  when: ansible_distribution_version == '16.04'
 

@@ -1,26 +1,16 @@
+# generic configuration
+
 - name: "Make a folder in home directory"
   action: command chdir=/home/galicaster sudo mkdir -p datapath
 
-#- name: "Download Datapath driver"
-#  copy: src=./tasks/datapath/download_datapath.sh dest=/home/galicaster/datapath
-
-#- name: "Change permissions"
-#  action: command chdir=/home/galicaster/datapath chmod +x /home/galicaster/datapath/download_datapath.sh
-
-#- name: "Run script"
-#  action: command chdir=/home/galicaster/datapath ./download_datapath.sh
-
 - name: "Copy datapath driver archive"
-  copy: src=/home/ca/files/VisionInstall-7.6.0.163.tar.gz dest=/home/galicaster/datapath/
+  copy: src=/home/ca/files/VisionInstall-7.14.0.218.tar.gz dest=/home/galicaster/datapath/
 
 - name: "Extract driver"
-  action: command tar xvf /home/galicaster/datapath/VisionInstall-7.6.0.163.tar.gz chdir=/home/galicaster/datapath
+  action: command tar xvf /home/galicaster/datapath/VisionInstall-7.14.0.218.tar.gz chdir=/home/galicaster/datapath
 
 - name: "Install Datapath driver"
   shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
 
-#- name: "Remove install file"
-#  action: command chdir=/home/galicaster/datapath sudo rm -r download_datapath.sh
-
 - name: "Remove tar file"
-  action: command chdir=/home/galicaster/datapath sudo rm -r VisionInstall-7.6.0.163.tar.gz
+  action: command chdir=/home/galicaster/datapath sudo rm -r VisionInstall-7.14.0.218.tar.gz

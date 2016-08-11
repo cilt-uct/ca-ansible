@@ -1,6 +1,7 @@
-- name: "Install galicaster dependencies"
+# 12.04 configuration
+
+- name: "Install galicaster dependencies for 12.04"
   apt: pkg={{item}} state=installed force=yes
-  #with_items: ${galicaster_install.dependencies}
   with_items:
     - python
     - python-gtk2
@@ -24,9 +25,29 @@
     - ivtv-utils
     - python-bottle
     - python-glade2
+  when: ansible_distribution_version == '12.04'
+
+# 16.04 configuration
+
+- name: "Install missing gstreamer1.x binaries for 16.04"
+  apt: name={{item}} state=present force=yes
+  with_items:
+    - python-gst-1.0
+    #- libgstreamer1.0*
+    - python-pip
+    - python-setuptools
+    - python-pycurl
+    - v4l-conf
+    - v4l-utils
+    - python-dateutil
+    - ivtv-utils
+    - python-bottle
+    - python-glade2
+  when: ansible_distribution_version == '16.04'
+
+# generic configuration
 
 - name: "Download icalendar" 
-  #get_url: url=https://github.com/collective/icalendar/archive/2.2.tar.gz dest=/tmp/
   copy: src=/home/ca/files/icalendar-2.2.tar.gz dest=/tmp/
 
 - name: "Extract icalendar"
@@ -34,6 +55,3 @@
 
 - name: "Install icalender"
   action: command python setup.py install chdir=/tmp/icalendar-2.2/
-
-
-

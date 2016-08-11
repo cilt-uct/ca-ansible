@@ -1,3 +1,5 @@
+# 12.04 configuration
+
 - name: "Remove nvidia drivers"
   apt: name={{item}} state=absent purge=yes
   with_items:
@@ -5,4 +7,87 @@
     - nvidia-modprobe
     - nvidia-settings
     - nvidia-current
+  when: ansible_distribution_version == '12.04'
 
+# 16.04 configuration
+
+- name: "Install cuda dependencies"
+  apt: name={{item}} state=present force=yes
+  with_items:
+    - ca-certificates-java
+    - default-jre-headless
+    - fonts-dejavu-extra
+    - freeglut3
+    - freeglut3-dev
+    - java-common
+    - libatk-wrapper-java
+    - libatk-wrapper-java-jni
+    - libdrm-dev
+    - libgl1-mesa-dev
+    - libglu1-mesa-dev
+    - libgnomevfs2-0
+    - libgnomevfs2-common
+    - libice-dev
+    - libpthread-stubs0-dev
+    - libsctp1
+    - libsm-dev
+    - libx11-dev
+    - libx11-doc
+    - libx11-xcb-dev
+    - libxau-dev
+    - libxcb-dri2-0-dev
+    - libxcb-dri3-dev
+    - libxcb-glx0-dev
+    - libxcb-present-dev
+    - libxcb-randr0-dev
+    - libxcb-render0-dev
+    - libxcb-shape0-dev
+    - libxcb-sync-dev
+    - libxcb-xfixes0-dev
+    - libxcb1-dev
+    - libxdamage-dev
+    - libxdmcp-dev
+    - libxext-dev
+    - libxfixes-dev
+    - libxi-dev
+    - libxmu-dev
+    - libxmu-headers
+    - libxshmfence-dev
+    - libxt-dev
+    - libxxf86vm-dev
+    - lksctp-tools
+    - mesa-common-dev
+    - x11proto-core-dev
+    - x11proto-damage-dev
+    - x11proto-dri2-dev
+    - x11proto-fixes-dev
+    - x11proto-gl-dev
+    - x11proto-input-dev
+    - x11proto-kb-dev
+    - x11proto-xext-dev
+    - x11proto-xf86vidmode-dev
+    - xorg-sgml-doctools
+    - xtrans-dev
+    - libgles2-mesa-dev
+  when: ansible_distribution_version == '16.04'
+
+#- name: "Add graphics drivers ppa"
+#  apt_repository: repo='ppa:graphics-drivers/ppa'
+#  when: ansible_distribution_version == '16.04'
+
+#- name: "Update repository cache"
+#  apt: update_cache=yes
+#  when: ansible_distribution_version == '16.04'
+
+#- name: "Install nvidia drivers"
+#  apt: name={{item}} state=present force=yes
+#  with_items:
+#    - nvidia-364 
+#    - nvidia-364-dev 
+#    - nvidia-prime 
+#    - nvidia-profiler 
+#    - nvidia-settings 
+#    - nvidia-visual-profiler 
+#    - nvidia-opencl-dev 
+#    - nvidia-opencl-icd-364
+#  when: ansible_distribution_version == '16.04'

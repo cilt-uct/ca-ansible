@@ -9,3 +9,7 @@ darkice-playbook.yml
 *.log
 *.dump
 tasks/galicaster/sync-fix.yml
+update-oc-host-playbook.yml
+templates/ddp.py
+templates/x11vnc.pass
+

@@ -13,3 +13,4 @@
 
 - name: "Copy fix for Bosch cameras"
   copy: src=/home/ca/files/libgstrtp.so dest=/usr/lib/x86_64-linux-gnu/gstreamer-0.10
+  when: ansible_distribution_version == '12.04'

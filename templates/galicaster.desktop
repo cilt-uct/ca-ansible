@@ -1,15 +1,16 @@
+#!/usr/bin/env xdg-open
+
 [Desktop Entry]
 Type=Application
-Exec=/usr/bin/lecturesight
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name[en_ZA]=Lecturesight
-Name=Lecturesight
-Comment[en_ZA]=PTZ Tracking
-Comment=PTZ Tracking
+Name=Galicaster
+GenericName=Multistream Recorder
+Comment=Galicaster: multistream recorder and player
+Version=1.2.0
+Exec=galicaster
+Icon=galicaster
 Terminal=false
 MimeType=video/x-raw-yuv
 Categories=Gstreamer;Python;GTK;Multistream;AudioVideo;VideoRecorder;VideoPlayer;Audio;Video
 StartupWMClass=Galicaster
 StartupNotify=true
+

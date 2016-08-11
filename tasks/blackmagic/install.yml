@@ -1,19 +1,13 @@
-#- name: "Copy blackmagic_download script"
-#  copy: src=./tasks/blackmagic/blackmagic_download.sh dest=/tmp/
-
-#- name: "Change permissions on blackmagic_download.sh"
-#  action: command chmod +x /tmp/blackmagic_download.sh
-
-#- name: "Run script"
-#  action: command chdir=/tmp/ /tmp/blackmagic_download.sh
+# generic configuration
 
 - name: "Download blackmagic file"
-  copy: src=/home/ca/files/desktopvideo_10.1.1a26_amd64.deb dest=/tmp/blackmagic.deb
+  copy: src=/home/ca/files/desktopvideo_10.6.8a2_amd64.deb dest=/tmp/blackmagic.deb
 
 - name: "Install Blackmagic driver"
   action: command /usr/bin/dpkg --install /tmp/blackmagic.deb
 
 - name: "modprobe"
   command: /sbin/modprobe blackmagic
+  when: ansible_distribution_version == '12.04'
 
  

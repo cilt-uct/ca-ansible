@@ -1,3 +1,5 @@
+# 12.04 configuration
+
 #- name: "Write X-Config file"
 #  action: command nvidia-xconfig
 
@@ -6,31 +8,68 @@
 
 - name: "Add the v4l4j APT repository"
   apt_repository: repo='ppa:gillesg/ppa'
+  when: ansible_distribution_version == '12.04'
 
-- name: "Add gstreamer 1.0 rep"
-  apt_repository: repo="ppa:gstreamer-developers/ppa"
+#- name: "Add gstreamer 1.0 rep"
+#  apt_repository: repo="ppa:gstreamer-developers/ppa"
+#  when: ansible_distribution_version != '16.04' 
 
 - name: "Update repository cache"
   apt: update_cache=yes
+  when: ansible_distribution_version == '12.04'
 
 - name: "Install lecturesight dependencies"
   action: apt pkg={{item}} state=installed force=yes
   with_items:
   - appmenu-gtk
   - libv4l4j-java
-  - gstreamer1.0*
+  # - gstreamer1.0*
+  when: ansible_distribution_version == '12.04'
 
-#- name: "Install gstreamer"
-#  apt: name=gstreamer1.0* state=present
+
+# 16.04 configuration
+
+- name: "Install java dependencies"
+  apt: name={{item}} state=present force=yes
+  with_items:
+    - fastjar
+    - jarwrapper
+    - realpath
+    - libjpeg-turbo8-dev 
+    - ant 
+    - libv4l-dev 
+    - libjpeg-dev
+    - libdbus-glib-1-dev
+  when: ansible_distribution_version == '16.04'
+
+- name: "Copy libvl4j binaries"
+  copy: src=/home/ca/files/v4l4j/ dest=/root/
+  when: ansible_distribution_version == '16.04'
+
+- name: "Install libvl4j binaries"
+  shell: dpkg -i /root/libv*.deb 
+  when: ansible_distribution_version == '16.04'
+
+
+# generic configuration
 
 - name: "Configure webcam symlink"
   action: template src="templates/83-duplicate_devs.rules" dest=/etc/udev/rules.d/ owner=root  mode=0644
 
-- name: "Setting lecturesight startup"
+- name: "Setting lecturesight startup 1"
   lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
 
+- name: "Setting lecturesight startup 2"
+  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /usr/bin/lecturesight'"
+
+- name: "create autostart folder"
+  copy: src=/home/ca/ca_deployment/tasks/lecturesight/autostart.sh dest=/root/
+
+- name: "run autostart script"
+  action: command bash /root/autostart.sh
+
 - name: "Set lecturesight autostart"
-  action: template src="templates/lecturesight.desktop" dest=/home/galicaster/.config/autostart/ owner=root mode=0644
+  action: template src="templates/lecturesight.desktop" dest=/home/galicaster/.config/autostart/ owner=root mode=0755
 
 - name: "Set cron job to stop lecturesight at 5:30am"
   cron: name="stop lecturesight" minute="30" hour="5" job="/opt/ls/stop_lecturesight.sh"

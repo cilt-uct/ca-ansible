@@ -1,9 +1,15 @@
+# 12.04 configuration
+
 - name: "Creating the config file"
   action: command chdir=/etc/ sudo mkdir -p galicaster
+  when: ansible_distribution_version == '12.04'
 
 - name: "add conf.ini file"
-  action: template src="templates/conf.ini" dest=/etc/galicaster/conf.ini  owner=galicaster mode=0644
+  action: template src="templates/gc14/conf.ini" dest=/etc/galicaster/conf.ini  owner=galicaster mode=0644
   
+
+# generic configuration
+
 - name: "Copy autostart-sh file"
   copy: src=./tasks/galicaster/autostart.sh dest=/tmp/
 
@@ -27,3 +33,22 @@
 
 - name: "Change permissions"
   action: command chmod 777 /usr/bin/galicaster
+
+- name: "Copy autostart file to capture agent"
+  copy: src=./templates/galicaster.desktop dest=/home/galicaster/.config/autostart/
+
+
+# 12.04 configuration
+- name: "Update conf-dist.ini"
+  copy: src="templates/gc14/conf-dist.ini" dest=/usr/share/galicaster/
+  when: ansible_distribution_version == '12.04'
+
+
+# 16.04 configuration
+
+- name: "add conf.ini file"
+  action: template src="templates/gc2x/conf.ini" dest=/etc/galicaster/conf.ini  owner=galicaster mode=0644
+
+- name: "Update conf-dist.ini"
+  copy: src="templates/gc2x/conf-dist.ini" dest=/usr/share/galicaster/
+  when: ansible_distribution_version == '16.04'
