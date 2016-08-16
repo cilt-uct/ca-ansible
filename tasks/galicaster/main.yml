@@ -1,4 +1,4 @@
 - include: preinstall.yml
 - include: install.yml
 - include: config.yml
-#- include: checkpresentationsplugin.yml
+- include: checkpresentationsplugin.yml
