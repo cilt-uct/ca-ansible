@@ -50,6 +50,10 @@
   shell: dpkg -i /root/libv*.deb 
   when: ansible_distribution_version == '16.04'
 
+- name: "Adding lecturesight gc  plugin"
+  action: template src="templates/gc2x/lecturesight.py" dest=/usr/share/galicaster/galicaster/plugins/lecturesight.py owner=galicaster  mode=0644
+  when: ansible_distribution_version == '16.04'
+
 
 # generic configuration
 

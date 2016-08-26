@@ -66,10 +66,10 @@ nlt-ca
 ombh45-ca
 
 [new]
-137.158.32.111
+snapets3b-ca
 
 [ls]
-menz9-ca
+#menz9-ca
 #menz10-ca
 #mblt1-ca
 #mblt2-ca
@@ -83,11 +83,14 @@ menz9-ca
 #m304-ca
 #m320-ca
 #nlt-ca
-#snapets3a-ca
 #137.158.32.142
-#snapelt1-ca
+snapelt1-ca
 #beatlt-ca
 #ecolt1-ca
+#snapets2b-ca
+#snapets3b-ca
+#snapets4b-ca
+
 
 [gc2]
 alex1b-ca
