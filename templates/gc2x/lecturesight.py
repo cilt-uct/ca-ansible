@@ -5,6 +5,7 @@
 
 import os
 from shutil import copyfile
+import time
 
 from galicaster.core import context
 from galicaster.mediapackage import mediapackage
@@ -44,14 +45,17 @@ def add_lecturesight_metrics(self, mpIdentifier):
     tmp = None
     done = False
 
+    # Give Lecturesight time to write out the file
+    time.sleep(3)
+
     # First look for a file that has the ID in it
     metricsFile = lsPath + '/metrics-' + mpIdentifier + '.json'
 
-    if not os.path.isfile(metricsFile):
-        metricsFile = lsPath + '/metrics.json'
+    # if not os.path.isfile(metricsFile):
+    #    metricsFile = lsPath + '/metrics.json'
 
     if not os.path.isfile(metricsFile):
-        logger.info("No metrics file found")
+        logger.info("No metrics file found for event " + mpIdentifier)
         return
 
     mp_list = context.get_repository()
