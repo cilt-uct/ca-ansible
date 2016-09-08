@@ -71,23 +71,23 @@
     - libgles2-mesa-dev
   when: ansible_distribution_version == '16.04'
 
-#- name: "Add graphics drivers ppa"
-#  apt_repository: repo='ppa:graphics-drivers/ppa'
-#  when: ansible_distribution_version == '16.04'
+- name: "Add graphics drivers ppa"
+  apt_repository: repo='ppa:graphics-drivers/ppa'
+  when: ansible_distribution_version == '16.04'
 
-#- name: "Update repository cache"
-#  apt: update_cache=yes
-#  when: ansible_distribution_version == '16.04'
+- name: "Update repository cache"
+  apt: update_cache=yes
+  when: ansible_distribution_version == '16.04'
 
-#- name: "Install nvidia drivers"
-#  apt: name={{item}} state=present force=yes
-#  with_items:
-#    - nvidia-364 
-#    - nvidia-364-dev 
-#    - nvidia-prime 
-#    - nvidia-profiler 
-#    - nvidia-settings 
-#    - nvidia-visual-profiler 
-#    - nvidia-opencl-dev 
-#    - nvidia-opencl-icd-364
-#  when: ansible_distribution_version == '16.04'
+- name: "Install nvidia drivers"
+  apt: name={{item}} state=present force=yes
+  with_items:
+    - nvidia-370 
+    - nvidia-370-dev 
+    - nvidia-prime 
+    - nvidia-profiler 
+    - nvidia-settings 
+    - nvidia-visual-profiler 
+    - nvidia-opencl-dev 
+    - nvidia-opencl-icd-370
+  when: ansible_distribution_version == '16.04'

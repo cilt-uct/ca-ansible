@@ -8,8 +8,8 @@
 
   vars:
     proxy_env:
-      http_proxy: http://media.uct.ac.za:3128
-      https_proxy: https://media.uct.ac.za:3128
+      https_proxy: http://media.uct.ac.za:3128
+      http_proxy: http://media.uct.ac.za:3128   
 
   tasks:
     - include: tasks/main.yml

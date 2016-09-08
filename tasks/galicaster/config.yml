@@ -6,7 +6,11 @@
 
 - name: "add conf.ini file"
   action: template src="templates/gc14/conf.ini" dest=/etc/galicaster/conf.ini  owner=galicaster mode=0644
-  
+  when: ansible_distribution_version == '12.04'
+
+- name: "Update usr/bin/galicaster"
+  action: template src="templates/gc14/galicaster" dest=/usr/bin/galicaster mode=0777
+  when: ansible_distribution_version == '12.04'
 
 # generic configuration
 
@@ -38,17 +42,16 @@
   copy: src=./templates/galicaster.desktop dest=/home/galicaster/.config/autostart/
 
 
-# 12.04 configuration
-- name: "Update conf-dist.ini"
-  copy: src="templates/gc14/conf-dist.ini" dest=/usr/share/galicaster/
-  when: ansible_distribution_version == '12.04'
-
-
 # 16.04 configuration
 
-- name: "add conf.ini file"
+- name: "update conf.ini file"
   action: template src="templates/gc2x/conf.ini" dest=/etc/galicaster/conf.ini  owner=galicaster mode=0644
+  when: ansible_distribution_version == '16.04'
 
-- name: "Update conf-dist.ini"
-  copy: src="templates/gc2x/conf-dist.ini" dest=/usr/share/galicaster/
+- name: "Update usr/bin/galicaster"
+  action: template src="templates/gc2x/galicaster" dest=/usr/bin/galicaster mode=0777
+  when: ansible_distribution_version == '16.04'
+
+- name: "update conf-dist file"
+  action: template src="templates/gc2x/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini  owner=galicaster mode=0644
   when: ansible_distribution_version == '16.04'

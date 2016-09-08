@@ -27,5 +27,5 @@
     - nvidia-cuda-doc 
     - nvidia-cuda-gdb 
     - nvidia-cuda-toolkit
-    - libcuda1-364
+    - libcuda1-370
   when: ansible_distribution_version == '16.04'

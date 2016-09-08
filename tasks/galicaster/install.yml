@@ -29,14 +29,14 @@
 - name: "Add galicaster 2 repo"
   shell: bash /root/install_repo.sh
   when: ansible_distribution_version == '16.04'
-  #environment: "{{proxy_env}}"
+#  environment: "{{proxy_env}}"
 
 - name: "Update repository"
   apt: update_cache=yes
   when: ansible_distribution_version == '16.04'
- # environment: "{{proxy_env}}"
+#  environment: "{{proxy_env}}"
 
 - name: "Install galicaster 2.0.x"
   apt: name=galicaster state=present force=yes
   when: ansible_distribution_version == '16.04'
-  #environment: "{{proxy_env}}"
+#  #environment: "{{proxy_env}}"

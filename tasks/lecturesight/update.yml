@@ -18,3 +18,10 @@
 
 - name: "Untar and uncompress LS update file"
   unarchive: src=/home/ca/files/lsuct-latest.tgz dest=/opt/ls
+
+- name: "Setting lecturesight startup 1"
+  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
+
+- name: "Setting lecturesight startup 2"
+  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /usr/bin/lecturesight'"
+
