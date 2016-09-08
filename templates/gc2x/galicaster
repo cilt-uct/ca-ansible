@@ -1,3 +1,23 @@
+# Only run as galicaster
+WHOAMI=`whoami`
+if [ "$WHOAMI" != "galicaster" ]; then
+	echo Galicaster must be run as the galicaster user, not $WHOAMI
+	exit
+fi
+
+# Only run in an X11 environment
+if [ "$XDG_SESSION_TYPE" != "x11" ]; then
+	echo Galicaster must be run in an X11 display, not via ssh
+	exit
+fi
+
+# Don't run if it's already running
+RUNNING=`ps ax | grep "python /usr/share/galicaster" | grep -v grep | wc -l`
+if [ "$RUNNING" != "0" ]; then
+	echo Galicaster is already running
+	exit
+fi
+
 # Wait for the network to come up properly
 sleep 10
 
