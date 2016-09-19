@@ -57,10 +57,10 @@
   action: template src="templates/83-duplicate_devs.rules" dest=/etc/udev/rules.d/ owner=root  mode=0644
 
 - name: "Setting lecturesight startup 1"
-  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
+  lineinfile: dest=/etc/sudoers line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'
 
 - name: "Setting lecturesight startup 2"
-  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /usr/bin/lecturesight'"
+  lineinfile: dest=/etc/sudoers line='galicaster ALL=(ALL) NOPASSWD: /usr/bin/lecturesight'
 
 - name: "create autostart folder"
   copy: src=/home/ca/ca_deployment/tasks/lecturesight/autostart.sh dest=/root/
