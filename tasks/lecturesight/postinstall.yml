@@ -59,9 +59,6 @@
 - name: "Setting lecturesight startup 1"
   lineinfile: dest=/etc/sudoers line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'
 
-- name: "Setting lecturesight startup 2"
-  lineinfile: dest=/etc/sudoers line='galicaster ALL=(ALL) NOPASSWD: /usr/bin/lecturesight'
-
 - name: "create autostart folder"
   copy: src=/home/ca/ca_deployment/tasks/lecturesight/autostart.sh dest=/root/
 
