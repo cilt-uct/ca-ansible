@@ -4,7 +4,9 @@
 # Adds metrics-*.json file as a mediapackage attachment
 
 import os
+import sys
 from shutil import copyfile
+import telnetlib
 import time
 
 from galicaster.core import context
@@ -28,7 +30,7 @@ def init():
 
     try:
         dispatcher = context.get_dispatcher()
-        dispatcher.connect('recorder-started', clear_lecturesight_metrics)
+        dispatcher.connect('recorder-started', lecturesight_start)
         dispatcher.connect('recorder-stopped', add_lecturesight_metrics)
         logger.info("Registered")
 
@@ -36,14 +38,41 @@ def init():
         logger.info("Error")
         pass
 
-def clear_lecturesight_metrics(self, mpIdentifier):
+def lecturesight_start(self, mpIdentifier):
 
-    # Don't need to do anything here for now
-    logger.info('Recording started: ' + mpIdentifier)
+    # Is this a scheduled or ad-hoc recording?
+    mp_list = context.get_repository()
+    mp = mp_list.get(mpIdentifier)
+
+    if mp is None:
+        logger.info('Unscheduled recording started: ' + mpIdentifier)
+
+	# Start Lecturesight
+        tn = telnetlib.Telnet("localhost", 2501)
+        tn.read_until("g!")
+        tn.write("scheduler:start\n")
+        time.sleep(1)
+        tn.close()
+    else:
+        logger.info('Scheduled recording started: ' + mp.getTitle() + ' (' + mpIdentifier + ')')
+        # No need to start Lecturesight as it would have started from the iCal entry
 
 def add_lecturesight_metrics(self, mpIdentifier):
     tmp = None
     done = False
+
+    mp_list = context.get_repository()
+    mp = mp_list.get(mpIdentifier)
+
+    logger.info('Recording stopped: ' + mp.getTitle() + ' (' + mpIdentifier + ')')
+
+    # Stop Lecturesight if it's a manual recording
+    if "Recording started at" in mp.getTitle():
+        tn = telnetlib.Telnet("localhost", 2501)
+        tn.read_until("g!")
+        tn.write("scheduler:stop\n")
+        time.sleep(1)
+        tn.close()
 
     # Give Lecturesight time to write out the file
     time.sleep(3)
@@ -57,9 +86,6 @@ def add_lecturesight_metrics(self, mpIdentifier):
     if not os.path.isfile(metricsFile):
         logger.info("No metrics file found for event " + mpIdentifier)
         return
-
-    mp_list = context.get_repository()
-    mp = mp_list.get(mpIdentifier)
 
     metricsMpFile = mp.getURI() + '/' + metricsTargetName
 
