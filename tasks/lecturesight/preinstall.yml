@@ -74,20 +74,23 @@
 - name: "Add graphics drivers ppa"
   apt_repository: repo='ppa:graphics-drivers/ppa'
   when: ansible_distribution_version == '16.04'
+  environment: "{{ proxy_env }}"
 
 - name: "Update repository cache"
   apt: update_cache=yes
   when: ansible_distribution_version == '16.04'
+  environment: "{{ proxy_env }}"
 
 - name: "Install nvidia drivers"
   apt: name={{item}} state=present force=yes
   with_items:
-    - nvidia-370 
-    - nvidia-370-dev 
+    - nvidia-367
+    - nvidia-367-dev 
     - nvidia-prime 
     - nvidia-profiler 
     - nvidia-settings 
     - nvidia-visual-profiler 
     - nvidia-opencl-dev 
-    - nvidia-opencl-icd-370
+    - nvidia-opencl-icd-367
   when: ansible_distribution_version == '16.04'
+  environment: "{{ proxy_env }}"

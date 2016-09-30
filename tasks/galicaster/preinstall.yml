@@ -43,6 +43,10 @@
     - ivtv-utils
     - python-bottle
     - python-glade2
+    - gstreamer1.0-libav
+    - gstreamer1.0-plugins-bad
+    - gstreamer1.0-plugins-bad-faad
+    - gstreamer1.0-plugins-bad-videoparsers
   when: ansible_distribution_version == '16.04'
 
 # generic configuration

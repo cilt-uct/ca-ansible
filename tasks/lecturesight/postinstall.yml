@@ -57,7 +57,7 @@
   action: template src="templates/83-duplicate_devs.rules" dest=/etc/udev/rules.d/ owner=root  mode=0644
 
 - name: "Setting lecturesight startup 1"
-  lineinfile: dest=/etc/sudoers line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'
+  lineinfile: "dest=/etc/sudoers line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
 
 - name: "create autostart folder"
   copy: src=/home/ca/ca_deployment/tasks/lecturesight/autostart.sh dest=/root/

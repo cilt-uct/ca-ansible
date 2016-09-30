@@ -4,10 +4,10 @@
   action: command chdir=/home/galicaster sudo mkdir -p datapath
 
 - name: "Copy datapath driver archive"
-  copy: src=/home/ca/files/VisionInstall-7.14.0.223.tar.gz dest=/home/galicaster/datapath/
+  copy: src=/home/ca/files/VisionInstall-7.14.0.225.tar.gz dest=/home/galicaster/datapath/
 
 - name: "Extract driver"
-  action: command tar xvf /home/galicaster/datapath/VisionInstall-7.14.0.223.tar.gz chdir=/home/galicaster/datapath
+  action: command tar xvf /home/galicaster/datapath/VisionInstall-7.14.0.225.tar.gz chdir=/home/galicaster/datapath
 
 - name: "Install Datapath driver"
   shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
@@ -16,4 +16,4 @@
   copy: src=/home/ca/ca_deployment/templates/rgb133.conf dest=/etc/modprobe.d/
 
 - name: "Remove tar file"
-  action: command chdir=/home/galicaster/datapath sudo rm -r VisionInstall-7.14.0.223.tar.gz
+  action: command chdir=/home/galicaster/datapath sudo rm -r VisionInstall-7.14.0.225.tar.gz
