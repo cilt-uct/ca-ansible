@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # Only run as galicaster
 WHOAMI=`whoami`
 if [ "$WHOAMI" != "galicaster" ]; then
@@ -50,20 +52,20 @@ do
 	TIMESTAMP=`date +"%Y-%d-%m %H:%M:%S"`
 	echo "$TIMESTAMP ###### Galicaster start" >> $ERROR_LOG
 
-        python /usr/share/galicaster/run_galicaster.py 2>> $ERROR_LOG
+	python /usr/share/galicaster/run_galicaster.py 2>&1 | /usr/bin/loglimit.pl 1000 >> $ERROR_LOG
 
-        if [ "$?" != 0 ]; then
-                echo "Abnormal exit: restarting Galicaster in 30s"
-                /usr/bin/logger "Galicaster abnormal exit"
+	if [ "${PIPESTATUS[0]}" != 0 ]; then
+		echo "Abnormal exit: restarting Galicaster in 30s"
+		/usr/bin/logger "Galicaster abnormal exit"
 		TIMESTAMP=`date +"%Y-%d-%m %H:%M:%S"`
 		echo "$TIMESTAMP ###### Galicaster abnormal exit" >> $ERROR_LOG
-                sleep 30
-        else
-                echo "Normal exit"
-                /usr/bin/logger "Galicaster normal exit"
+		sleep 30
+	else
+		echo "Normal exit"
+		/usr/bin/logger "Galicaster normal exit"
 		TIMESTAMP=`date +"%Y-%d-%m %H:%M:%S"`
 		echo "$TIMESTAMP ###### Galicaster normal exit" >> $ERROR_LOG
-                break
-        fi
+		break
+	fi
 done
 
