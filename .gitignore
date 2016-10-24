@@ -1,4 +1,7 @@
-hosts
+*
+!*/
+!*.*
+logrotate-fix-playbook.yml
 galicaster-update-playbook.yml
 git-playbook.yml
 tasks/git_install_main.yml
@@ -12,3 +15,5 @@ update-oc-host-playbook.yml
 templates/ddp.py
 templates/x11vnc.pass
 tasks/galicaster/update-gc2x.yml
+tasks/lecturesight/update-galicaster-plugin.yml
+update-ls-plugin.yml

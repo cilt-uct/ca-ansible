@@ -36,6 +36,10 @@
   when: ansible_distribution_version == '16.04'
   environment: "{{proxy_env}}"
 
+- name: "Remove /usr/share/galicaster"
+  shell: rm -rf /usr/share/galicaster
+  when: ansible_distribution_version == '16.04'
+
 - name: "Install galicaster 2.0.x"
   apt: name=galicaster state=present force=yes
   when: ansible_distribution_version == '16.04'

@@ -16,6 +16,10 @@
   action: template src="templates/gc2x/lecturesight.py" dest=/usr/share/galicaster/galicaster/plugins/lecturesight.py owner=galicaster  mode=0644
   when: ansible_distribution_version == '16.04'
 
+- name: "Set open file limits"
+  action: template src=templates/limits.conf dest=/etc/security/limits.conf owner=root mode=0644
+  when: ansible_distribution_version == '16.04'
+
 - name: "Dont look for updates"
   action: template src=templates/10periodic dest=/etc/apt/apt.conf.d/10periodic owner=root mode=0644
   when: ansible_distribution_version == '16.04'
