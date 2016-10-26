@@ -7,7 +7,7 @@
   copy: src=/home/ca/files/VisionInstall-7.14.0.223.tar.gz dest=/home/galicaster/
 
 - name: "Extract driver"
-  action: command tar xvf /home/galicaster/VisionInstall-7.14.0.223.tar.gz chdir=/home/galicaster/datapath
+  action: command tar xvf /home/galicaster/VisionInstall-7.14.0.223.tar.gz chdir=/home/galicaster/
 
 - name: "Install Datapath driver"
   shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
