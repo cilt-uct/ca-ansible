@@ -49,7 +49,7 @@ ERROR_LOG=/var/log/galicaster/gc-error.log
 while true
 do
 	/usr/bin/logger "Galicaster start"
-	TIMESTAMP=`date +"%Y-%d-%m %H:%M:%S"`
+	TIMESTAMP=`date +"%Y-%m-%d %H:%M:%S"`
 	echo "$TIMESTAMP ###### Galicaster start" >> $ERROR_LOG
 
 	python /usr/share/galicaster/run_galicaster.py 2>&1 | /usr/bin/loglimit.pl 1000 >> $ERROR_LOG
@@ -57,13 +57,13 @@ do
 	if [ "${PIPESTATUS[0]}" != 0 ]; then
 		echo "Abnormal exit: restarting Galicaster in 30s"
 		/usr/bin/logger "Galicaster abnormal exit"
-		TIMESTAMP=`date +"%Y-%d-%m %H:%M:%S"`
+		TIMESTAMP=`date +"%Y-%m-%d %H:%M:%S"`
 		echo "$TIMESTAMP ###### Galicaster abnormal exit" >> $ERROR_LOG
 		sleep 30
 	else
 		echo "Normal exit"
 		/usr/bin/logger "Galicaster normal exit"
-		TIMESTAMP=`date +"%Y-%d-%m %H:%M:%S"`
+		TIMESTAMP=`date +"%Y-%m-%d %H:%M:%S"`
 		echo "$TIMESTAMP ###### Galicaster normal exit" >> $ERROR_LOG
 		break
 	fi
