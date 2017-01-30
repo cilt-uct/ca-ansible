@@ -69,39 +69,8 @@ snapets4c-ca
 wolfsonlt-ca
 
 [new]
-#ich-ca
-gsh1-ca
-hahn763-ca
-kramlt2-ca
-gsh2-ca
-beattie114-ca
-beattie115-ca
-hoerilt1-ca
-#vbhlt-ca
-wolfsonlt-ca
-james2a-ca
-james4b-ca
-anatlt1-ca
-beattie106-ca
-cs203-ca
-#falconer-ca
-#hoerilt2-ca
-#ls2a-ca
-#alex1a-ca
-#cengsem-ca
-#em5-ca
-#snapelt2-ca
-#kramlt3-ca
-#ls2b-ca
-#james3a-ca
-#ls2c-ca
-#lcom2a-ca
-#lcom2b-ca
-#jordan3a-ca
-#cs2a-ca
-#ls2d-ca
-#m304-ca
-#m320-ca
+ls1e-ca
+ls1d-ca
 
 [ls]
 #menz9-ca
@@ -146,4 +115,4 @@ snapets4c-ca
 snapelt1-ca
 
 [test]
-137.158.32.118
+137.158.32.123

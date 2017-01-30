@@ -8,26 +8,17 @@
 - name: "Update grub"
   action: command update-grub
 
-- name: "Copy fix for Bosch cameras"
-  copy: src=/home/ca/files/libgstrtp.so dest=/usr/lib/x86_64-linux-gnu/gstreamer-0.10
-  when: ansible_distribution_version == '12.04'
-
 - name: "Adding lecturesight gc plugin"
-  action: template src="templates/gc2x/lecturesight.py" dest=/usr/share/galicaster/galicaster/plugins/lecturesight.py owner=galicaster  mode=0644
-  when: ansible_distribution_version == '16.04'
+  action: template src="templates/lecturesight.py" dest=/usr/share/galicaster/galicaster/plugins/lecturesight.py owner=galicaster  mode=0644
 
 - name: "Set open file limits"
   action: template src=templates/limits.conf dest=/etc/security/limits.conf owner=root mode=0644
-  when: ansible_distribution_version == '16.04'
 
 - name: "Copy loglimit.pl"
-  copy: src=templates/gc2x/loglimit.pl dest=/usr/bin owner=root
-  when: ansible_distribution_version == '16.04'
+  copy: src=templates/loglimit.pl dest=/usr/bin owner=root
 
 - name: "Dont look for updates"
   action: template src=templates/10periodic dest=/etc/apt/apt.conf.d/10periodic owner=root mode=0644
-  when: ansible_distribution_version == '16.04'
 
 - name: "Dont upgrade packages"
   action: template src=templates/20auto-upgrades dest=/etc/apt/apt.conf.d/20auto-upgrades owner=root mode=0664
-  when: ansible_distribution_version == '16.04'

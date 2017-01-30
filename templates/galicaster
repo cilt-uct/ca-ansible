@@ -1,11 +1,33 @@
-# Wait for the network to come up properly
-sleep 5
+#! /bin/bash
 
-wget -q --spider http://media.uct.ac.za 
-if [ "$?" != 0 ]; then 
-        echo Waiting for network to come up 
+# Only run as galicaster
+WHOAMI=`whoami`
+if [ "$WHOAMI" != "galicaster" ]; then
+	echo Galicaster must be run as the galicaster user, not $WHOAMI
+	exit
+fi
+
+# Only run in an X11 environment
+if [ "$XDG_SESSION_TYPE" != "x11" ]; then
+	echo Galicaster must be run in an X11 display, not via ssh
+	exit
+fi
+
+# Don't run if it's already running
+RUNNING=`ps ax | grep "python /usr/share/galicaster" | grep -v grep | wc -l`
+if [ "$RUNNING" != "0" ]; then
+	echo Galicaster is already running
+	exit
+fi
+
+# Wait for the network to come up properly
+sleep 10
+
+wget -q --spider http://media.uct.ac.za
+if [ "$?" != 0 ]; then
+        echo Waiting for network to come up
         sleep 300
-fi 
+fi
 
 # Audio monitoring
 # configure darkice.cfg from darkice.cfg-template using Galicaster hostname and audio config
@@ -17,23 +39,32 @@ killall darkice
 /usr/bin/darkice -c $GC/darkice.cfg -v 10 > /var/log/galicaster/darkice.log &
 
 # Galicaster
-export GST_DEBUG=2
+export GST_DEBUG=*:3
 export GST_DEBUG_NO_COLOR=1
+export GST_DEBUG_FILE=/var/log/galicaster/gstreamer.log
 echo "GST_DEBUG level set to $GST_DEBUG"
 
-# Dashboard (disabled for now)
-# killall -u galicaster python
-# python /usr/share/galicaster/docs/scripts/run_dashboard_push.py &
+ERROR_LOG=/var/log/galicaster/gc-error.log
 
 while true
 do
-	python /usr/share/galicaster/run_galicaster.py 2>/var/log/galicaster/gstreamer.log
-	if [ "$?" != 0 ]; then 
+	/usr/bin/logger "Galicaster start"
+	TIMESTAMP=`date +"%Y-%m-%d %H:%M:%S"`
+	echo "$TIMESTAMP ###### Galicaster start" >> $ERROR_LOG
+
+	python /usr/share/galicaster/run_galicaster.py 2>&1 | /usr/bin/loglimit.pl 1000 >> $ERROR_LOG
+
+	if [ "${PIPESTATUS[0]}" != 0 ]; then
 		echo "Abnormal exit: restarting Galicaster in 30s"
 		/usr/bin/logger "Galicaster abnormal exit"
+		TIMESTAMP=`date +"%Y-%m-%d %H:%M:%S"`
+		echo "$TIMESTAMP ###### Galicaster abnormal exit" >> $ERROR_LOG
 		sleep 30
 	else
 		echo "Normal exit"
+		/usr/bin/logger "Galicaster normal exit"
+		TIMESTAMP=`date +"%Y-%m-%d %H:%M:%S"`
+		echo "$TIMESTAMP ###### Galicaster normal exit" >> $ERROR_LOG
 		break
 	fi
 done

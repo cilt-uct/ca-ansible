@@ -1,34 +1,3 @@
-# 12.04 configuration
-
-#- name: "Write X-Config file"
-#  action: command nvidia-xconfig
-
-#- name: "Creating the config file"
-#  action: template src="templates/xorg.conf" dest=/etc/X11/xorg.conf owner=galicaster mode=0644
-
-- name: "Add the v4l4j APT repository"
-  apt_repository: repo='ppa:gillesg/ppa'
-  when: ansible_distribution_version == '12.04'
-
-#- name: "Add gstreamer 1.0 rep"
-#  apt_repository: repo="ppa:gstreamer-developers/ppa"
-#  when: ansible_distribution_version != '16.04' 
-
-- name: "Update repository cache"
-  apt: update_cache=yes
-  when: ansible_distribution_version == '12.04'
-
-- name: "Install lecturesight dependencies"
-  action: apt pkg={{item}} state=installed force=yes
-  with_items:
-  - appmenu-gtk
-  - libv4l4j-java
-  # - gstreamer1.0*
-  when: ansible_distribution_version == '12.04'
-
-
-# 16.04 configuration
-
 - name: "Install java dependencies"
   apt: name={{item}} state=present force=yes
   with_items:
@@ -40,15 +9,12 @@
     - libv4l-dev 
     - libjpeg-dev
     - libdbus-glib-1-dev
-  when: ansible_distribution_version == '16.04'
 
 - name: "Copy libvl4j binaries"
   copy: src=/home/ca/files/v4l4j/ dest=/root/
-  when: ansible_distribution_version == '16.04'
 
 - name: "Install libvl4j binaries"
   shell: dpkg -i /root/libv*.deb 
-  when: ansible_distribution_version == '16.04'
 
 
 # generic configuration

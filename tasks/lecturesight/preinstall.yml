@@ -1,16 +1,3 @@
-# 12.04 configuration
-
-- name: "Remove nvidia drivers"
-  apt: name={{item}} state=absent purge=yes
-  with_items:
-    - nvidia-346
-    - nvidia-modprobe
-    - nvidia-settings
-    - nvidia-current
-  when: ansible_distribution_version == '12.04'
-
-# 16.04 configuration
-
 - name: "Install cuda dependencies"
   apt: name={{item}} state=present force=yes
   with_items:
@@ -69,16 +56,13 @@
     - xorg-sgml-doctools
     - xtrans-dev
     - libgles2-mesa-dev
-  when: ansible_distribution_version == '16.04'
 
 - name: "Add graphics drivers ppa"
   apt_repository: repo='ppa:graphics-drivers/ppa'
-  when: ansible_distribution_version == '16.04'
   environment: "{{ proxy_env }}"
 
 - name: "Update repository cache"
   apt: update_cache=yes
-  when: ansible_distribution_version == '16.04'
   environment: "{{ proxy_env }}"
 
 - name: "Install nvidia drivers"
@@ -92,5 +76,4 @@
     - nvidia-visual-profiler 
     - nvidia-opencl-dev 
     - nvidia-opencl-icd-367
-  when: ansible_distribution_version == '16.04'
   environment: "{{ proxy_env }}"
