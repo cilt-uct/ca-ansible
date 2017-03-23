@@ -1,0 +1,10 @@
+- name: "Change opencast host"
+  hosts: test
+  user: root
+  sudo: yes
+
+  tasks:
+  - lineinfile:
+      dest: /etc/galicaster/conf.ini
+      regexp: '^host ='
+      line: 'host = mediadev.uct.ac.za'
