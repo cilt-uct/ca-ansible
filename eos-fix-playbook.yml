@@ -5,9 +5,7 @@
 
   tasks:
     - name: "backup existing galicaster code"
-      archive:
-        path: /usr/share/galicaster
-        dest: /root/galicaster2.x-uct.tgz
+      command: /bin/tar -czf /root/galicaster2.x-uct.tgz /usr/share/galicaster
 
     - name: "extract eos fix"
       unarchive: src=/home/ca/files/galicaster-eos-fix.tar.gz dest=/usr/share/galicaster/
