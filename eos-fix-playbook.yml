@@ -1,0 +1,21 @@
+- name: "Galicaster EOS fix Playbook"
+  hosts: eos
+  user: root
+  sudo: yes
+
+  tasks:
+    - name: "backup existing galicaster code"
+      archive:
+        path: /usr/share/galicaster
+        dest: /root/galicaster2.x-uct.tgz
+
+    - name: "extract eos fix"
+      unarchive: src=/home/ca/files/galicaster-eos-fix.tar.gz dest=/usr/share/galicaster/
+
+    - name: "Reboot CA"
+      command: /sbin/shutdown -r
+
+    - name: Wait for the CA to finish rebooting
+      sudo: no
+      local_action: wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300
+    

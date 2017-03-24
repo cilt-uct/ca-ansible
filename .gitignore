@@ -17,3 +17,4 @@ templates/x11vnc.pass
 tasks/galicaster/update-gc2x.yml
 tasks/lecturesight/update-galicaster-plugin.yml
 update-ls-plugin.yml
+hosts
