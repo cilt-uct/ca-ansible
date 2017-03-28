@@ -1,7 +1,7 @@
 # generic configuration
 
 - name: "Download blackmagic file"
-  copy: src=/home/ca/files/desktopvideo_10.7.1a9_amd64.deb dest=/tmp/blackmagic.deb
+  copy: src=/home/ca/files/blackmagic.deb dest=/tmp/blackmagic.deb
 
 - name: "Install Blackmagic driver"
   action: command /usr/bin/dpkg --install /tmp/blackmagic.deb 
