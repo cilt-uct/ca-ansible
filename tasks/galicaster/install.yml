@@ -18,3 +18,6 @@
 
 - name: "Update Galicaster to latest 2.x branch"
   unarchive: src=/home/ca/files/galicaster-2.0.x.tar.gz dest=/usr/share/galicaster/  
+
+- name: "Change ownership of /usr/share/galicaster"
+  command: chown -R galicaster:galicaster /usr/share/galicaster

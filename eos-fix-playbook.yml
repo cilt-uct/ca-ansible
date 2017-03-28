@@ -10,6 +10,9 @@
     - name: "extract eos fix"
       unarchive: src=/home/ca/files/galicaster-eos-fix.tar.gz dest=/usr/share/galicaster/
 
+    - name: "change ownership to galicaster"
+      command: chown -R galicaster:galicaster /usr/share/galicaster/
+
     - name: "Reboot CA"
       command: /sbin/shutdown -r
 
