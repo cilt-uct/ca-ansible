@@ -1,0 +1,32 @@
+- name: "OS and Blackmagic update Playbook"
+  hosts: eos
+  user: root
+  sudo: yes
+
+  vars:
+    proxy_env:
+      https_proxy: http://media.uct.ac.za:3128
+      http_proxy: http://media.uct.ac.za:3128
+
+  tasks:
+    - name: "Update repository"
+      apt: update_cache=yes
+      environment: "{{proxy_env}}"
+
+    - name: "upgrade distro"
+      command: apt-get upgrade -y
+      environment: "{{proxy_env}}"
+
+    - name: "Download blackmagic file"
+      copy: src=/home/ca/files/blackmagic.deb dest=/tmp/blackmagic.deb
+
+    - name: "Install Blackmagic driver"
+      action: command /usr/bin/dpkg --install /tmp/blackmagic.deb
+
+    - name: "Reboot CA"
+      command: /sbin/shutdown -r
+
+    - name: Wait for the CA to finish rebooting
+      sudo: no
+      local_action: wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300
+    
