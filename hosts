@@ -83,5 +83,16 @@ wolfsonlt-ca
 [test]
 137.158.32.123
 
-[eos]
+[oc-1616]
+cs302-ca
+mblt1-ca
+mblt2-ca
+m304-ca
 m320-ca
+ls2a-ca
+jordan3a-ca
+kramlt1-ca
+kramlt2-ca
+hahn3-ca
+nlt-ca
+
