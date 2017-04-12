@@ -46,6 +46,9 @@ echo "GST_DEBUG level set to $GST_DEBUG"
 
 ERROR_LOG=/var/log/galicaster/gc-error.log
 
+# Enable core dumps
+ulimit -c unlimited
+
 while true
 do
 	/usr/bin/logger "Galicaster start"
