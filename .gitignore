@@ -14,7 +14,6 @@ tasks/galicaster/sync-fix.yml
 update-oc-host-playbook.yml
 templates/ddp.py
 templates/x11vnc.pass
-tasks/galicaster/update-gc2x.yml
 tasks/lecturesight/update-galicaster-plugin.yml
 update-ls-plugin.yml
 hosts
