@@ -9,7 +9,15 @@
       http_proxy: http://media.uct.ac.za:3128
 
   tasks:
+  - lineinfile:
+      dest: /etc/default/apport
+      regexp: '^enabled='
+      line: 'enabled=1'
 
-    - name: "Install apport-retrace"
-      command: apt-get install apport-retrace -y
-      environment: "{{proxy_env}}"    
+  - name: "Update repository"
+    apt: update_cache=yes
+    environment: "{{proxy_env}}"
+
+  - name: "Install apport-retrace"
+    apt: name=apport-retrace state=present force=yes
+    environment: "{{proxy_env}}"
