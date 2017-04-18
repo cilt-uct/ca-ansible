@@ -1,0 +1,15 @@
+- name: "Apport update"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  vars:
+    proxy_env:
+      https_proxy: http://media.uct.ac.za:3128
+      http_proxy: http://media.uct.ac.za:3128
+
+  tasks:
+
+    - name: "Install apport-retrace"
+      command: apt-get install apport-retrace -y
+      environment: "{{proxy_env}}"    
