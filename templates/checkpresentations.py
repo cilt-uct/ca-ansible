@@ -21,7 +21,8 @@ def init():
         pass
 
 def check_presentations(self, mpIdentifier):
-    flavor = 'presentation/source'
+    flavor_p1 = 'presentation/source'
+    flavor_p2 = 'presentation2/source'
     tmp = None
     done = False
 
@@ -36,19 +37,21 @@ def check_presentations(self, mpIdentifier):
             for t in mp.getTracks():
                type = t.getFlavor()
 
-               if type == 'presentation/source':
+               if type == flavor_p1 or type == flavor_p2:
 
                  if tmp is None :
                     tmp = t
 
                  elif os.path.getsize(tmp.getURI()) > os.path.getsize(t.getURI()):
                     mp.remove(t)
+                    mp_list.update(mp);
                     logger.info('Presentation file: ' + os.path.basename(t.getURI()) + ' removed')
                     done = True
                     break
 
                  else:
                     mp.remove(tmp)
+                    mp_list.update(mp);
                     logger.info('Presentation file: ' + os.path.basename(tmp.getURI()) + ' removed')
                     done = True
                     break
