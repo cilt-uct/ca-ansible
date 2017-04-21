@@ -1,0 +1,33 @@
+- name: "Galicaster update with ACT-601"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+  - name: "remove all instances of flavor = presentation"
+    - lineinfile:
+        path: /etc/galicaster/conf.ini
+	state=absent
+        regexp: '^name = presentation'
+	
+  - name: "Add flavor = presentation"
+    - lineinfile:
+        path: /etc/galicaster/conf.ini
+	insertAfter: '[track3]'
+        line: 'flavor = presentation'
+
+  - name: "Add flavor = presentation2"
+    - lineinfile:
+        path: /etc/galicaster/conf.ini
+        insertAfter: '[track4]'
+        line: 'flavor = presentation2'
+
+  - name: "Update Galicaster to latest 2.x branch"
+    unarchive: src=/home/ca/files/galicaster-2.0.x.tar.gz dest=/usr/share/galicaster/
+
+  - name: "Reboot CA"
+    command: /sbin/shutdown -r
+
+  - name: Wait for the CA to finish rebooting
+    sudo: no
+    local_action: wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300
