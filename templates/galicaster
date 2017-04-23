@@ -62,6 +62,9 @@ do
 		/usr/bin/logger "Galicaster abnormal exit"
 		TIMESTAMP=`date +"%Y-%m-%d %H:%M:%S"`
 		echo "$TIMESTAMP ###### Galicaster abnormal exit" >> $ERROR_LOG
+		# Preserve the gstreamer log for this crash
+		GST_TIMESTAMP=`date +"%Y%m%d-%H%M%S"`
+		cp $GST_DEBUG_FILE $GST_DEBUG_FILE.$GST_TIMESTAMP
 		sleep 30
 	else
 		echo "Normal exit"
