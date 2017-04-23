@@ -64,7 +64,11 @@ def add_lecturesight_metrics(self, mpIdentifier):
     mp_list = context.get_repository()
     mp = mp_list.get(mpIdentifier)
 
-    logger.info('Recording stopped: ' + mp.getTitle() + ' (' + mpIdentifier + ')')
+    if mp is None:
+        logger.info('Not adding metrics for unscheduled recording: ' + mpIdentifier)
+        return
+    else:
+        logger.info('Recording stopped: ' + mp.getTitle() + ' (' + mpIdentifier + ')')
 
     # Stop Lecturesight if it's a manual recording
     if "Recording started at" in mp.getTitle():
