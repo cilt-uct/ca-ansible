@@ -1,5 +1,5 @@
 - name: "Galicaster update with ACT-601"
-  hosts: new
+  hosts: CAs
   user: root
   sudo: yes
 
@@ -13,11 +13,19 @@
                   line='flavor = presentation' 
                   state=present
 
+    - name: "Check if there is a presentation2 in config"
+      command: grep track4 /etc/galicaster/conf.ini
+      register: checkconf
+      always_run: True
+      ignore_errors: True
+      changed_when: False
+
     - name: "Add presentation2 to track 4"
       lineinfile: dest=/etc/galicaster/conf.ini
                   insertafter='^name = presentation2'
                   line='flavor = presentation2'
                   state=present
+      when: checkconf.rc == 0
 
     - name: "Update Galicaster to latest 2.x branch"
       unarchive: src=/home/ca/files/galicaster-2.0.x.tar.gz dest=/usr/share/galicaster/
