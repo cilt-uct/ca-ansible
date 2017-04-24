@@ -11,3 +11,6 @@
  
 - name: "Restart ntp service"
   service: name=ntp state=restarted
+
+- name: "Install ffmpeg"
+  apt: name=ffmpeg state=present
