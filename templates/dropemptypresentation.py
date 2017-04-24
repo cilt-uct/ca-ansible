@@ -13,21 +13,31 @@ logger = context.get_logger()
 def init():
     logger.info("Start dropemptypresentations plugin")
 
-    try:
-        dispatcher = context.get_dispatcher()
-        dispatcher.connect('recorder-stopped', dropempty_presentations)
-        logger.info("Registered")
+    ffprobe_version = subprocess.check_output(['ffprobe','-version'])
 
-    except ValueError:
-        logger.info("Error")
-        pass
+    if (ffprobe_version.split(' ')[0] == 'ffprobe'):
+
+       logger.info('ffprobe version %s', ffprobe_version.split(' ')[2])
+
+       try:
+           dispatcher = context.get_dispatcher()
+           dispatcher.connect('recorder-stopped', dropempty_presentations)
+           logger.info("Registered")
+
+       except ValueError:
+           logger.info("Error")
+           pass
+
+    else:
+       logger.error('ffprobe not installed')
 	
 def dropempty_presentations(self, mpIdentifier):
-    flavor = 'presentation/source'
-    tmp = None
-    done = False
 
-    bitrate_threshold = 100
+    flavor_p1 = 'presentation/source'
+    flavor_p2 = 'presentation2/source'
+
+    # Threshold for considering a presentation track empty is 50 kbps
+    bitrate_threshold = 50000
 
     # Get the mediapackage
     mp_list = context.get_repository()
@@ -37,12 +47,12 @@ def dropempty_presentations(self, mpIdentifier):
         logger.info('Mediapackage not found: ' + mpIdentifier)
     else:
         logger.info('Checking tracks of mp ' + mpIdentifier)
-        done = True
 
         for t in mp.getTracks():
+
            type = t.getFlavor()
 
-           if type == 'presentation/source':
+           if type == flavor_p1 or type == flavor_p2:
 
              # ffprobe -v error -show_entries format=bit_rate -of default=noprint_wrappers=1 ./gc_menz11_20170403T12h36m23/presentation.avi
              # Output: "bit_rate=59565"
