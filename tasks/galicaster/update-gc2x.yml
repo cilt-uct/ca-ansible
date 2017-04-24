@@ -1,5 +1,5 @@
 - name: "Update Galicaster to latest 2.x branch"
-  unarchive: src=/home/ca/files/galicaster-509d846.tar.gz dest=/usr/share/galicaster/
+  unarchive: src=/home/ca/files/galicaster-2.0.x.tar.gz dest=/usr/share/galicaster/ owner=galicaster group=galicaster
 
 - name: "Update usr/bin/galicaster"
   action: template src="templates/galicaster" dest=/usr/bin/galicaster mode=0777
@@ -10,11 +10,11 @@
 - name: "update conf-dist file"
   action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini  owner=galicaster mode=0644
 
-#- name: "Add lecturesight plugin"
-#  action: template src="templates/lecturesight.py" dest=/usr/share/galicaster/galicaster/plugins/lecturesight.py owner=galicaster mode=0644
+- name: "Add lecturesight plugin"
+  action: template src="templates/lecturesight.py" dest=/usr/share/galicaster/galicaster/plugins/lecturesight.py owner=galicaster mode=0644
 
-#- name: "Add checkpresentations plugin"
-#  action: template src="templates/checkpresentations.py" dest=/usr/share/galicaster/galicaster/plugins/checkpresentations.py owner=galicaster mode=0644
+- name: "Add checkpresentations plugin"
+  action: template src="templates/checkpresentations.py" dest=/usr/share/galicaster/galicaster/plugins/checkpresentations.py owner=galicaster mode=0644
 
 - name: "change ownership of /usr/share/galicaster"
   file: path=/usr/share/galicaster state=directory owner=galicaster group=galicaster mode=0775 recurse=yes
