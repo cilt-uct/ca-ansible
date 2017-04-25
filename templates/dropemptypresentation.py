@@ -36,8 +36,8 @@ def dropempty_presentations(self, mpIdentifier):
     flavor_p1 = 'presentation/source'
     flavor_p2 = 'presentation2/source'
 
-    # Threshold for considering a presentation track empty is 50 kbps
-    bitrate_threshold = 50000
+    # Threshold for considering a presentation track empty is 47.5kbps (Datapath "No signal" plus clock)
+    bitrate_threshold = 47500
 
     # Get the mediapackage
     mp_list = context.get_repository()
