@@ -44,6 +44,14 @@ export GST_DEBUG_NO_COLOR=1
 export GST_DEBUG_FILE=/var/log/galicaster/gstreamer.log
 echo "GST_DEBUG level set to $GST_DEBUG"
 
+
+# OPENCAST-1650 - disable ORC for Blackmagic cards
+BM=`lspci | grep Blackmagic | wc -l`
+if [ "$BM" != "0" ]; then
+	echo Blackmagic cards installed - disabling ORC
+	export ORC_CODE=backup
+fi
+
 ERROR_LOG=/var/log/galicaster/gc-error.log
 
 # Enable core dumps
