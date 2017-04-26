@@ -34,26 +34,25 @@ my $match = `ulimit -c 0; $ffmpeg -i $v1 -i $v2 -filter_complex "[0:v][1:v] sign
 # [Parsed_signature_0 @ 0x3f4aee0] no matching of video 0 and 1
 # [Parsed_signature_0 @ 0x47d6380] matching of video 0 at 12.000000 and 1 at 1.000000, 108 frames matching
 # [Parsed_signature_0 @ 0x47d6380] whole video matching
+# or segfault - https://trac.ffmpeg.org/ticket/6354
 
 my $frames_match = 0;
 
 # print "Match: $match\n";
 if ($match =~ /matching of video 0 at [0-9.]+ and 1 at [0-9.]+, ([0-9]+) frames matching/) {
   $frames_match = $1;
-  print "Frames: $frames_match\n";
+  # print "Frames: $frames_match\n";
 }
 
 if ($frames_match > 0) {
   # Framecount of V1
   my $framecount=`$ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=nokey=1:noprint_wrappers=1 $v1`;
   chomp($framecount);
-
-  print "Framecount: $framecount\n";
-
+  # print "Framecount: $framecount\n";
   my $partial_match = ($frames_match / $framecount) * 100;
-  print int($partial_match) . "\n";
+  print int($partial_match);
 } else {
   # No match (or segfault or other failure)
-  print "0\n";
+  print "0";
 }
 
