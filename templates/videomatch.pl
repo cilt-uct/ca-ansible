@@ -25,8 +25,8 @@ my $v2 = "$tmpdir/video2.$timestamp.avi";
 
 # Downscale and compare videos
 
-system("$ffmpeg -nostats -loglevel 0 -i $in1 -vf scale=160:-1 -r 1 $v1");
-system("$ffmpeg -nostats -loglevel 0 -i $in2 -vf scale=160:-1 -r 1 $v2");
+system("$ffmpeg -nostats -loglevel 0 -i $in1 -vf scale=256:-1 -r 1 $v1");
+system("$ffmpeg -nostats -loglevel 0 -i $in2 -vf scale=256:-1 -r 1 $v2");
 
 my $match = `ulimit -c 0; $ffmpeg -i $v1 -i $v2 -filter_complex "[0:v][1:v] signature=nb_inputs=2:detectmode=full" -map :v -f null - 2>&1 | grep Parsed_signature_0`;
 
