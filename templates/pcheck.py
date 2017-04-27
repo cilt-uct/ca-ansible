@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-# Galicaster 2.x UCT
+# Galicaster 2.x UCT - Drop empty and/or duplicate presentation tracks before ingest
+# Requires ffprobe and videomatch.pl (which requires ffmpeg and ffprobe >= 3.3)
 
 import os
 import subprocess
@@ -24,22 +25,29 @@ bitrate_diff_threshold = 0.05
 # Similarity threshold for dropping a video is 90%
 similarity_threshold = 90
 
-# Location of ffprobe
+# Location of ffprobe and videomatch
 ffprobe_bin = 'ffprobe'
+videomatch_bin = 'videomatch.pl'
 
 def init():
-    logger.info("Start pcheck plugin")
 
     ffprobe_version = ''
+    videomatch_version = ''
 
     try:
         ffprobe_version = subprocess.check_output([ffprobe_bin,'-version'])
     except:
         logger.error('Unable to run ffprobe executable: %s', ffprobe_bin)
 
-    if (ffprobe_version.split(' ')[0] == 'ffprobe'):
+    try:
+        videomatch_version = subprocess.check_output([videomatch_bin,'-version'])
+    except:
+        logger.error('Unable to run videomatch executable: %s', videomatch_bin)
+
+    if (ffprobe_version.split(' ')[0] == 'ffprobe') and (videomatch_version.split(' ')[0] == 'videomatch.pl'):
 
        logger.info('ffprobe version %s', ffprobe_version.split(' ')[2])
+       logger.info('videomatch version %s', videomatch_version.split(' ')[2])
 
        try:
            dispatcher = context.get_dispatcher()
@@ -51,12 +59,12 @@ def init():
            pass
 
     else:
-       logger.warn('ffprobe not installed or unknown response: plugin will not run')
-	
+       logger.warn('ffprobe and/or videomatch not available: plugin will not run')
+
 def drop_presentations(sender, operation_code, mp):
 
-    # Does nothing if the operation is not INGEST 
-    if operation_code != worker.INGEST_CODE: 
+    # Does nothing if the operation is not INGEST
+    if operation_code != worker.INGEST_CODE:
         return
 
     # Get the mediapackage
@@ -105,12 +113,12 @@ def drop_presentations(sender, operation_code, mp):
     if (bitrate_p1 > 0) and (bitrate_p1 < bitrate_threshold):
        mp.remove(track_p1)
        removed = True
-       logger.info('Presentation file ' + os.path.basename(track_p1.getURI()) + ' is probably empty and has been removed')
+       logger.info('Presentation track ' + os.path.basename(track_p1.getURI()) + ' is probably empty and has been removed')
 
     if (bitrate_p2 > 0) and (bitrate_p2 < bitrate_threshold):
        mp.remove(track_p2)
        removed = True
-       logger.info('Presentation file ' + os.path.basename(track_p2.getURI()) + ' is probably empty and has been removed')
+       logger.info('Presentation track ' + os.path.basename(track_p2.getURI()) + ' is probably empty and has been removed')
 
     # Check for duplicate tracks
 
@@ -122,7 +130,7 @@ def drop_presentations(sender, operation_code, mp):
 
            if (bitrate_diff < bitrate_diff_threshold):
              logger.info('Presentation files have similar bitrates: comparing content')
-             match_result = subprocess.check_output(['/home/galicaster/videomatch.pl', track_p1.getURI(), track_p2.getURI()])
+             match_result = subprocess.check_output([videomatch_bin, track_p1.getURI(), track_p2.getURI()]).replace("\n", "")
 
              match_result_i = 0
 
