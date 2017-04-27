@@ -12,7 +12,7 @@ from galicaster.mediapackage import mediapackage
 logger = context.get_logger()
 
 def init():
-    logger.info("Start dropemptypresentations plugin")
+    logger.info("Start pcheck plugin")
 
     ffprobe_version = subprocess.check_output(['ffprobe','-version'])
 
@@ -38,8 +38,6 @@ def drop_presentations(sender, operation_code, mp):
     if operation_code != worker.INGEST_CODE: 
         return
 
-    logger.info('Running drop_presentations for MP %s', mp)
-
     flavor_p1 = 'presentation/source'
     flavor_p2 = 'presentation2/source'
 
@@ -61,56 +59,71 @@ def drop_presentations(sender, operation_code, mp):
     bitrate_p2 = 0
     removed = False
 
-    if True:
-        mpIdentifier = mp.getIdentifier()
-        logger.info('Checking tracks of mp ' + mpIdentifier)
+    mpIdentifier = mp.getIdentifier()
+    logger.info('Checking presentation tracks for MP ' + mpIdentifier)
 
-        # Remove any empty tracks
-        for t in mp.getTracks():
+    # Remove any empty tracks
+    for t in mp.getTracks():
 
            type = t.getFlavor()
 
            if type == flavor_p1 or type == flavor_p2:
 
-             # ffprobe -v error -show_entries format=bit_rate -of default=noprint_wrappers=1 ./gc_menz11_20170403T12h36m23/presentation.avi
+             # ffprobe -v error -show_entries format=bit_rate -of default=noprint_wrappers=1 presentation.avi
              # Output: "bit_rate=59565"
 
-             ff_bitrate = subprocess.check_output(['ffprobe','-v', 'error','-show_entries','format=bit_rate','-of','default=noprint_wrappers=1', t.getURI()])
-             bitrate = int(ff_bitrate.split('=')[1])
+             ff_bitrate = subprocess.check_output(['ffprobe','-v', 'error','-show_entries','format=bit_rate','-of',
+                'default=nokey=1:noprint_wrappers=1', t.getURI()]).replace("\n", "")
+
+             bitrate = 0
+
+             try:
+                bitrate = int(ff_bitrate)
+                logger.info('bitrate for track %s: %i bps', t.getURI(), bitrate)
+             except ValueError:
+                # ffprobe will return "N/A" for unknown bitrate (where the file was not closed properly)
+                logger.info('Unknown bitrate for track %s: %s', t.getURI(), ff_bitrate)
 
              if type == flavor_p1:
-               track_p1 = t
-               bitrate_p1 = bitrate
+                track_p1 = t
+                bitrate_p1 = bitrate
 
              if type == flavor_p2:
-               track_p2 = t
-               bitrate_p2 = bitrate
+                track_p2 = t
+                bitrate_p2 = bitrate
 
-             logger.info('Bitrate for track %s is %i bps', t.getURI(), bitrate)
-
-             if (bitrate < bitrate_threshold):
+             if (bitrate > 0) and (bitrate < bitrate_threshold):
                 mp.remove(t)
                 mp_repo.update(mp);
                 removed = True
-                logger.info('Presentation file: ' + os.path.basename(t.getURI()) + ' is probably empty - removed')
+                logger.info('Presentation file ' + os.path.basename(t.getURI()) + ' is probably empty - removed')
 
-        # Check for duplicate tracks
-        if (removed == False) and (bitrate_p1 > 0) and (bitrate_p2 > 0):
+    # Check for duplicate tracks
+    if (removed == False) and (bitrate_p1 > 0) and (bitrate_p2 > 0):
 
            logger.info('Checking whether presentation tracks are the same')
            bitrate_diff = abs(1 - bitrate_p1 / float(bitrate_p2))
-           logger.info('Bitrate diff is %.3f%%', bitrate_diff * 100)
+           logger.info('Bitrates vary by %.3f%%', bitrate_diff * 100)
 
            if (bitrate_diff < bitrate_diff_threshold):
              logger.info('Presentation files have similar bitrates: comparing content')
              match_result = subprocess.check_output(['/home/galicaster/videomatch.pl', track_p1.getURI(), track_p2.getURI()])
-             logger.info('Frame Similarity: %s%%', match_result)
-             if (int(match_result)) > similarity_threshold:
-                 logger.info('Presentation files are substantially the same (%s%%)- removing p2', match_result)
+
+             match_result_i = 0
+
+             try:
+                match_result_i = int(match_result)
+                logger.info('Frame Similarity: %i%%', match_result_i)
+             except ValueError:
+                logger.info('Unknown frame similarity result: %s', match_result)
+
+             if (match_result_i) > similarity_threshold:
+                 logger.info('Presentation files are substantially the same (%s%%): removing %s', match_result, os.path.basename(track_p2.getURI()))
                  mp.remove(track_p2)
                  mp_repo.update(mp)
+
            else:
-             logger.info('Presentation files differ in bitrate - not comparing')
+             logger.info('Presentation files differ in bitrate, not comparing')
 
     logger.info("Finished")
 
