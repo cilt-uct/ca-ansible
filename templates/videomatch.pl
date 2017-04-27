@@ -66,6 +66,17 @@ sub compare ($$) {
 
 	if ($debug) { print "Comparing videos\n"; }
 
+	# First compare by md5sum of the downscaled versions
+
+	my $md5_v1 = (split(' ', `md5sum $v1`))[0];
+	my $md5_v2 = (split(' ', `md5sum $v2`))[0];
+	if ($debug) { print "MD5: $md5_v1 $md5_v2\n"; }
+
+	if ($md5_v1 eq $md5_v2) {
+	   if ($debug) { print "MD5 signatures of scaled versions are identical\n"; }
+           return 100;
+	}
+
 	my $match = `ulimit -c 0; $ffmpeg -i $v1 -i $v2 -filter_complex "[0:v][1:v] signature=nb_inputs=2:detectmode=full" -map :v -f null - 2>&1 | grep Parsed_signature_0`;
 
 	# Possible outputs
@@ -76,7 +87,8 @@ sub compare ($$) {
 
 	my $frames_match = 0;
 
-	# print "Match: $match\n";
+	if ($debug) { print "Match: $match\n"; }
+
 	if ($match =~ /matching of video 0 at [0-9.]+ and 1 at [0-9.]+, ([0-9]+) frames matching/) {
 	  $frames_match = $1;
 	  if ($debug) { print "Frames: $frames_match\n"; }
@@ -96,7 +108,6 @@ sub compare ($$) {
 	}
 
         return $p_compare;
-
 }
 
 #################
