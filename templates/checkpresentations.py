@@ -17,7 +17,7 @@ flavor_p1 = 'presentation/source'
 flavor_p2 = 'presentation2/source'
 
 # Threshold for considering a presentation track empty is 47.5kbps (Datapath "No signal" plus clock)
-bitrate_upper_threshold = 47500
+bitrate_upper_threshold = 48000
 bitrate_lower_threshold = 15000
 
 # Bitrate threshold to compare contents for similar videos is 5%
@@ -116,12 +116,12 @@ def drop_presentations(sender, operation_code, mp):
     # Remove tracks with bitrate below lower threshold
 
     if (bitrate_p1 > 0) and (bitrate_p1 < bitrate_lower_threshold):
-       mp.remove(track_p1)
+       mp.remove(track_p1, True)
        removed = True
        logger.info('Presentation track ' + os.path.basename(track_p1.getURI()) + ' is probably empty and has been removed')
 
     if (bitrate_p2 > 0) and (bitrate_p2 < bitrate_lower_threshold):
-       mp.remove(track_p2)
+       mp.remove(track_p2, True)
        removed = True
        logger.info('Presentation track ' + os.path.basename(track_p2.getURI()) + ' is probably empty and has been removed')
 
@@ -130,14 +130,14 @@ def drop_presentations(sender, operation_code, mp):
     if (bitrate_p1 < 0) or ((bitrate_p1 >= bitrate_lower_threshold) and (bitrate_p1 < bitrate_upper_threshold)):
        empty_p1 = __track_empty(track_p1)
        if (empty_p1 > empty_threshold):
-          mp.remove(track_p1)
+          mp.remove(track_p1, True)
           removed = True
           logger.info('Presentation track ' + os.path.basename(track_p1.getURI()) + ' is %i%% empty and has been removed', empty_p1)
 
     if (bitrate_p2 < 0) or ((bitrate_p2 >= bitrate_lower_threshold) and (bitrate_p2 < bitrate_upper_threshold)):
        empty_p2 = __track_empty(track_p2)
        if (empty_p2 > empty_threshold):
-          mp.remove(track_p2)
+          mp.remove(track_p2, True)
           removed = True
           logger.info('Presentation track ' + os.path.basename(track_p2.getURI()) + ' is %i%% empty and has been removed', empty_p2)
 
@@ -163,7 +163,7 @@ def drop_presentations(sender, operation_code, mp):
 
              if (match_result_i) > similarity_threshold:
                  logger.info('Presentation files are substantially the same (%s%%): removing %s', match_result, os.path.basename(track_p2.getURI()))
-                 mp.remove(track_p2)
+                 mp.remove(track_p2, True)
                  removed = True
 
            else:
