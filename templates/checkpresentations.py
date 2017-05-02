@@ -30,7 +30,7 @@ similarity_threshold = 90
 empty_threshold = 90
 
 # Location of ffprobe and videomatch
-ffprobe_bin = 'ffprobe'
+ffprobe_bin = 'ffprobe-3.3-static'
 videomatch_bin = 'videomatch.pl'
 
 def init():
