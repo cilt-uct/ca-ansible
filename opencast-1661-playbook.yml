@@ -1,0 +1,24 @@
+- name: "Galicaster update: Deploy dual hdmi code"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+    - name: "ffmpeg static"
+      copy: src=/home/ca/files/ffmpeg-3.3-static dest=/usr/local/bin/ owner=galicaster mode=777
+
+    - name: "ffprobe static"
+      copy: src=/home/ca/files/ffprobe-3.3-static dest=/usr/local/bin/ owner=galicaster mode=777
+
+    - name: "Update checkpresentations plugin"
+      action: template src="templates/checkpresentations.py" dest=/usr/share/galicaster/galicaster/plugins/checkpresentations.py owner=galicaster mode=0644
+
+    - name: "update conf-dist file"
+      action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini  owner=galicaster mode=0644
+
+    - name: "Reboot CA"
+      command: /sbin/shutdown -r
+
+    - name: Wait for the CA to finish rebooting
+      sudo: no
+      local_action: wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300

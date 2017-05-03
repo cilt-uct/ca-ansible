@@ -21,7 +21,7 @@ falconer-ca
 fames-ca
 gsblt3-ca
 gsh1-ca
-gsh2-ca
+#gsh2-ca
 gshlt1-ca
 gshlt2-ca
 hoerilt1-ca
@@ -41,7 +41,7 @@ kramlt3-ca
 lcom2a-ca
 lcom2b-ca
 ls2a-ca
-ls2b-ca
+#ls2b-ca
 ls2c-ca
 ls2d-ca
 ls1a-ca
@@ -78,9 +78,7 @@ vbhlt-ca
 wolfsonlt-ca
 
 [new]
-kramlt3-ca
-snapets4c-ca
-
+beattielt-ca
 
 [test]
 137.158.32.123
