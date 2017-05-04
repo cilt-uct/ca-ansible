@@ -10,6 +10,9 @@
     - name: "ffprobe static"
       copy: src=/home/ca/files/ffprobe-3.3-static dest=/usr/local/bin/ owner=galicaster mode=777
 
+    - name: "videomatch.pl"
+      action: template src=templates/videomatch.pl dest=/usr/local/bin/videomatch.pl owner=galicaster mode=777
+
     - name: "Update checkpresentations plugin"
       action: template src="templates/checkpresentations.py" dest=/usr/share/galicaster/galicaster/plugins/checkpresentations.py owner=galicaster mode=0644
 
