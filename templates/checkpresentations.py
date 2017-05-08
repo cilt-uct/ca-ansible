@@ -129,14 +129,14 @@ def drop_presentations(sender, operation_code, mp):
 
     if (bitrate_p1 < 0) or ((bitrate_p1 >= bitrate_lower_threshold) and (bitrate_p1 < bitrate_upper_threshold)):
        empty_p1 = __track_empty(track_p1)
-       if (empty_p1 > empty_threshold):
+       if (empty_p1 >= empty_threshold):
           mp.remove(track_p1, True)
           removed = True
           logger.info('Presentation track ' + os.path.basename(track_p1.getURI()) + ' is %i%% empty and has been removed', empty_p1)
 
     if (bitrate_p2 < 0) or ((bitrate_p2 >= bitrate_lower_threshold) and (bitrate_p2 < bitrate_upper_threshold)):
        empty_p2 = __track_empty(track_p2)
-       if (empty_p2 > empty_threshold):
+       if (empty_p2 >= empty_threshold):
           mp.remove(track_p2, True)
           removed = True
           logger.info('Presentation track ' + os.path.basename(track_p2.getURI()) + ' is %i%% empty and has been removed', empty_p2)
@@ -145,8 +145,7 @@ def drop_presentations(sender, operation_code, mp):
 
     if (removed == False) and (bitrate_p1 > 0) and (bitrate_p2 > 0):
 
-           logger.info('Checking whether presentation tracks are the same')
-           bitrate_diff = abs(1 - bitrate_p1 / float(bitrate_p2))
+           bitrate_diff = abs(bitrate_p1 - bitrate_p2) / float(min(bitrate_p1, bitrate_p2))
            logger.info('Presentation track bitrates vary by %.3f%%', bitrate_diff * 100)
 
            if (bitrate_diff < bitrate_diff_threshold):
@@ -161,7 +160,7 @@ def drop_presentations(sender, operation_code, mp):
              except ValueError:
                 logger.info('Unknown frame similarity result: %s', match_result)
 
-             if (match_result_i) > similarity_threshold:
+             if (match_result_i) >= similarity_threshold:
                  logger.info('Presentation files are substantially the same (%s%%): removing %s', match_result, os.path.basename(track_p2.getURI()))
                  mp.remove(track_p2, True)
                  removed = True
