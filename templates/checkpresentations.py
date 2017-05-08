@@ -20,8 +20,8 @@ flavor_p2 = 'presentation2/source'
 bitrate_upper_threshold = 48000
 bitrate_lower_threshold = 15000
 
-# Bitrate threshold to compare contents for similar videos is 5%
-bitrate_diff_threshold = 0.05
+# Bitrate threshold to compare contents for similar videos is 10%
+bitrate_diff_threshold = 0.1
 
 # Similarity threshold for dropping a video is 90%
 similarity_threshold = 90
