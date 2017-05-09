@@ -1,0 +1,9 @@
+- name: "Galicaster update: OPENCAST-1679"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+
+    - name: "Update checkpresentations plugin"
+      action: template src="templates/checkpresentations.py" dest=/usr/share/galicaster/galicaster/plugins/checkpresentations.py owner=galicaster mode=0644
