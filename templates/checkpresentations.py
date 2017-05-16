@@ -23,6 +23,9 @@ bitrate_lower_threshold = 15000
 # Bitrate threshold to compare contents for similar videos is 10%
 bitrate_diff_threshold = 0.1
 
+# Bitrate threshold to assume videos are the same is 1%
+bitrate_diff_match_threshold = 0.01
+
 # Similarity threshold for dropping a video is 90%
 similarity_threshold = 90
 
@@ -148,7 +151,12 @@ def drop_presentations(sender, operation_code, mp):
            bitrate_diff = abs(bitrate_p1 - bitrate_p2) / float(min(bitrate_p1, bitrate_p2))
            logger.info('Presentation track bitrates vary by %.3f%%', bitrate_diff * 100)
 
-           if (bitrate_diff < bitrate_diff_threshold):
+           if (bitrate_diff <= bitrate_diff_match_threshold):
+             logger.info('Presentation files have very similar bitrates: removing %s', os.path.basename(track_p2.getURI()))
+             mp.remove(track_p2, True)
+             removed = True
+
+           if (bitrate_diff > bitrate_diff_match_threshold) and (bitrate_diff < bitrate_diff_threshold):
              logger.info('Presentation files have similar bitrates: comparing content')
              match_result = subprocess.check_output([videomatch_bin, track_p1.getURI(), track_p2.getURI()]).replace("\n", "")
 
@@ -164,9 +172,6 @@ def drop_presentations(sender, operation_code, mp):
                  logger.info('Presentation files are substantially the same (%s%%): removing %s', match_result, os.path.basename(track_p2.getURI()))
                  mp.remove(track_p2, True)
                  removed = True
-
-           else:
-             logger.info('Presentation files differ in bitrate, not comparing')
 
     # Update the MP if something changed
     if removed:
