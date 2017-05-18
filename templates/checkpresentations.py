@@ -16,8 +16,10 @@ logger = context.get_logger()
 flavor_p1 = 'presentation/source'
 flavor_p2 = 'presentation2/source'
 
-# Threshold for considering a presentation track empty is 47.5kbps (Datapath "No signal" plus clock)
-bitrate_upper_threshold = 48000
+# Threshold for checking whether a presentation track is empty is 48.5 Kbps (Datapath "No signal" plus clock)
+bitrate_upper_threshold = 48500
+
+# Below 15 Kbps we assume the track is empty
 bitrate_lower_threshold = 15000
 
 # Bitrate threshold to compare contents for similar videos is 10%
