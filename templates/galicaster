@@ -31,19 +31,21 @@ fi
 
 # Audio monitoring
 # configure darkice.cfg from darkice.cfg-template using Galicaster hostname and audio config
-GC=/etc/galicaster
-CAPTURE_AGENT=`grep ^hostname $GC/conf.ini | sed "s/ //g" | awk -F = '{print $2}'`
-PULSE_SRC=`grep ^location $GC/conf.ini | grep alsa | sed "s/ //g" | awk -F = '{print $2}'`
-sed -e "s/CAPTURE_AGENT/$CAPTURE_AGENT/g" -e "s/PULSE_SRC/$PULSE_SRC/g" < $GC/darkice.cfg-template > $GC/darkice.cfg
-killall darkice
-/usr/bin/darkice -c $GC/darkice.cfg -v 10 > /var/log/galicaster/darkice.log &
+
+# OPENCAST-1603 Disabled darkice because of possible audio issues with Galicaster
+
+#GC=/etc/galicaster
+#CAPTURE_AGENT=`grep ^hostname $GC/conf.ini | sed "s/ //g" | awk -F = '{print $2}'`
+#PULSE_SRC=`grep ^location $GC/conf.ini | grep alsa | sed "s/ //g" | awk -F = '{print $2}'`
+#sed -e "s/CAPTURE_AGENT/$CAPTURE_AGENT/g" -e "s/PULSE_SRC/$PULSE_SRC/g" < $GC/darkice.cfg-template > $GC/darkice.cfg
+#killall darkice
+#/usr/bin/darkice -c $GC/darkice.cfg -v 10 > /var/log/galicaster/darkice.log &
 
 # Galicaster
 export GST_DEBUG=*:3
 export GST_DEBUG_NO_COLOR=1
 export GST_DEBUG_FILE=/var/log/galicaster/gstreamer.log
 echo "GST_DEBUG level set to $GST_DEBUG"
-
 
 # OPENCAST-1650 - disable ORC for Blackmagic cards
 BM=`lspci | grep Blackmagic | wc -l`
