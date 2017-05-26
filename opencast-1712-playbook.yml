@@ -1,0 +1,8 @@
+- name: "OPENCAST-1612: standalone darkice script"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+    - name: "deploy audiomonitor script"
+      action: template src="templates/audiomonitor" dest=/usr/bin/audiomonitor owner=galicaster group=galicaster mode=0755
