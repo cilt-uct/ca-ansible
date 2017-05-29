@@ -3,11 +3,8 @@
 - name: "Make a folder in home directory"
   action: command chdir=/home/galicaster sudo mkdir -p datapath
 
-- name: "Copy datapath driver archive"
-  copy: src=/home/ca/files/datapath.tar.gz dest=/home/galicaster/
-
-- name: "Extract driver"
-  action: command tar xvf /home/galicaster/datapath.tar.gz chdir=/home/galicaster/
+- name: "Extract datapath driver"
+  unarchive: src=/home/ca/files/datapath.tar.gz dest=/gome/galicaster/datapath/ owner=root group=root
 
 - name: "Install Datapath driver"
   shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
