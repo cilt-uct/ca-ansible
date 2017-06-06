@@ -10,8 +10,8 @@
     - libatk-wrapper-java
     - libatk-wrapper-java-jni
     - libdrm-dev
-    - libgl1-mesa-dev
-    - libglu1-mesa-dev
+   # - libgl1-mesa-dev
+   # - libglu1-mesa-dev
     - libgnomevfs2-0
     - libgnomevfs2-common
     - libice-dev
@@ -55,7 +55,7 @@
     - x11proto-xf86vidmode-dev
     - xorg-sgml-doctools
     - xtrans-dev
-    - libgles2-mesa-dev
+    #- libgles2-mesa-dev
 
 - name: "Add graphics drivers ppa"
   apt_repository: repo='ppa:graphics-drivers/ppa'
@@ -76,4 +76,4 @@
     - nvidia-visual-profiler 
     - nvidia-opencl-dev 
     - nvidia-opencl-icd-367
-  environment: "{{ proxy_env }}"
+ environment: "{{ proxy_env }}"

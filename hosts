@@ -15,7 +15,9 @@ cs203-ca
 cs2a-ca
 cs302-ca
 dumobaqwa-ca
+em4-ca
 em5-ca
+em6-ca
 em7-ca
 ecolt1-ca
 falconer-ca
@@ -63,6 +65,7 @@ ombh45-ca
 hahn1-ca
 hahn2-ca
 hahn3-ca
+hahn4-ca
 hahn763-ca
 rchd3-ca
 snapelt1-ca
@@ -79,7 +82,8 @@ vbhlt-ca
 wolfsonlt-ca
 
 [new]
-137.158.32.106
+em4-ca
+em6-ca
 
 [test]
 137.158.32.123
