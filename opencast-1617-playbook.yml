@@ -1,0 +1,22 @@
+- name: "OPENCAST-1617: update datapath drivers"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+
+   - name: "extract datapath driver"
+     unarchive: src=/home/ca/files/VisionInstall-7.14.0.258-2.tar.gz dest=/home/galicaster/ owner=root group=root
+
+   - name: "Install Datapath driver"
+     shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
+
+   - name: "Copy rgb133.conf"
+     copy: src=/home/ca/ca_deployment/templates/rgb133.conf dest=/etc/modprobe.d/
+
+   - name: "Reboot CA"
+     command: /sbin/shutdown -r
+
+   - name: Wait for the CA to finish rebooting
+     sudo: no
+     local_action: wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300

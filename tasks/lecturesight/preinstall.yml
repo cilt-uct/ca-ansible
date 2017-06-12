@@ -76,4 +76,4 @@
     - nvidia-visual-profiler 
     - nvidia-opencl-dev 
     - nvidia-opencl-icd-367
- environment: "{{ proxy_env }}"
+  environment: "{{ proxy_env }}"
