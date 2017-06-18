@@ -5,18 +5,29 @@
 
   tasks:
 
+   - name: "Check if datapath installed"
+     shell: dmesg | grep Datapath
+     register: drv_check
+     ignore_errors: yes
+
    - name: "extract datapath driver"
      unarchive: src=/home/ca/files/VisionInstall-7.14.0.258-2.tar.gz dest=/home/galicaster/ owner=root group=root
+     when: "'Datapath' in drv_check.stdout"
 
    - name: "Install Datapath driver"
      shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
+     when: "'Datapath' in drv_check.stdout"
 
    - name: "Copy rgb133.conf"
      copy: src=/home/ca/ca_deployment/templates/rgb133.conf dest=/etc/modprobe.d/
+     when: "'Datapath' in drv_check.stdout"
 
    - name: "Reboot CA"
      command: /sbin/shutdown -r
+     when: "'Datapath' in drv_check.stdout"
 
    - name: Wait for the CA to finish rebooting
      sudo: no
      local_action: wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300
+     when: "'Datapath' in drv_check.stdout"
+
