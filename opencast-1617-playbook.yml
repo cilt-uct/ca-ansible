@@ -15,7 +15,7 @@
      when: "'Datapath' in drv_check.stdout"
 
    - name: "Install Datapath driver"
-     shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
+     shell: chdir=/home/galicaster/VisionInstall-7.14.0.258 yes "Y" | ./scripts/install.kernel
      when: "'Datapath' in drv_check.stdout"
 
    - name: "Copy rgb133.conf"
