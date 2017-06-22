@@ -4,6 +4,7 @@
     - python-gst-1.0
     #- libgstreamer1.0*
     - python-pip
+    - python-dbus
     - python-setuptools
     - python-pycurl
     - v4l-conf

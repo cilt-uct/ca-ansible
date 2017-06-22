@@ -30,6 +30,7 @@
 
 - name: "install galicaster"
   action: command chdir=/usr/share/galicaster/ python setup.py install
+  ignore_errors: true
 
 - name: "change ownership of /usr/share/galicaster"
   file: path=/usr/share/galicaster state=directory owner=galicaster group=galicaster mode=0775 recurse=yes
