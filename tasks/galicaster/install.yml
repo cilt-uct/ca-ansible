@@ -29,7 +29,7 @@
   action: template src="templates/checkpresentations.py" dest=/usr/share/galicaster/galicaster/plugins/checkpresentations.py owner=galicaster mode=0644
 
 - name: "install galicaster"
-  command: python /usr/share/galicaster/setup.py install
+  action: command chdir=/usr/share/galicaster/ python setup.py install
 
 - name: "change ownership of /usr/share/galicaster"
   file: path=/usr/share/galicaster state=directory owner=galicaster group=galicaster mode=0775 recurse=yes
