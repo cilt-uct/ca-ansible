@@ -1,16 +1,10 @@
 # generic configuration
 
-- name: "Make a folder in home directory"
-  action: command chdir=/home/galicaster sudo mkdir -p datapath
-
 - name: "Extract datapath driver"
-  unarchive: src=/home/ca/files/datapath.tar.gz dest=/home/galicaster/datapath/ owner=root group=root
+  unarchive: src=/home/ca/files/datapath.tar.gz dest=/home/galicaster/ owner=root group=root
 
 - name: "Install Datapath driver"
   shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
 
 - name: "Copy rgb133.conf"
   copy: src=/home/ca/ca_deployment/templates/rgb133.conf dest=/etc/modprobe.d/
-
-- name: "Remove tar file"
-  action: command chdir=/home/galicaster/ sudo rm -r datapath.tar.gz
