@@ -1,5 +1,5 @@
 - name: "OPENCAST-1762: Update galicaster auth"
-  hosts: new
+  hosts: CAs
   user: root
   sudo: yes
 

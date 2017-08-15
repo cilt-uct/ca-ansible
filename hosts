@@ -57,6 +57,7 @@ m304-ca
 m320-ca
 menz10-ca
 menz11-ca
+menz12-ca
 menz9-ca
 mblt1-ca
 mblt2-ca
@@ -70,6 +71,7 @@ hahn763-ca
 rchd3-ca
 snapelt1-ca
 snapelt2-ca
+snapets2a-ca
 snapets2b-ca
 snapets2c-ca
 snapets3a-ca
@@ -82,7 +84,7 @@ vbhlt-ca
 wolfsonlt-ca
 
 [new]
-nlt-ca
+menz11-ca
 
 [test]
 137.158.32.123
