@@ -1,5 +1,6 @@
 - include: vnc.yml
 - include: datapath/install.yml
+#- include: datapath/visionlc.yml
 #- include: blackmagic/main.yml
 #- include: lecturesight/main.yml
 - include: galicaster/main.yml

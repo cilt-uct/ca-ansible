@@ -1,0 +1,13 @@
+# generic configuration
+
+- name: "Make visionlc dir"
+  shell: mkdir /home/galicaster/visionlc
+
+- name: "Extract visionlc driver"
+  unarchive: src=/home/ca/files/VisionLCInstall-1.0.0.tar.gz dest=/home/galicaster/visionlc owner=root group=root
+
+- name: "Install VisionLC driver"
+  shell: chdir=/home/galicaster/visionlc yes "Y" | ./scripts/install.kernel
+
+- name: "Copy rgb200.conf"
+  copy: src=/home/ca/ca_deployment/templates/rgb200.conf dest=/etc/modprobe.d/
