@@ -22,3 +22,12 @@
 
 - name: "Dont upgrade packages"
   action: template src=templates/20auto-upgrades dest=/etc/apt/apt.conf.d/20auto-upgrades owner=root mode=0664
+
+- name: "ffmpeg static"
+  copy: src=/home/ca/files/ffmpeg-3.3-static dest=/usr/local/bin/ owner=galicaster mode=777
+
+- name: "ffprobe static"
+  copy: src=/home/ca/files/ffprobe-3.3-static dest=/usr/local/bin/ owner=galicaster mode=777
+
+- name: "videomatch.pl"
+  action: template src=templates/videomatch.pl dest=/usr/local/bin/videomatch.pl owner=galicaster mode=777
