@@ -64,6 +64,9 @@ sub compare ($$) {
 	system("$ffmpeg -nostats -loglevel 0 -i $in1 -vf scale=256:-1 -r 1 $v1");
 	system("$ffmpeg -nostats -loglevel 0 -i $in2 -vf scale=256:-1 -r 1 $v2");
 
+        die "Unable to downscale $in1 to $v1\n" if ! -e $v1;
+        die "Unable to downscale $in2 to $v2\n" if ! -e $v2;
+
 	if ($debug) { print "Comparing videos\n"; }
 
 	# First compare by md5sum of the downscaled versions
@@ -131,6 +134,8 @@ sub check_empty ($) {
         # plus we are guaranteed correct duration information
 
         system("$ffmpeg -nostats -loglevel 0 -i $in1 -vf scale=160:-1 -r 1 $v1");
+
+	die "Unable to downscale $in1 to $v1\n" if ! -e $v1;
 
         if ($debug) { print "Checking for blank content\n"; }
 
