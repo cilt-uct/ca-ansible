@@ -16,6 +16,9 @@ logger = context.get_logger()
 flavor_p1 = 'presentation/source'
 flavor_p2 = 'presentation2/source'
 
+# Threshold for minimum size (<3s at 15kbps)
+size_lower_threshold = 5000
+
 # Threshold for checking whether a presentation track is empty is 48.5 Kbps (Datapath "No signal" plus clock)
 bitrate_upper_threshold = 48500
 
@@ -83,12 +86,14 @@ def drop_presentations(sender, operation_code, mp):
     track_p2 = None
     bitrate_p1 = 0
     bitrate_p2 = 0
+    size_p1 = 0
+    size_p2 = 0
     removed = False
 
     mpIdentifier = mp.getIdentifier()
     logger.info('Checking presentation tracks for MP ' + mpIdentifier)
 
-    # Get track bitrates
+    # Get track size and bitrates
     for t in mp.getTracks():
 
        type = t.getFlavor()
@@ -97,26 +102,47 @@ def drop_presentations(sender, operation_code, mp):
              # ffprobe -v error -show_entries format=bit_rate -of default=noprint_wrappers=1 presentation.avi
              # Output: "bit_rate=59565"
 
-             ff_bitrate = subprocess.check_output([ffprobe_bin,'-v','error','-show_entries','format=bit_rate','-of',
-                'default=nokey=1:noprint_wrappers=1', t.getURI()]).replace("\n", "")
-
              bitrate = 0
+             size = 0
+
+             size = os.path.getsize(t.getURI())
 
              try:
+                ff_bitrate = subprocess.check_output([ffprobe_bin,'-v','error','-show_entries','format=bit_rate','-of',
+                   'default=nokey=1:noprint_wrappers=1', t.getURI()]).replace("\n", "")
                 bitrate = int(ff_bitrate)
                 logger.info('bitrate for track %s: %i bps', t.getURI(), bitrate)
              except ValueError:
                 # ffprobe will return "N/A" for unknown bitrate (where the file was not closed properly)
                 logger.info('Unknown bitrate for track %s: %s', t.getURI(), ff_bitrate)
                 bitrate = -1
+             except subprocess.CalledProcessError:
+                logger.info('%s unable to determine bitrate for track %s', ffprobe_bin, t.getURI())
+                bitrate = -1
 
              if type == flavor_p1:
                 track_p1 = t
                 bitrate_p1 = bitrate
+                size_p1 = size
 
              if type == flavor_p2:
                 track_p2 = t
                 bitrate_p2 = bitrate
+                size_p2 = size
+
+    # Remove tracks with size below lower threshold
+
+    if (size_p1 < size_lower_threshold):
+       mp.remove(track_p1, True)
+       removed = True
+       bitrate_p1 = 0
+       logger.info('Presentation track %s is smaller than %i bytes and has been removed', os.path.basename(track_p1.getURI()), size_lower_threshold)
+
+    if (size_p2 < size_lower_threshold):
+       mp.remove(track_p2, True)
+       removed = True
+       bitrate_p2 = 0
+       logger.info('Presentation track %s is smaller than %i bytes and has been removed', os.path.basename(track_p2.getURI()), size_lower_threshold)
 
     # Remove tracks with bitrate below lower threshold
 
@@ -160,15 +186,17 @@ def drop_presentations(sender, operation_code, mp):
 
            if (bitrate_diff > bitrate_diff_match_threshold) and (bitrate_diff < bitrate_diff_threshold):
              logger.info('Presentation files have similar bitrates: comparing content')
-             match_result = subprocess.check_output([videomatch_bin, track_p1.getURI(), track_p2.getURI()]).replace("\n", "")
 
              match_result_i = 0
 
              try:
+                match_result = subprocess.check_output([videomatch_bin, track_p1.getURI(), track_p2.getURI()]).replace("\n", "")
                 match_result_i = int(match_result)
                 logger.info('Frame similarity between presentation tracks: %i%%', match_result_i)
              except ValueError:
                 logger.info('Unknown frame similarity result: %s', match_result)
+             except subprocess.CalledProcessError:
+                logger.info('Unable to compare frame similarity with %s', videomatch_bin)
 
              if (match_result_i) >= similarity_threshold:
                  logger.info('Presentation files are substantially the same (%s%%): removing %s', match_result, os.path.basename(track_p2.getURI()))
@@ -185,14 +213,16 @@ def drop_presentations(sender, operation_code, mp):
 # Get the percentage blank score
 def __track_empty(t):
 
-    empty_result = subprocess.check_output([videomatch_bin, '--empty', t.getURI()]).replace("\n", "")
     empty_result_i = 0
 
     try:
+       empty_result = subprocess.check_output([videomatch_bin, '--empty', t.getURI()]).replace("\n", "")
        empty_result_i = int(empty_result)
        logger.info('Presentation track %s is %i%% empty', os.path.basename(t.getURI()), empty_result_i)
     except ValueError:
        logger.info('Unknown emptiness result for track %s: %s', empty_result)
+    except subprocess.CalledProcessError:
+       logger.info('%s unable to determine whether %s is empty', videomatch_bin, t.getURI())
 
     return empty_result_i;
 
