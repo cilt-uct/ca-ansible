@@ -52,6 +52,8 @@ ls1b-ca
 ls1c-ca
 ls1d-ca
 ls1e-ca
+ls3a-ca
+ls3b-ca
 m209-ca
 m304-ca
 m320-ca
@@ -84,8 +86,7 @@ vbhlt-ca
 wolfsonlt-ca
 
 [new]
-menz12-ca
-snapets2a-ca
+137.158.195.235
 
 [test]
 137.158.32.123

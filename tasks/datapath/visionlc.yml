@@ -1,7 +1,7 @@
 # generic configuration
 
 - name: "Make visionlc dir"
-  shell: mkdir /home/galicaster/visionlc
+  shell: mkdir -p /home/galicaster/visionlc
 
 - name: "Extract visionlc driver"
   unarchive: src=/home/ca/files/VisionLCInstall-1.0.0.tar.gz dest=/home/galicaster/visionlc owner=root group=root

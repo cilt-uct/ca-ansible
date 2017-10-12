@@ -15,7 +15,7 @@
   action: template src=templates/limits.conf dest=/etc/security/limits.conf owner=root mode=0644
 
 - name: "Copy loglimit.pl"
-  copy: src=templates/loglimit.pl dest=/usr/bin owner=root
+  copy: src=templates/loglimit.pl dest=/usr/bin owner=root mode=777
 
 - name: "Dont look for updates"
   action: template src=templates/10periodic dest=/etc/apt/apt.conf.d/10periodic owner=root mode=0644
