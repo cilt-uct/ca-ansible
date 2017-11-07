@@ -1,5 +1,5 @@
 - name: "LS Deployment Playbook"
-  hosts: ls
+  hosts: new
   user: root
   sudo: yes
 

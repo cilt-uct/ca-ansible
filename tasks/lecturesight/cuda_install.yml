@@ -5,4 +5,4 @@
     - nvidia-cuda-doc 
     - nvidia-cuda-gdb 
     - nvidia-cuda-toolkit
-    - libcuda1-367
+    - libcuda1-370

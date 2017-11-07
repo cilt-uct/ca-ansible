@@ -68,12 +68,13 @@
 - name: "Install nvidia drivers"
   apt: name={{item}} state=present force=yes
   with_items:
-    - nvidia-367
-    - nvidia-367-dev 
-    - nvidia-prime 
-    - nvidia-profiler 
-    - nvidia-settings 
-    - nvidia-visual-profiler 
-    - nvidia-opencl-dev 
-    - nvidia-opencl-icd-367
+    - nvidia-370
+    - nvidia-370-dev
+    - nvidia-prime
+    - nvidia-profiler
+    - nvidia-settings
+    - nvidia-visual-profiler
+    - nvidia-opencl-dev
+    - nvidia-opencl-icd-370
   environment: "{{ proxy_env }}"
+
