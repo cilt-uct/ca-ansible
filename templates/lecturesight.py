@@ -52,7 +52,7 @@ def lecturesight_start(self, mpIdentifier):
             tn = telnetlib.Telnet("localhost", 2501)
             tn.read_until("g!")
             tn.write("scheduler:start\n")
-            time.sleep(1)
+            time.sleep(3)
             tn.close()
         except Exception as e:
             logger.info('Lecturesight unavailable: ' + str(e))
