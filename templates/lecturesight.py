@@ -16,8 +16,10 @@ logger = context.get_logger()
 
 def init():
 
-    global lsPath, metricsTargetName
+    global lsPath, metricsTargetName, overviewPicName, sceneName
     lsPath = '/opt/ls/metrics'
+    overviewPicName = '/opt/ls/record/overview.png'
+    sceneName = '/opt/ls/profiles/overview.scn'
 
     if not os.path.exists(lsPath):
 	logger.info("LectureSight not installed, or metrics not enabled")
@@ -80,7 +82,7 @@ def add_lecturesight_metrics(self, mpIdentifier):
             tn = telnetlib.Telnet("localhost", 2501)
             tn.read_until("g!")
             tn.write("scheduler:stop\n")
-            time.sleep(1)
+            time.sleep(2)
             tn.close()
         except Exception as e:
             logger.info('Lecturesight unavailable: ' + str(e))
@@ -92,9 +94,6 @@ def add_lecturesight_metrics(self, mpIdentifier):
     # First look for a file that has the ID in it
     metricsFile = lsPath + '/metrics-' + mpIdentifier + '.json'
 
-    # if not os.path.isfile(metricsFile):
-    #    metricsFile = lsPath + '/metrics.json'
-
     if not os.path.isfile(metricsFile):
         logger.info("No metrics file found for event " + mpIdentifier)
         return
@@ -104,7 +103,18 @@ def add_lecturesight_metrics(self, mpIdentifier):
     logger.info('Importing metrics from ' + metricsFile + ' to ' + metricsMpFile + ' for mediapackage ' + mpIdentifier)
     copyfile(metricsFile, metricsMpFile)
 
-    mp.add(metricsMpFile, flavor='lecturesight/metrics', etype=mediapackage.TYPE_ATTACHMENT, identifier='lecturesight', mime='application/json', tags=["metrics"])
+    mp.add(metricsMpFile, flavor='lecturesight/metrics', etype=mediapackage.TYPE_ATTACHMENT, identifier='lecturesight-metrics', mime='application/json', tags=["lecturesight", "archive"])
+
+    if os.path.isfile(overviewPicName):
+        overviewMpFile = mp.getURI() + '/lecturesight-overview.png'
+        copyfile(overviewPicName, overviewMpFile)
+        mp.add(overviewMpFile, flavor='lecturesight/overview', etype=mediapackage.TYPE_ATTACHMENT, identifier='lecturesight-overview', mime='image/png', tags=["lecturesight", "archive"])
+
+    if os.path.isfile(sceneName):
+        sceneMpFile = mp.getURI() + '/lecturesight-overview.scn'
+        copyfile(sceneName, sceneMpFile)
+        mp.add(sceneMpFile, flavor='lecturesight/profile', etype=mediapackage.TYPE_ATTACHMENT, identifier='lecturesight-scene-profile', mime='text/plain', tags=["lecturesight", "archive"])
+
     mp_list.update(mp)
 
     logger.info("Finished")
