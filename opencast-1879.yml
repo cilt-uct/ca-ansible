@@ -1,0 +1,21 @@
+- name: "OPENCAST-1879: Update galicaster codebase and auth"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+  - name: "Update Galicaster to latest 2.x branch"
+    unarchive: src=/home/ca/files/galicaster-2.0.x.tar.gz dest=/usr/share/galicaster/ owner=galicaster group=galicaster
+
+  - lineinfile: 
+      dest: /etc/galicaster/conf.ini
+      state: present
+      regexp: 'username ='
+      line: 'username = opencast_system_account'
+
+  - lineinfile: 
+      dest: /etc/galicaster/conf.ini
+      state: present
+      regexp: 'password ='
+      line: 'password = {{ ca_pass }}'
+

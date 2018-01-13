@@ -86,8 +86,7 @@ vbhlt-ca
 wolfsonlt-ca
 
 [new]
-postgrad1-ca
-postgrad2-ca
+anatlt1-ca
 
 [test]
 137.158.32.123
@@ -105,3 +104,17 @@ kramlt2-ca
 hahn3-ca
 nlt-ca
 
+[lecturesight]
+#hahn1-ca
+#hahn2-ca
+#hahn3-ca
+snapets2b-ca
+#snapelt1-ca
+#kramlt2-ca
+#m320-ca
+#nlt-ca
+#snapets3b-ca
+#snapets4b-ca
+#snapets2c-ca
+#snapets3c-ca
+#snapets4c-ca
