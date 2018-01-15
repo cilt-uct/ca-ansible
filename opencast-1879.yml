@@ -4,8 +4,7 @@
   sudo: yes
 
   tasks:
-  - name: "Update Galicaster to latest 2.x branch"
-    unarchive: src=/home/ca/files/galicaster-2.0.x.tar.gz dest=/usr/share/galicaster/ owner=galicaster group=galicaster
+  - include: tasks/galicaster/update-gc2x.yml
 
   - lineinfile: 
       dest: /etc/galicaster/conf.ini
