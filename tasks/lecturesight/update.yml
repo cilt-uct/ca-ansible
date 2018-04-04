@@ -22,16 +22,8 @@
 #- name: "Setting lecturesight startup"
 #  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
 
-- name: "Copy lecturesight ssh-start script"
-  copy: src=/home/ca/ca_deployment/tasks/lecturesight/ssh-start.sh dest=/home/galicaster/
-  become: yes
-  become_user: galicaster
-
-- name: "Make executable"
-  file: path=/home/galicaster/ssh-start.sh state=touch mode="u+rwx,g+rx,o+rx"
-
-- name: "Run ssh-start"
-  command: sh /home/galicaster/ssh-start.sh
+- name: "Run lecturesight"
+  command: /usr/bin/lecturesight
   become: yes
   become_user: galicaster
   async: 10
