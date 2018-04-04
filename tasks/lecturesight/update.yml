@@ -22,6 +22,12 @@
 #- name: "Setting lecturesight startup"
 #  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
 
+- name: "Copy lecturesight script with display exported"
+  copy: src=/home/ca/ca_deployment/tasks/lecturesight/lecturesight dest=/usr/bin/
+
+- name: "Make executable"
+  file: path=/usr/bin/lecturesight state=touch mode="u+rwx,g+rx,o+rx"
+
 - name: "Run lecturesight"
   command: /usr/bin/lecturesight
   become: yes
