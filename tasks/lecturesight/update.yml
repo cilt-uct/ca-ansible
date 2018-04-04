@@ -4,42 +4,36 @@
 
 - name: "Stop lecturesight if running"
   action: command chdir=/opt/ls/ ./stop_lecturesight.sh
-  become: yes
-  become_user: root
   when: ls.stat.exists == True
 
 - name: "Create ls directory if not exists"
   action: command mkdir -p /opt/ls
-  become: yes
-  become_user: root
   when: ls.stat.exists == False
 
 - name: "Removing existing application files"
   file: path=/opt/ls/bundles/application/ state=absent
-  become: yes
-  become_user: root
 
 - name: "Removing existing system files"
   file: path=/opt/ls/bundles/system/ state=absent
-  become: yes
-  become_user: root
 
 - name: "Untar and uncompress LS update file"
   unarchive: src=/home/ca/files/lsuct-latest.tgz dest=/opt/ls
-  become: yes
-  become_user: root
 
 #- name: "Setting lecturesight startup"
 #  lineinfile: "dest=/etc/sudoers state=present regexp='^galicaster' line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
 
 - name: "Copy lecturesight ssh-start script"
   copy: src=/home/ca/ca_deployment/tasks/lecturesight/ssh-start.sh dest=/home/galicaster/
+  become: yes
+  become_user: galicaster
 
 - name: "Make executable"
   file: path=/home/galicaster/ssh-start.sh state=touch mode="u+rwx,g+rx,o+rx"
 
 - name: "Run ssh-start"
   command: sh /home/galicaster/ssh-start.sh
+  become: yes
+  become_user: galicaster
   async: 10
   poll: 5
 
