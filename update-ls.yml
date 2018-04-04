@@ -1,8 +1,12 @@
 - name: "LS Deployment Playbook"
-  hosts: lecturesight
-  user: root
-  sudo: yes
+  hosts: lsnew
+  user: galicaster
+  sudo: no
+
+  vars:
+    display:
+      DISPLAY: :0
 
   tasks:
     - include: tasks/lecturesight/update.yml
-
+      environment: "{{display}}"

@@ -3,6 +3,7 @@
 !*.*
 logrotate-fix-playbook.yml
 galicaster-update-playbook.yml
+gstreamer-update-playbook.yml
 git-playbook.yml
 tasks/git_install_main.yml
 vars/git_install_main.yml
@@ -17,3 +18,5 @@ templates/x11vnc.pass
 tasks/lecturesight/update-galicaster-plugin.yml
 update-ls-plugin.yml
 hosts
+update-hosts.sh
+*.bak
