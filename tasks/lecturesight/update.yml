@@ -29,7 +29,7 @@
   file: path=/usr/bin/lecturesight state=touch mode="u+rwx,g+rx,o+rx"
 
 - name: "Run lecturesight"
-  command: /usr/bin/lecturesight
+  shell: /usr/bin/lecturesight
   become: yes
   become_user: galicaster
   async: 10
