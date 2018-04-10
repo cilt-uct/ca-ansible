@@ -1,5 +1,5 @@
 - name: "LS Deployment Playbook"
-  hosts: new
+  hosts: lecturesight
   user: root
   sudo: yes
 

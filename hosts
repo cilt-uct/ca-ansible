@@ -98,7 +98,7 @@ mblt1-ca
 mblt2-ca
 menz9-ca
 menz10-ca
-m304-ca
+#m304-ca
 m320-ca
 nlt-ca
 snapelt1-ca
@@ -109,27 +109,3 @@ snapets2c-ca
 snapets3c-ca
 snapets4c-ca
 
-[lsnew]
-kramlt1
-mblt1
-mblt2
-menz9
-menz10
-hahn1
-hahn2
-hahn3
-cs302
-m320
-nlt
-ecolt1
-snapelt1
-beattielt
-snapets2b
-snapets3b
-snapets4b
-snapets2c
-snapets3c
-snapets4c
-
-[new]
-snapelt1-ca

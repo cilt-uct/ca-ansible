@@ -28,6 +28,12 @@
 - name: "Make executable"
   file: path=/usr/bin/lecturesight state=touch mode="u+rwx,g+rx,o+rx"
 
+- name: "Remove ls-run.log"
+  file: path=/opt/ls/log/ls-run.log state=absent
+
+- name: "Remove ls-stdout.log"
+  file: path=/opt/ls/log/ls-stdout.log state=absent
+
 - name: "Run lecturesight"
   shell: /usr/bin/lecturesight
   become: yes
