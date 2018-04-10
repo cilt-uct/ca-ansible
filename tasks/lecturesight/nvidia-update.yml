@@ -1,0 +1,17 @@
+- name: "Update nvidia drivers to .384"
+  apt: name={{item}} state=present force=yes
+  with_items:
+    - nvidia-384
+    - nvidia-opencl-icd-384
+    - libcuda1-384
+  environment: "{{ proxy_env }}"
+
+- name: "Update opencl vendor list"
+  action: template src="templates/nvidia.icd" dest="/etc/OpenCL/vendors/" owner=root  mode=0644
+
+- name: "Reboot CA"
+  command: /sbin/shutdown -r
+
+- name: Wait for the CA to finish rebooting
+  sudo: no
+  local_action: wait_for host="{{ inventory_hostname }}" search_regex=OpenSSH port=22 timeout=300

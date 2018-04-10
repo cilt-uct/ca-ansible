@@ -1,0 +1,14 @@
+- name: "Update Nvidia drivers playbook"
+  hosts: lecturesight
+  user: root
+  sudo: yes
+
+  vars:
+    proxy_env:
+      https_proxy: http://media.uct.ac.za:3128
+      http_proxy: http://media.uct.ac.za:3128   
+
+  tasks:
+    - include: tasks/lecturesight/nvidia-update.yml
+      environment: "{{proxy_env}}"
+
