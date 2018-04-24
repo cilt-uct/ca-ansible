@@ -1,3 +1,7 @@
+- name: "Update repository cache"
+  apt: update_cache=yes
+  environment: "{{ proxy_env }}"
+
 - name: "Update nvidia drivers to .384"
   apt: name={{item}} state=present force=yes
   with_items:
