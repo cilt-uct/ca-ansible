@@ -99,18 +99,19 @@ mblt2-ca
 menz9-ca
 menz10-ca
 m304-ca
-#m320-ca
+m320-ca
 nlt-ca
 snapelt1-ca
 snapets2b-ca
 snapets3b-ca
 snapets4b-ca
-#snapets2c-ca
-#snapets3c-ca
+snapets2c-ca
+snapets3c-ca
 snapets4c-ca
+#137.158.32.120
 
 [new]
-hahn3-ca
-snapets2a-ca
-snapets2c-ca
+#hahn3-ca
+#snapets2a-ca
+#snapets2c-ca
 #snapets3c-ca
