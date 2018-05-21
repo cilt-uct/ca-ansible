@@ -1,0 +1,33 @@
+- name: "Install datapath drivers"
+  hosts: new
+  user: root
+  sudo: yes
+
+  tasks:
+
+   - name: "Datapth check"
+     shell: lspci | grep -i datapath
+     register: drv_check
+     ignore_errors: yes
+
+   - name: "extract vision driver"
+     unarchive: src=/home/ca/files/datapath.tar.gz dest=/home/galicaster/ owner=root group=root
+     when: "'VisionRGB' in drv_check.stdout"
+
+   - name: "extract visionlc driver"
+     unarchive: src=/home/ca/files/visionlc.tar.gz dest=/home/galicaster/ owner=root group=root
+     when: "'Limited Device' in drv_check.stdout"
+
+   - name: "Install Datapath driver"
+     shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
+
+   - name: "Copy rgb133.conf"
+     copy: src=/home/ca/ca_deployment/templates/rgb133.conf dest=/etc/modprobe.d/
+     when: "'VisionRGB' in drv_check.stdout"
+
+   - name: "Copy rgb200.conf"
+     copy: src=/home/ca/ca_deployment/templates/rgb200.conf dest=/etc/modprobe.d/
+     when: "'Limited Device' in drv_check.stdout"
+
+   - name: "Power down CA"
+     command: /sbin/poweroff

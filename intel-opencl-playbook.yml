@@ -1,0 +1,32 @@
+- name: "Install Intel OpenCL playbook"
+  hosts: new
+  user: root
+  sudo: yes
+
+  vars:
+    proxy_env:
+      https_proxy: http://media.uct.ac.za:3128
+      http_proxy: http://media.uct.ac.za:3128
+
+  tasks:
+    
+    - name: "Update repository cache"
+      apt: update_cache=yes
+      environment: "{{proxy_env}}"
+
+  #  - name: "Upgrade Ubuntu kernel etc"
+  #    command: apt-get dist-upgrade -y
+
+    - name: "Install opencl dependencies"
+      apt: name={{item}} state=present force=yes
+      with_items:
+        - ocl-icd-libopencl1
+        - opencl-headers
+        - clinfo
+        - ocl-icd-opencl-dev
+
+    - name: "Copy intel opencl debs"
+      unarchive: src="/data/files/intel-opencl.tar.gz" dest="/root/" owner=root group=root
+
+    - name: "Install opencl .debs"
+      action: command chdir=/root/intel-opencl dpkg -i intel-opencl_2018ww18-010782_amd64.deb
