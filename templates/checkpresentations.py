@@ -132,13 +132,13 @@ def drop_presentations(sender, operation_code, mp):
 
     # Remove tracks with size below lower threshold
 
-    if (size_p1 < size_lower_threshold):
+    if (track_p1 is not None) and (size_p1 < size_lower_threshold):
        mp.remove(track_p1, True)
        removed = True
        bitrate_p1 = 0
        logger.info('Presentation track %s is smaller than %i bytes and has been removed', os.path.basename(track_p1.getURI()), size_lower_threshold)
 
-    if (size_p2 < size_lower_threshold):
+    if (track_p2 is not None) and (size_p2 < size_lower_threshold):
        mp.remove(track_p2, True)
        removed = True
        bitrate_p2 = 0
