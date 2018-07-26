@@ -1,0 +1,15 @@
+- name: "RTC wakealarm script"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+    - name: "copy wakeup.sh script to /usr/local/bin/"
+      copy: src=templates/wakeup.sh dest=/usr/local/bin/ owner=root mode=777
+
+    - name: "update cron"
+      cron:
+        name: "RTC wakealarm"
+        minute: "0"
+        hour: "6"
+        job: "/usr/local/bin/wakeup.sh"

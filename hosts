@@ -4,6 +4,7 @@ alex1b-ca.uct.ac.za
 alex1c-ca.uct.ac.za
 anatlt1-ca.uct.ac.za
 anatlt3-ca.uct.ac.za
+astsem-ca.uct.ac.za
 beattie106-ca.uct.ac.za
 beattie114-ca.uct.ac.za
 beattie115-ca.uct.ac.za
@@ -11,6 +12,9 @@ beattielt-ca.uct.ac.za
 cengsem-ca.uct.ac.za
 centliv3b-ca.uct.ac.za
 clinskills1-ca.uct.ac.za
+clinskills2-ca.uct.ac.za
+clinskills3-ca.uct.ac.za
+clinskills4-ca.uct.ac.za
 cs203-ca.uct.ac.za
 cs2a-ca.uct.ac.za
 cs302-ca.uct.ac.za
@@ -25,6 +29,7 @@ fames-ca.uct.ac.za
 gsblt3-ca.uct.ac.za
 gsh1-ca.uct.ac.za
 gsh2-ca.uct.ac.za
+gsh11-ca.uct.ac.za
 gshlt1-ca.uct.ac.za
 gshlt2-ca.uct.ac.za
 hahn1-ca.uct.ac.za
@@ -70,6 +75,7 @@ menz11-ca.uct.ac.za
 menz12-ca.uct.ac.za
 menz9-ca.uct.ac.za
 nlt-ca.uct.ac.za
+obs-ca.uct.ac.za
 ombh45-ca.uct.ac.za
 rchd3-ca.uct.ac.za
 snapelt1-ca.uct.ac.za
@@ -93,6 +99,8 @@ ecolt1-ca
 hahn1-ca
 hahn2-ca
 hahn3-ca
+jdaylt1-ca
+jdaylt2-ca
 kramlt1-ca
 mblt1-ca
 mblt2-ca
@@ -108,9 +116,6 @@ snapets4b-ca
 snapets2c-ca
 snapets3c-ca
 snapets4c-ca
-#137.158.32.120
-#137.158.32.116
-#snapets3a-ca
 
 [new]
-jdaylt1-ca
+alex1c-ca
