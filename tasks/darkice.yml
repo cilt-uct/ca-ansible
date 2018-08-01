@@ -39,6 +39,9 @@
 - name: "Update usr/bin/galicaster"
   action: template src="templates/galicaster" dest=/usr/bin/galicaster mode=0777
 
+- name: "Copy audiomonitor script"
+  action: template src="templates/audiomonitor" dest=/usr/bin/audiomonitor mode=0777
+
 - name: "Reboot CA"
   command: sleep 2 && shutdown -r now "CA update triggered"
   async: 1
