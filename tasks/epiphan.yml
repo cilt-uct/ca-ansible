@@ -1,7 +1,7 @@
 # VGA2USB installation
 
 - name: "Copy vga2usb debian package"
-  copy: src=/data/files/vga2usb-3.30.2.11-ubuntu-4.10.0-28-generic-x86_64.deb dest=/root/vga2usb-latest.deb
+  copy: src=/data/files/vga2usb-3.30.7.8-ubuntu-4.15.0-38-generic-x86_64-43279-1807.deb dest=/root/vga2usb-latest.deb
 
 - name: "Install vga2usb"
   shell: dpkg -i /root/vga2usb-latest.deb

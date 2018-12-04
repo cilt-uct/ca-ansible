@@ -17,6 +17,9 @@
   #  - name: "Upgrade Ubuntu kernel etc"
   #    command: apt-get dist-upgrade -y
 
+    - name: "Remove nvidia drivers"
+      apt: name=nvidia-* state=absent
+
     - name: "Install opencl dependencies"
       apt: name={{item}} state=present force=yes
       with_items:
