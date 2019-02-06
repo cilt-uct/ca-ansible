@@ -1,0 +1,8 @@
+- name: "set the x11 configuration for intel gpu"
+  action: template src="templates/20-intel.conf" dest="/usr/share/X11/xorg.conf.d/20-intel.conf" owner=root mode=0644
+
+- name: "copy xrandr script"
+  action: template src=templates/set-virtual-display.sh dest=/usr/local/bin/set-virtual-display.sh owner=root mode=0777
+
+- name: "copy startup script"
+  copy: src="templates/virtual_display.desktop" dest=/home/galicaster/.config/autostart/

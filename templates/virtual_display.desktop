@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/bin/set-virtual-display.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_ZA]=VirtualDisplay
+Name=VirtualDisplay
+Comment[en_ZA]=Virtual display
+Comment=Virtual display
+Terminal=false
+StartupNotify=true
