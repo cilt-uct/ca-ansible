@@ -1,0 +1,8 @@
+- name: "Increase timeout for Galicaster - OPENCAST-2407"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+   - name: "Update conf-dist.ini"
+     action: template src="templates/conf-dist.ini" dest=/usr/share/galicaster/conf-dist.ini owner=galicaster
