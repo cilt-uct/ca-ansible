@@ -5,6 +5,12 @@
               line='GRUB_RECORDFAIL_TIMEOUT=0' 
               state=present
 
+- name: "set fsckifix=yes"
+  lineinfile: dest=/etc/default/rcS
+              regexp='^(.*)FSCKFIX=yes(.*)$'
+              line='FSCKFIX=yes'
+              state=present
+
 - name: "Update grub"
   action: command update-grub
 
