@@ -1,0 +1,11 @@
+- name: "FSCKFiX=yes playbook"
+  hosts: CAs
+  user: root
+  sudo: yes
+
+  tasks:
+   - name: "set fsckifix=yes"
+     lineinfile: dest=/etc/default/rcS
+                 regexp='^(.*)FSCKFIX=no(.*)$'
+                 line='FSCKFIX=yes'
+                 state=present
