@@ -1,0 +1,60 @@
+- name: "Add Lowaudio plugin to Galicaster"
+  hosts: new
+  user: root
+  sudo: yes
+
+  tasks:
+
+   - name: Copy Lowaudio plugin file
+     copy: src="/usr/local/src/galicaster-uct/galicaster/plugins/lowaudio.py" dest="/usr/share/galicaster/galicaster/plugins/" mode=0755 owner=galicaster
+
+   - name: rename recorderui.py
+     command: mv /usr/share/galicaster/galicaster/classui/recorderui.py /usr/share/galicaster/galicaster/classui/recorderui.py.bak
+
+   - name: Copy Lowaudio plugin file 2
+     copy: src="/usr/local/src/galicaster-uct/galicaster/classui/recorderui.py" dest="/usr/share/galicaster/galicaster/classui/" mode=0755 owner=galicaster
+
+   - name: rename dispatcher.py
+     command: mv /usr/share/galicaster/galicaster/core/dispatcher.py /usr/share/galicaster/galicaster/core/dispatcher.py.bak
+
+   - name: Copy Lowaudio plugin file 3
+     copy: src="/usr/local/src/galicaster-uct/galicaster/core/dispatcher.py" dest="/usr/share/galicaster/galicaster/core/" mode=0755 owner=galicaster
+
+   - name: Check if plugins are present
+     shell: grep "\[plugins\]" /etc/galicaster/conf.ini
+     register: plugins_present
+     ignore_errors: true
+
+   - name: Add plugin if plugin section is present
+     blockinfile:
+       path: /etc/galicaster/conf.ini
+       insertafter: '\[plugins\]'
+       regexp: '\[plugins\]'
+       block: |
+         lowaudio = True
+         [lowaudio]
+         lowaudio_threshold = -60
+         timeout = 90
+     when: plugins_present.stdout != ""
+
+   - name: Add plugins if not present
+     blockinfile:
+       path: /etc/galicaster/conf.ini
+       block: |
+         [plugins]
+         lowaudio = True
+         [lowaudio]
+         lowaudio_threshold = -60
+         timeout = 90
+     when: plugins_present.stdout == ""
+
+   - name: Remove commented lines
+     replace:
+       path: /etc/galicaster/conf.ini
+       regexp: '^# BEGIN ANSIBLE MANAGED BLOCK'
+
+   - name: Remove commented lines
+     replace:
+       path: /etc/galicaster/conf.ini
+       regexp: '^# END ANSIBLE MANAGED BLOCK'
+
