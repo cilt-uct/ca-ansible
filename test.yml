@@ -1,0 +1,15 @@
+- name: "Restore galicaster config"
+  hosts: "{{ host_var }}"
+  user: root
+  sudo: yes
+
+  vars:
+    backup: "{{ backupfile }}"
+
+  tasks:
+    - name: "Extract backup"
+      unarchive: 
+        src: "{{ backup }}"
+        dest: /etc/
+        owner: galicaster
+        group: galicaster
