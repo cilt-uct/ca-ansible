@@ -1,0 +1,8 @@
+- name: "Update Lecturesight Start Script"
+  hosts: lecturesight
+  user: root
+  sudo: yes
+
+
+  tasks:
+    - copy: src="/home/ca/files/start_lecturesight.sh" dest="/opt/ls/" mode=0755 owner=root
