@@ -5,11 +5,24 @@
               line='GRUB_RECORDFAIL_TIMEOUT=0' 
               state=present
 
-- name: "set fsckifix=yes"
+- name: "checking if ubuntu 18.04"
+  shell: lsb_release -r | grep 18.04 
+  register: bionic
+  ignore_errors: true
+
+- name: "Set fsckifix=yes for 16.04"
   lineinfile: dest=/etc/default/rcS
               regexp='^(.*)FSCKFIX=no(.*)$'
               line='FSCKFIX=yes'
               state=present
+  when: bionic.stdout == ""
+
+- name: "Set fsckfix=yes for 18.04"
+  lineinfile: dest=/etc/default/grub
+              regexp='^GRUB_CMDLINE_LINUX_DEFAULT=(.*)$'
+              line='GRUB_CMDLINE_LINUX_DEFAULT="quiet splash fsck.repair=yes"'
+              state=present
+  when: bionic.stdout != ""
 
 - name: "Update grub"
   action: command update-grub
