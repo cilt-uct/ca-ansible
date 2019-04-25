@@ -35,9 +35,8 @@
   file: path=/opt/ls/log/ls-stdout.log state=absent
 
 - name: "Run lecturesight"
-  shell: /usr/bin/lecturesight
-  become: yes
+  shell: "/usr/bin/lecturesight > /dev/null"
+  become: true
+  become_method: su
   become_user: galicaster
-  async: 10
-  poll: 5
 
