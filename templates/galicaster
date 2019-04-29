@@ -41,6 +41,8 @@ fi
 #killall darkice
 #/usr/bin/darkice -c $GC/darkice.cfg -v 10 > /var/log/galicaster/darkice.log &
 
+rm -f /var/log/galicaster/darkice.log*
+
 # Galicaster
 export GST_DEBUG=*:3
 export GST_DEBUG_NO_COLOR=1
@@ -55,6 +57,9 @@ if [ "$BM" != "0" ]; then
 fi
 
 ERROR_LOG=/var/log/galicaster/gc-error.log
+
+# Remove old gstreamer crash logs
+find /var/log/galicaster/ -type f -name 'gstreamer.log.*' -mtime +7 -exec rm {} \;
 
 # Enable core dumps
 ulimit -c unlimited
