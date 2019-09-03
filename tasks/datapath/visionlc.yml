@@ -10,4 +10,4 @@
   shell: chdir=/home/galicaster/visionlc yes "Y" | ./scripts/install.kernel
 
 - name: "Copy rgb200.conf"
-  copy: src=/home/ca/ca_deployment/templates/rgb200.conf dest=/etc/modprobe.d/
+  action: template src=templates/rgb200.conf dest=/etc/modprobe.d/

@@ -21,7 +21,7 @@
 # generic configuration
 
 - name: "Download icalendar" 
-  copy: src=/home/ca/files/icalendar-2.2.tar.gz dest=/tmp/
+  copy: src=/data/files/icalendar-2.2.tar.gz dest=/tmp/
 
 - name: "Extract icalendar"
   action: command tar xvf /tmp/icalendar-2.2.tar.gz chdir=/tmp/

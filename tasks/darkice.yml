@@ -3,7 +3,7 @@
 
 - name: "Download darkice tar file"
 #  get_url: url=http://source.cet.uct.ac.za/opencastproject/galicaster/dependencies/darkice-1.2.tar.gz  dest=/opt/darkice/darkice-1.2.tar.gz
-  copy: src=/home/ca/files/darkice-1.2.tar.gz dest=/opt/darkice/darkice-1.2.tar.gz
+  copy: src=/data/files/darkice-1.2.tar.gz dest=/opt/darkice/darkice-1.2.tar.gz
 
 - name: "Uncompress file"
   command: tar xvf /opt/darkice/darkice-1.2.tar.gz chdir=/opt/darkice/

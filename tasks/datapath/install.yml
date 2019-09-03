@@ -1,10 +1,10 @@
 # generic configuration
 
 - name: "Extract datapath driver"
-  unarchive: src=/home/ca/files/datapath.tar.gz dest=/home/galicaster/ owner=root group=root
+  unarchive: src=/data/files/datapath.tar.gz dest=/home/galicaster/ owner=root group=root
 
 - name: "Install Datapath driver"
   shell: chdir=/home/galicaster/datapath yes "Y" | ./scripts/install.kernel
 
 - name: "Copy rgb133.conf"
-  copy: src=/home/ca/ca_deployment/templates/rgb133.conf dest=/etc/modprobe.d/
+  action: template src=templates/rgb133.conf dest=/etc/modprobe.d/
