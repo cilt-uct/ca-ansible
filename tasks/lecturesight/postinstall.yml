@@ -3,7 +3,7 @@
   with_items:
     - fastjar
     - jarwrapper
-    - realpath
+    #- realpath
     - libjpeg-turbo8-dev 
     - ant 
     - libv4l-dev 
@@ -11,7 +11,7 @@
     - libdbus-glib-1-dev
 
 - name: "Copy libvl4j binaries"
-  copy: src=/home/ca/files/v4l4j/ dest=/root/
+  copy: src=/data/files/v4l4j/ dest=/root/
 
 - name: "Install libvl4j binaries"
   shell: dpkg -i /root/libv*.deb 
@@ -26,7 +26,7 @@
   lineinfile: "dest=/etc/sudoers line='galicaster ALL=(ALL) NOPASSWD: /opt/ls/start_lecturesight.sh'"
 
 - name: "create autostart folder"
-  copy: src=/home/ca/ca_deployment/tasks/lecturesight/autostart.sh dest=/root/
+  copy: src=autostart.sh dest=/root/
 
 - name: "run autostart script"
   action: command bash /root/autostart.sh

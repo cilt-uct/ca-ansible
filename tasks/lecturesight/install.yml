@@ -2,10 +2,10 @@
   action: command mkdir -p /opt/ls
 
 - name: "Untar and uncompress LS update file"
-  unarchive: src=/home/ca/files/lsuct-latest.tgz dest=/opt/ls
+  unarchive: src=/data/files/lsuct-latest.tgz dest=/opt/ls
 
 - name: "Copy lecturesight start script"
-  copy: src=/home/ca/ca_deployment/tasks/lecturesight/lecturesight dest=/usr/bin/
+  copy: src=lecturesight dest=/usr/bin/
 
 - name: "Make executable"
   file: path=/usr/bin/lecturesight state=touch mode="u+rwx,g+rx,o+rx"
