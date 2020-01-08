@@ -1,7 +1,7 @@
 - include: vnc.yml
-#- include: virtual_display.yml
-- include: datapath/install.yml
-#- include: datapath/visionlc.yml
+- include: virtual_display.yml
+#- include: datapath/install.yml
+- include: datapath/visionlc.yml
 #- include: epiphan.yml
 #- include: blackmagic/main.yml
 #- include: lecturesight/main.yml

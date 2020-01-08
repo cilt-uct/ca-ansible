@@ -1,7 +1,6 @@
 - name: "OS and Blackmagic update Playbook"
   hosts: eos
   user: root
-  sudo: yes
 
   vars:
     proxy_env:

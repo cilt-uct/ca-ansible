@@ -36,7 +36,7 @@ lecturesight_install:
   dependencies:
 #    - 'libv4l4j-java'
     - 'appmenu-gtk'
-    - 'nvidia-319-updates-dev'
+#    - 'nvidia-319-updates-dev'
 
 vnc_install:
   dependencies:

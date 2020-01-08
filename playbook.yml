@@ -1,7 +1,6 @@
 - name: "Capture Agent Deployment Playbook"
   hosts: new
   user: root
-  sudo: yes
 
   vars_files:
     - vars/main.yml
@@ -13,5 +12,4 @@
 
   tasks:
     - include: tasks/main.yml
-      environment: "{{proxy_env}}"
-
+    #  environment: "{{proxy_env}}"

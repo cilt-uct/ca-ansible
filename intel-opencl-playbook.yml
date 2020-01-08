@@ -1,7 +1,6 @@
 - name: "Install Intel OpenCL playbook"
   hosts: new
   user: root
-  sudo: yes
 
   vars:
     proxy_env:

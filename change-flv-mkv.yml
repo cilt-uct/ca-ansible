@@ -1,7 +1,6 @@
 - name: "Change FLV/AVI to MKV in Galicaster config"
   hosts: new
   user: root
-  sudo: yes
 
   tasks:
   - name: Change presenter.flv to .mkv

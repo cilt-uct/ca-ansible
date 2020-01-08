@@ -1,7 +1,6 @@
 - name: "Update Nvidia drivers playbook"
   hosts: lecturesight
   user: root
-  sudo: yes
 
   vars:
     proxy_env:

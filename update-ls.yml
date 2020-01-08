@@ -1,7 +1,6 @@
 - name: "LS Deployment Playbook"
   hosts: lecturesight
   user: root
-  sudo: yes
 
   tasks:
     - include: tasks/lecturesight/update.yml
