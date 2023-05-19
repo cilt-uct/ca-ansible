@@ -1,6 +1,3 @@
-*
-!*/
-!*.*
 logrotate-fix-playbook.yml
 galicaster-update-playbook.yml
 gstreamer-update-playbook.yml
